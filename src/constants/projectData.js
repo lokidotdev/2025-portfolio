@@ -13,7 +13,7 @@ export const projectsList = [
   },
   {
     name: "Prompt board",
-    link: "https://promptboard-seven.vercel.app/",
+    link: "https://promptboard.zero1studio.xyz/",
     mobileImage: "images/promptboard-600.png",
     desktopImage: "images/promptboard.png",
     points: [
@@ -25,7 +25,7 @@ export const projectsList = [
   },
   {
     name: "ChessBlitz",
-    link: "https://chess-app-zeta.vercel.app",
+    link: "https://chessblitz.lok1.dev/",
     mobileImage: "images/chess-600.jpg",
     desktopImage: "images/chess.png",
     points: [
@@ -60,7 +60,7 @@ export const projectsList = [
   },
   {
     name: "PixelflowUI",
-    link: "https://pixelflowui.com/",
+    link: "https://pixelflowui.lok1.dev/",
     mobileImage: "images/pixelflowui-600.png",
     desktopImage: "images/pixelflowui.png",
     points: [
@@ -69,28 +69,28 @@ export const projectsList = [
       "Tech - Tailwind CSS, shadcn/ui, Motion, GSAP, Next.js, JavaScript",
     ],
   },
-  {
-    name: "Gainz Journal",
-    link: "https://gainz-journal.vercel.app",
-    mobileImage: "images/gainz-600.png",
-    desktopImage: "images/gainz.png",
-    points: [
-      "A journal app for tracking workouts and progress.",
-      // "CQRS style architecture.",
-      "Designed a clean and intuitive UI for better user experience.",
-      "Tech - React.js, Express.js, MongoDB, Node.js, Google OAuth, Tailwind CSS, shadcn/ui, zod, redux",
-    ],
-  },
-  {
-    name: "Captionizer",
-    link: "https://captionizer-star.vercel.app/",
-    mobileImage: "images/captionizer-600.png",
-    desktopImage: "images/image.png",
-    points: [
-      "caption generator for images with real-time text recognition.",
-      "Utilized Machine Learning APIs to generate contextually relevant captions.",
-      "Designed an intuitive interface for uploading and processing images efficiently.",
-      "Tech - Next.js, MongoDB, tailwind css, AWS s3 bucket",
-    ],
-  },
+  // {
+  //   name: "Gainz Journal",
+  //   link: "https://gainz-journal.vercel.app",
+  //   mobileImage: "images/gainz-600.png",
+  //   desktopImage: "images/gainz.png",
+  //   points: [
+  //     "A journal app for tracking workouts and progress.",
+  //     // "CQRS style architecture.",
+  //     "Designed a clean and intuitive UI for better user experience.",
+  //     "Tech - React.js, Express.js, MongoDB, Node.js, Google OAuth, Tailwind CSS, shadcn/ui, zod, redux",
+  //   ],
+  // },
+  // {
+  //   name: "Captionizer",
+  //   link: "https://captionizer-star.vercel.app/",
+  //   mobileImage: "images/captionizer-600.png",
+  //   desktopImage: "images/image.png",
+  //   points: [
+  //     "caption generator for images with real-time text recognition.",
+  //     "Utilized Machine Learning APIs to generate contextually relevant captions.",
+  //     "Designed an intuitive interface for uploading and processing images efficiently.",
+  //     "Tech - Next.js, MongoDB, tailwind css, AWS s3 bucket",
+  //   ],
+  // },
 ];
