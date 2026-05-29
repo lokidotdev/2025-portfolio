@@ -21,15 +21,6 @@ export function Providers({ children }: { children: ReactNode }) {
 
       gsap.default.registerPlugin(ScrollTrigger);
 
-      const umamiId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
-      if (umamiId) {
-        const script = document.createElement("script");
-        script.src = "https://silentpulse.vercel.app/script.js";
-        script.defer = true;
-        script.setAttribute("data-website-id", umamiId);
-        document.body.appendChild(script);
-      }
-
       lenis = new Lenis();
       scrollTriggerUpdate = () => ScrollTrigger.update();
       lenis.on("scroll", scrollTriggerUpdate);

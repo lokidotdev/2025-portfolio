@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Comic_Neue, Raleway } from "next/font/google";
-import { ClientShell } from "./client-shell";
+import { Providers } from "@/providers";
 import { jsonLd, siteConfig } from "@/lib/site";
 import "./globals.css";
+import Script from "next/script";
 
 const raleway = Raleway({
   variable: "--font-raleway",
@@ -74,7 +75,8 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <ClientShell>{children}</ClientShell>
+        <Providers>{children}</Providers>
+        <Script defer src="https://silentpulse.vercel.app/script.js" data-website-id="46509111-a743-4792-95ab-a43b1d451b61"></Script>
       </body>
     </html>
   );
