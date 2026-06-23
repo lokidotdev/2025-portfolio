@@ -19,6 +19,7 @@ const Navbar = () => {
   const [handleView, setHandleView] = useState("portfolio");
   const [navbarHidden, setNavbarHidden] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [animating, setAnimating] = useState(false);
 
   const navItems = [
     { label: "Home", view: "Home", href: "/" },
@@ -135,7 +136,9 @@ const Navbar = () => {
             width: isMobile ? "92vw" : "80vw",
           }}
           transition={{ duration: 0.45, ease: "easeInOut" }}
-          className={`overflow-hidden ${isMobile ? (expanded ? "rounded-2xl" : "rounded-full") : "rounded-2xl"} shadow-lg flex flex-col ${
+          onAnimationStart={() => setAnimating(true)}
+          onAnimationComplete={() => setAnimating(false)}
+          className={`overflow-hidden ${isMobile ? (animating ? "rounded-full" : expanded ? "rounded-2xl" : "rounded-full") : "rounded-full"} shadow-lg flex flex-col ${
             darkTheme
               ? "dark-theme-bg dark-theme-shadow"
               : "light-theme-bg light-theme-shadow"
