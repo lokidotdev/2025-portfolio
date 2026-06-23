@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useGlobalContext } from "@/context/globalContext";
 import { Sun, Moon } from "lucide-react";
 import useWindow from "../hooks/useWindow";
+import { useRouter, usePathname } from "next/navigation";
 
 const NAVBAR_COLLAPSED_H = 56;
 const NAVBAR_EXPANDED_H = 260;
@@ -12,16 +13,18 @@ const NAVBAR_EXPANDED_H = 260;
 const Navbar = () => {
   const { isMobile } = useWindow();
   const { darkTheme, setDarkTheme } = useGlobalContext();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const [handleView, setHandleView] = useState("portfolio");
   const [navbarHidden, setNavbarHidden] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
   const navItems = [
-    { label: "Projects", view: "projects" },
-    { label: "Skills", view: "skills" },
-    { label: "Connect", view: "contact" },
-    // { label: "Say, Hi", view: null },
+    { label: "Home", view: "Home", href: "/" },
+    { label: "Projects", view: "projects", href: "/projects" },
+    // { label: "Skills", view: "skills", href: null },
+    { label: "Connect", view: "contact", href: "/connect" },
   ];
 
   /* ---------------------------------- */
@@ -193,10 +196,14 @@ const Navbar = () => {
                         animate="visible"
                         exit="exit"
                         onClick={() => {
-                          if (item.view) setHandleView(item.view);
+                          if (item.href) { router.push(item.href); setExpanded(false); }
+                          else if (item.view) setHandleView(item.view);
                         }}
-                        className={`text-lg font-medium cursor-pointer ${darkTheme ? "text-white" : "text-black"
-                          }`}
+                        className={`text-lg font-medium cursor-pointer ${
+                          item.href && pathname === item.href
+                            ? "text-(--color-design)"
+                            : darkTheme ? "text-white" : "text-black"
+                        }`}
                       >
                         {item.label}
                       </motion.div>
@@ -225,14 +232,20 @@ const Navbar = () => {
                 {navItems.map((item) => (
                   <div
                     key={item.label}
-                    onClick={() => item.view && setHandleView(item.view)}
-                    className={`cursor-pointer px-3 py-1 rounded-full transition relative group ${darkTheme
-                      ? "text-white"
-                      : "text-black"
-                      } hover:text-(--color-design) `}
+                    onClick={() => {
+                      if (item.href) router.push(item.href);
+                      else if (item.view) setHandleView(item.view);
+                    }}
+                    className={`cursor-pointer px-3 py-1 rounded-full transition relative group ${
+                      item.href && pathname === item.href
+                        ? "text-(--color-design)"
+                        : darkTheme ? "text-white" : "text-black"
+                      } hover:text-(--color-design)`}
                   >
                     {item.label}
-                    {/* <div className="absolute w-0 right-0 group-hover:w-full group-hover:left-0 bg-(--color-design) h-0.5 transition-all duration-300 -bottom-0.5"></div> */}
+                    {/* {item.href && pathname === item.href && (
+                      <div className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-1 h-1 rounded-full bg-(--color-design)" />
+                    )} */}
                   </div>
                 ))}
               </div>
