@@ -12,14 +12,16 @@ const NAVBAR_EXPANDED_H = 260;
 
 const Navbar = () => {
   const { isMobile } = useWindow();
-  const { darkTheme, setDarkTheme } = useGlobalContext();
+  const { darkTheme, setDarkTheme, isLoading } = useGlobalContext();
   const router = useRouter();
   const pathname = usePathname();
+
+  // Hide the navbar while the home-page loader is running.
+  const hiddenForLoader = isLoading && pathname === "/";
 
   const [handleView, setHandleView] = useState("portfolio");
   const [navbarHidden, setNavbarHidden] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [animating, setAnimating] = useState(false);
 
   const navItems = [
     { label: "Home", view: "Home", href: "/" },
@@ -113,6 +115,8 @@ const Navbar = () => {
   };
 
   /* ---------------------------------- */
+  if (hiddenForLoader) return null;
+
   return (
     <nav
       className={`fixed z-200 w-screen flex justify-center ${
@@ -136,9 +140,7 @@ const Navbar = () => {
             width: isMobile ? "92vw" : "80vw",
           }}
           transition={{ duration: 0.45, ease: "easeInOut" }}
-          onAnimationStart={() => setAnimating(true)}
-          onAnimationComplete={() => setAnimating(false)}
-          className={`overflow-hidden ${isMobile ? (animating ? "rounded-full" : expanded ? "rounded-2xl" : "rounded-full") : "rounded-full"} shadow-lg flex flex-col ${
+          className={`overflow-hidden ${isMobile ? "rounded-[28px]" : "rounded-full"} shadow-lg flex flex-col ${
             darkTheme
               ? "dark-theme-bg dark-theme-shadow"
               : "light-theme-bg light-theme-shadow"

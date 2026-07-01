@@ -12,6 +12,7 @@ export const projectsList: Project[] = [
       "Ensured cross-browser compatibility and mobile-friendly design.",
       "Tech - React.js, GSAP, Bootstrap, HTML, CSS",
     ],
+    category: "frontend",
   },
   {
     name: "Muse Ink",
@@ -22,8 +23,22 @@ export const projectsList: Project[] = [
       "Built a client-facing animated website for a creative studio with custom scroll-triggered animations.",
       "Crafted pixel-perfect UI with GSAP ScrollTrigger for immersive, storytelling-driven sections.",
       "Delivered a production-ready site optimized for performance and cross-device responsiveness.",
-      "Tech - Next.js, GSAP, Tailwindcss",
+      "Tech - Next.js, GSAP, Tailwindcss, CSS, HTML",
     ],
+    category: "frontend",
+  },
+  {
+    name: "Montreal",
+    link: "https://montreal-clone.vercel.app/",
+    mobileImage: "images/montreal.png",
+    desktopImage: "images/montreal.png",
+    points: [
+      "Recreated the award-winning Montreal agency website as a pixel-perfect clone to study high-end motion design.",
+      "Reproduced the signature smooth scrolling and scroll-triggered reveal animations for an immersive experience.",
+      "Matched the original's typography, layout, and micro-interactions with a focus on performance and responsiveness.",
+      "Tech - Next.js, Motion, Tailwindcss, CSS, HTML",
+    ],
+    category: "frontend",
   },
   {
     name: "Homie",
@@ -36,6 +51,7 @@ export const projectsList: Project[] = [
       "Showcases motion design principles and modern UI patterns with a clean, minimal aesthetic.",
       "Tech - Next.js, Motion, Tailwindcss",
     ],
+    category: "frontend",
   },
   {
     name: "Galaxy Generator",
@@ -48,6 +64,7 @@ export const projectsList: Project[] = [
       "Interactive camera controls and GPU-optimized rendering for smooth animations and exploration.",
       "Tech - Three.js, React.js, Vite",
     ],
+    category: "frontend",
   },
   {
     name: "Zero1 studio",
@@ -60,6 +77,7 @@ export const projectsList: Project[] = [
       "Fully responsive with optimized performance and polished micro-interactions throughout.",
       "Tech - Next.js, GSAP, Tailwind CSS",
     ],
+    category: "frontend",
   },
   {
     name: "Prompt board",
@@ -72,6 +90,7 @@ export const projectsList: Project[] = [
       "Flexible credit-based subscriptions with Razorpay and transparent pricing",
       "Tech - Next.js, PostgreSQL, Express.js, JavaScript, Tailwind CSS, ShadCN UI, Razorpay, REST APIs, Resend, OpenAI, Redis, Prisma",
     ],
+    category: "fullstack",
   },
   {
     name: "ChessBlitz",
@@ -83,6 +102,7 @@ export const projectsList: Project[] = [
       "Async, event-driven backend with WebSockets and Redis for concurrent gameplay",
       "Tech - React.js, Express.js, Node.js, TypeScript, Tailwind CSS, WebSockets, Redis, PostgreSQL, Prisma",
     ],
+    category: "fullstack",
   },
   {
     name: "PixelflowUI",
@@ -94,5 +114,6 @@ export const projectsList: Project[] = [
       "Open source project.",
       "Tech - Next.js, Framer Motion, GSAP, ShadCN UI, JavaScript, Tailwind CSS",
     ],
+    category: "frontend",
   },
 ];

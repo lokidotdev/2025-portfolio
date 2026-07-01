@@ -12,6 +12,8 @@ import {
 export interface GlobalContextValue {
   darkTheme: boolean;
   setDarkTheme: Dispatch<SetStateAction<boolean>>;
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 export const GlobalContext = createContext<GlobalContextValue | null>(null);
@@ -26,9 +28,12 @@ export function useGlobalContext(): GlobalContextValue {
 
 export function GlobalContextProvider({ children }: { children: ReactNode }) {
   const [darkTheme, setDarkTheme] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <GlobalContext.Provider value={{ darkTheme, setDarkTheme }}>
+    <GlobalContext.Provider
+      value={{ darkTheme, setDarkTheme, isLoading, setIsLoading }}
+    >
       {children}
     </GlobalContext.Provider>
   );

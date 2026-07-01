@@ -2,13 +2,24 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 import { projectsList } from "@/constants/projectData";
+import type { ProjectCategory } from "@/types/project";
 import { useGlobalContext } from "@/context/globalContext";
 import { Sun, Moon, ArrowUpRight, ArrowLeft } from "lucide-react";
+
+type TabValue = ProjectCategory | "all";
+
+const TABS: { label: string; value: TabValue }[] = [
+  { label: "All", value: "all" },
+  { label: "Full-stack", value: "fullstack" },
+  { label: "Frontend", value: "frontend" },
+];
 
 export default function ProjectsPageClient() {
   const { darkTheme, setDarkTheme } = useGlobalContext();
   const [mounted, setMounted] = useState(false);
+  const [activeTab, setActiveTab] = useState<TabValue>("all");
 
   useEffect(() => {
     const cached = localStorage.getItem("darkTheme");
@@ -26,6 +37,11 @@ export default function ProjectsPageClient() {
   const border = darkTheme ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)";
   const mutedText = darkTheme ? "rgba(255,255,255,0.45)" : "rgba(0,0,0,0.45)";
 
+  const filteredProjects =
+    activeTab === "all"
+      ? projectsList
+      : projectsList.filter((p) => p.category === activeTab);
+
   if (!mounted) return null;
 
   return (
@@ -35,22 +51,61 @@ export default function ProjectsPageClient() {
     >
 
       {/* Hero */}
-      <section className="max-w-6xl mx-auto px-6 pt-6 md:pt-25 pb-12">
+      <section className="max-w-6xl mx-auto px-6 pt-6 md:pt-25 pb-8 flex flex-col justify-center items-center">
         {/* <p style={{ color: "var(--color-design)" }} className="text-xs font-semibold tracking-[0.2em] uppercase mb-4">
           Selected Work
         </p> */}
-        <h1 className="text-5xl md:text-7xl font-bold leading-[1.05] tracking-tight">
+        <h1 className="text-5xl md:text-7xl font-bold leading-[1.05] tracking-tight text-center">
           Projects
         </h1>
-        <p style={{ color: mutedText }} className="mt-4 text-base md:text-lg max-w-xl leading-relaxed">
+        <p style={{ color: mutedText }} className="mt-4 text-[8px] md:text-xs leading-relaxed text-center max-w-xl">
           Client work, personal builds, and experimental playgrounds — spanning full-stack apps, real-time systems, and creative UIs.
         </p>
       </section>
 
+      {/* Tabs */}
+      <div className="mx-auto px-6 mb-8 max-w-fit">
+        <div
+          style={{
+            backgroundColor: darkTheme ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.04)",
+            border: `1px solid ${border}`,
+          }}
+          className="inline-flex rounded-full p-1 gap-1"
+        >
+          {TABS.map((tab) => {
+            const isActive = activeTab === tab.value;
+            return (
+              <button
+                key={tab.value}
+                onClick={() => setActiveTab(tab.value)}
+                className="relative rounded-full px-5 py-2 text-sm font-medium transition-colors duration-300"
+                style={{ color: isActive ? "#fff" : mutedText }}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="projects-tab-pill"
+                    style={{ backgroundColor: "var(--color-design)" }}
+                    className="absolute inset-0 rounded-full"
+                    transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                  />
+                )}
+                <span className="relative z-10">{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Grid */}
       <main className="max-w-6xl mx-auto px-6 pb-24">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {projectsList.map((project, i) => (
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+        >
+          {filteredProjects.map((project, i) => (
             <a
               key={i}
               href={project.link}
@@ -100,7 +155,7 @@ export default function ProjectsPageClient() {
               </div>
             </a>
           ))}
-        </div>
+        </motion.div>
       </main>
 
       {/* Footer */}
