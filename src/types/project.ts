@@ -1,5 +1,7 @@
 export type ProjectCategory = "fullstack" | "frontend";
 
+export type ProjectPage = "home" | "projects";
+
 export interface Project {
   name: string;
   link: string;
@@ -7,4 +9,6 @@ export interface Project {
   desktopImage: string;
   points: string[];
   category: ProjectCategory;
+  /** Pages this project should appear on. Defaults to all pages ("home" and "projects") when omitted. */
+  pages?: ProjectPage[];
 }

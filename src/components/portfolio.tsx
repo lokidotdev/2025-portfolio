@@ -6,27 +6,32 @@ import { AnimatePresence, motion } from "motion/react";
 import { Github, Linkedin, Mail, Play, X } from "lucide-react";
 import Link from "next/link";
 import useWindow from "../hooks/useWindow";
+import SocialHoverCard from "./SocialHoverCard";
 
 const socialLinks = [
   {
     icon: <Github size={28} strokeWidth={1.5} />,
     link: "https://github.com/lokidotdev",
     label: "Github",
+    platform: "github" as const,
   },
   {
     icon: <Linkedin size={28} strokeWidth={1.5} />,
     link: "https://www.linkedin.com/in/yadav-lokesh/",
     label: "LinkedIn",
+    platform: "linkedin" as const,
   },
   {
     icon: <X size={28} strokeWidth={1.5} />,
     link: "https://www.x.com/lokidotdev/",
     label: "X",
+    platform: "twitter" as const,
   },
   {
     icon: <Mail size={28} strokeWidth={1.5} />,
     link: "mailto:lokeshyadv8177@gmail.com",
     label: "Email",
+    platform: null,
   },
 ];
 
@@ -216,12 +221,8 @@ const Portfolio = () => {
                   animate="show"
                   className="flex gap-6 items-center mt-2 ms-6 justify-center md:justify-start"
                 >
-                  {socialLinks.map((link, index) => (
-                    <motion.div
-                      variants={descVariants}
-                      key={index}
-                      className="flex items-center"
-                    >
+                  {socialLinks.map((link, index) => {
+                    const anchor = (
                       <Link
                         href={link.link}
                         target="_blank"
@@ -234,8 +235,27 @@ const Portfolio = () => {
                       >
                         {link.icon}
                       </Link>
-                    </motion.div>
-                  ))}
+                    );
+
+                    return (
+                      <motion.div
+                        variants={descVariants}
+                        key={index}
+                        className="flex items-center"
+                      >
+                        {link.platform && !isMobile ? (
+                          <SocialHoverCard
+                            platform={link.platform}
+                            darkTheme={darkTheme}
+                          >
+                            {anchor}
+                          </SocialHoverCard>
+                        ) : (
+                          anchor
+                        )}
+                      </motion.div>
+                    );
+                  })}
                 </motion.div>
               </motion.div>
             </div>

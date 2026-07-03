@@ -232,14 +232,14 @@ const Navbar = () => {
             <div className="h-14 px-4 flex items-center justify-between">
               <button
                 onClick={() => setDarkTheme((p) => !p)}
-                className="h-6 overflow-hidden"
+                className="h-6 overflow-hidden "
               >
                 <div
-                  className={`flex flex-col transition-transform duration-300 ${
+                  className={`flex flex-col transition-transform duration-300 cursor-pointer ${
                     darkTheme ? "-translate-y-6" : "translate-y-0"
                   }`}
                 >
-                  <Sun size={24} />
+                  <Sun className="hover:rotate-45 transition-all" size={24} />
                   <Moon size={24} className="text-white" />
                 </div>
               </button>
@@ -252,18 +252,16 @@ const Navbar = () => {
                       if (item.href) router.push(item.href);
                       else if (item.view) setHandleView(item.view);
                     }}
-                    className={`cursor-pointer px-3 py-1 rounded-full transition relative group ${
+                    className={`cursor-pointer group p-1 rounded-full transition relative group ${
                       item.href && pathname === item.href
                         ? "text-(--color-design)"
                         : darkTheme
                           ? "text-white"
                           : "text-black"
-                    } hover:text-(--color-design)`}
+                    } `}
                   >
                     {item.label}
-                    {/* {item.href && pathname === item.href && (
-                      <div className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-1 h-1 rounded-full bg-(--color-design)" />
-                    )} */}
+                    <div className="absolute group-hover:left-0 right-0 top-4/5 w-0 h-0.5 rounded-full bg-(--color-design) transition-all duration-300 group-hover:w-full"></div>
                   </div>
                 ))}
               </div>

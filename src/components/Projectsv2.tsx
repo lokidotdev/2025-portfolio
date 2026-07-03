@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef } from "react";
-import { projectsList } from "../constants/projectData";
+import { getProjectsForPage } from "../constants/projectData";
 import { useState } from "react";
 import { useGlobalContext } from "@/context/globalContext";
 import { gsap } from "gsap";
@@ -13,6 +13,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 function Projectsv2() {
+  const projectsList = getProjectsForPage("home");
   const { isMobile } = useWindow();
   const { darkTheme } = useGlobalContext();
   const [scrollProgress, setScrollProgress] = useState(0);

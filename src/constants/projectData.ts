@@ -1,4 +1,8 @@
-import type { Project } from "@/types/project";
+import type { Project, ProjectPage } from "@/types/project";
+
+export function getProjectsForPage(page: ProjectPage): Project[] {
+  return projectsList.filter((p) => !p.pages || p.pages.includes(page));
+}
 
 export const projectsList: Project[] = [
   {
@@ -13,6 +17,7 @@ export const projectsList: Project[] = [
       "Tech - React.js, GSAP, Bootstrap, HTML, CSS",
     ],
     category: "frontend",
+    pages: ["home", "projects"],
   },
   {
     name: "Muse Ink",
@@ -26,6 +31,7 @@ export const projectsList: Project[] = [
       "Tech - Next.js, GSAP, Tailwindcss, CSS, HTML",
     ],
     category: "frontend",
+    pages: ["home", "projects"],
   },
   {
     name: "Montreal",
@@ -39,6 +45,21 @@ export const projectsList: Project[] = [
       "Tech - Next.js, Motion, Tailwindcss, CSS, HTML",
     ],
     category: "frontend",
+    pages: ["home", "projects"],
+  },
+  {
+    name: "Excellent Printing Press",
+    link: "https://excellentpp.com/",
+    mobileImage: "images/montreal.png",
+    desktopImage: "images/excellentpp.png",
+    points: [
+      "Built a full-stack ecommerce platform for a UAE printing & packaging company, covering gifts, merchandise, and food-service product lines.",
+      "Built a canvas-based live 3D product previewer with Three.js and React Three Fiber, letting customers see custom box designs update in real time.",
+      "Developed a custom CMS and admin dashboard for managing products, categories, and orders without touching code.",
+      "Tech - Next.js, Three.js, React Three Fiber, Tailwindcss, Coolify, Node.js, postgresql, Prisma, ShadcnUI, express.js, Docker, Typescript",
+    ],
+    category: "fullstack",
+    pages: ["projects"],
   },
   {
     name: "Homie",
@@ -52,6 +73,7 @@ export const projectsList: Project[] = [
       "Tech - Next.js, Motion, Tailwindcss",
     ],
     category: "frontend",
+    pages: ["home", "projects"],
   },
   {
     name: "Galaxy Generator",
@@ -65,6 +87,7 @@ export const projectsList: Project[] = [
       "Tech - Three.js, React.js, Vite",
     ],
     category: "frontend",
+    pages: ["home", "projects"],
   },
   {
     name: "Zero1 studio",
@@ -78,6 +101,7 @@ export const projectsList: Project[] = [
       "Tech - Next.js, GSAP, Tailwind CSS",
     ],
     category: "frontend",
+    pages: ["home", "projects"],
   },
   {
     name: "Prompt board",
@@ -88,9 +112,10 @@ export const projectsList: Project[] = [
       "Discover and share AI prompts with vector search, Redis caching, and database replicas for performance",
       "AI-powered image regeneration from prompts using generative AI",
       "Flexible credit-based subscriptions with Razorpay and transparent pricing",
-      "Tech - Next.js, PostgreSQL, Express.js, JavaScript, Tailwind CSS, ShadCN UI, Razorpay, REST APIs, Resend, OpenAI, Redis, Prisma",
+      "Tech - Next.js, PostgreSQL, Express.js, Node.js, JavaScript, Tailwind CSS, ShadCN UI, Razorpay, REST APIs, Resend, OpenAI, Redis, Prisma",
     ],
     category: "fullstack",
+    pages: ["home", "projects"],
   },
   {
     name: "ChessBlitz",
@@ -103,6 +128,7 @@ export const projectsList: Project[] = [
       "Tech - React.js, Express.js, Node.js, TypeScript, Tailwind CSS, WebSockets, Redis, PostgreSQL, Prisma",
     ],
     category: "fullstack",
+    pages: ["home", "projects"],
   },
   {
     name: "PixelflowUI",
@@ -115,5 +141,6 @@ export const projectsList: Project[] = [
       "Tech - Next.js, Framer Motion, GSAP, ShadCN UI, JavaScript, Tailwind CSS",
     ],
     category: "frontend",
+    pages: ["home", "projects"],
   },
 ];

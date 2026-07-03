@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { projectsList } from "@/constants/projectData";
+import { getProjectsForPage } from "@/constants/projectData";
 import type { ProjectCategory } from "@/types/project";
 import { useGlobalContext } from "@/context/globalContext";
 import { Sun, Moon, ArrowUpRight, ArrowLeft } from "lucide-react";
@@ -36,6 +36,8 @@ export default function ProjectsPageClient() {
   const cardBg = darkTheme ? "#2c3035" : "#ffffff";
   const border = darkTheme ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)";
   const mutedText = darkTheme ? "rgba(255,255,255,0.45)" : "rgba(0,0,0,0.45)";
+
+  const projectsList = getProjectsForPage("projects");
 
   const filteredProjects =
     activeTab === "all"
