@@ -3,7 +3,7 @@
 import { useEffect, type ReactNode } from "react";
 import { Toaster } from "react-hot-toast";
 import { GlobalContextProvider } from "@/context/globalContext";
-import Navbar from "@/components/navbar";
+import HeroNavbar from "@/components/HeroNavbar";
 
 export function Providers({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -48,7 +48,7 @@ export function Providers({ children }: { children: ReactNode }) {
 
   return (
     <GlobalContextProvider>
-      <Navbar />
+      <HeroNavbar/>
       {children}
       <Toaster />
     </GlobalContextProvider>

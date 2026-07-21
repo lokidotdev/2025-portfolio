@@ -24,9 +24,7 @@ export default function ConnectPageClient() {
     <div className={`${darkTheme ? "dark-theme-bg" : "light-theme-bg"} min-h-screen`}>
 
 
-      <div className="flex items-center justify-center" style={{ minHeight: "calc(100vh - 56px)" }}>
-        <Contact />
-      </div>
+      <Contact />
     </div>
   );
 }

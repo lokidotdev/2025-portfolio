@@ -3,6 +3,29 @@ button:hover {
   cursor: pointer;
 }
 
+/* Typewriter caret — only blinks after the line finishes typing */
+@keyframes typewriter-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  55%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.typewriter-caret-blink {
+  animation: typewriter-blink 1s steps(1, end) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typewriter-caret-blink {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 0vh;
 }

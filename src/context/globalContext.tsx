@@ -26,9 +26,23 @@ export function useGlobalContext(): GlobalContextValue {
   return ctx;
 }
 
+const LOADER_SEEN_KEY = "loaderSeen";
+
 export function GlobalContextProvider({ children }: { children: ReactNode }) {
   const [darkTheme, setDarkTheme] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  // Only show the loader once per session — a full reload of "/" should not replay it.
+  const [isLoading, setIsLoadingState] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return !sessionStorage.getItem(LOADER_SEEN_KEY);
+  });
+
+  const setIsLoading: Dispatch<SetStateAction<boolean>> = (value) => {
+    setIsLoadingState((prev) => {
+      const next = typeof value === "function" ? value(prev) : value;
+      if (!next) sessionStorage.setItem(LOADER_SEEN_KEY, "1");
+      return next;
+    });
+  };
 
   return (
     <GlobalContext.Provider

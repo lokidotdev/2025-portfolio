@@ -243,3 +243,60 @@ html.lenis body {
       rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
   }
 }
+
+/* Glow-reveal button: stroked text fills with color on hover, arrow slides from left to right */
+.glow-reveal-btn {
+  --text-stroke-color: currentColor;
+  --animation-color: var(--color-design);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding-left: 1.25rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  transition: padding-left 0.5s ease, padding-right 0.5s ease;
+}
+
+.glow-reveal-btn:hover {
+  padding-left: 0;
+  padding-right: 1.25rem;
+}
+
+.glow-reveal-btn .reveal-arrow {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: left 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+}
+
+.glow-reveal-btn:hover .reveal-arrow {
+  left: 100%;
+  transform: translateY(-50%) translateX(-100%);
+  filter: drop-shadow(0 0 10px var(--animation-color));
+}
+
+.glow-reveal-btn .text-mask {
+  position: relative;
+  display: inline-block;
+}
+
+.glow-reveal-btn .actual-text {
+  -webkit-text-stroke: 0.2px transparent;
+}
+
+.glow-reveal-btn .hover-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0%;
+  color: var(--animation-color);
+  -webkit-text-stroke: 0.2px var(--animation-color);
+  transition: width 0.5s ease;
+}
+
+.glow-reveal-btn:hover .hover-layer {
+  width: 100%;
+}
+

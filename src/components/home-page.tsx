@@ -2,16 +2,14 @@
 
 import { Suspense } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import Portfolio from "@/components/portfolio";
-import Contact from "@/components/contact";
-import SnowflakeCursor from "@/components/ui/SnowflakeCursor";
-import Section3 from "@/components/Section3";
 import Projectsv2 from "@/components/Projectsv2";
-import SkillsSection from "@/components/SkillsSection";
-import ExperienceSection from "@/components/Experience";
 import Loader from "@/components/Loader";
 import { useGlobalContext } from "@/context/globalContext";
 import "@/css/home.css";
+import HeroSection from "./HeroSection";
+import ExperienceSection from "./Experience";
+import SkillsSection from "./Skills";
+import Contact from "./contact";
 
 export default function HomePage() {
   const { isLoading, setIsLoading } = useGlobalContext();
@@ -31,18 +29,12 @@ export default function HomePage() {
         )}
       </AnimatePresence>
 
-      {/* Content mounts behind the loader so its images actually load and
-          are tracked; it stays hidden until the loader lifts, so the first
-          section's entry animations play once the loader is gone. */}
       <div key={isLoading ? "loading" : "loaded"} className={isLoading ? "invisible" : "visible"}>
         <Suspense fallback={null}>
-          <SnowflakeCursor />
-          <Portfolio />
-          <Section3 />
+          <HeroSection/>
           <Projectsv2 />
-          <ExperienceSection />
-          {/* <SkillsSection /> */}
-          <Contact />
+          <ExperienceSection/>
+          <Contact/>
         </Suspense>
       </div>
     </>

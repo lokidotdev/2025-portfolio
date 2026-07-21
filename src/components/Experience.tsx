@@ -1,8 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Briefcase, Calendar, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { useGlobalContext } from "@/context/globalContext";
 
 interface ExperienceItem {
@@ -16,27 +14,6 @@ interface ExperienceItem {
 
 // --- Mock Data ---
 const experiences: ExperienceItem[] = [
-  // {
-  //   id: 4,
-  //   role: "Software Developer",
-  //   company: "Bengait Labs",
-  //   period: "Apr 2026 - Present",
-  //   description: [
-  //     "Built an interactive 3D prosthetic design tool using Three.js and React for real-time visualization of orthotic/prosthetic components",
-  //     "Implemented parametric geometry manipulation in Three.js for dynamic design adjustments based on patient measurements",
-  //     "Architected a modular React frontend for a CAD-like O&P platform with multi-step engineering workflows and real-time 3D feedback",
-  //     "Led frontend design engineering with precise UI systems and interaction patterns for a technical CAD platform",
-  //   ],
-  //   skills: [
-  //     "React",
-  //     "Three.js",
-  //     "TypeScript",
-  //     "JavaScript",
-  //     "CAD UI",
-  //     "Real-time 3D",
-  //     "Frontend Architecture",
-  //   ],
-  // },
   {
     id: 2,
     role: "Software Development Engineer 1",
@@ -105,7 +82,7 @@ const experiences: ExperienceItem[] = [
   },
 ];
 
-const Card = ({
+const Row = ({
   item,
   index,
   darkTheme,
@@ -114,89 +91,52 @@ const Card = ({
   index: number;
   darkTheme: boolean;
 }) => {
+  const subtle = darkTheme ? "text-white/60" : "text-[#212529]/60";
+  const border = darkTheme ? "border-white/15" : "border-[#212529]/15";
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.5, delay: index * 0.2 }}
-      className={`relative md:rounded-2xl md:shadow-lg font-mono ${darkTheme
-        ? "md:dark-theme-bg md:dark-theme-shadow"
-        : "md:light-theme-bg md:light-theme-shadow"
-        }`}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className={`group grid grid-cols-1 gap-8 border-t ${border} py-12 md:grid-cols-[1fr_2fr] md:gap-16`}
     >
-      <div
-        className={`md:flex items-start justify-between group relative md:p-6 md:rounded-2xl transition-colors duration-300 overflow-hidden`}
-      >
+      {/* Left — company + period */}
+      <div className="flex flex-col gap-3">
+        <span className="text-2xl font-thin leading-[110%] tracking-[-0.02em] md:text-3xl">
+          {item.company}
+        </span>
+        <span className={`text-sm ${subtle}`}>[ {item.period} ]</span>
+      </div>
 
-        {/* Content Container */}
-        <div className="relative z-10 flex flex-col gap-2 md:gap-6 w-full">
-          {/* Left Col: Date & Meta */}
-          <div className="flex justify-between">
+      {/* Right — role + details */}
+      <div className="flex flex-col gap-6">
+        <h3 className="text-lg transition-colors group-hover:text-(--color-design) md:text-xl">
+          {item.role}
+        </h3>
+
+        <ul className="flex flex-col gap-2">
+          {item.description.map((point, idx) => (
+            <li
+              key={idx}
+              className={`flex gap-3 leading-[140%] ${subtle}`}
+            >
+              <span className="text-(--color-design)">/</span>
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex flex-wrap gap-x-5 gap-y-2">
+          {item.skills.map((skill) => (
             <span
-              className={`text-base md:text-2xl font-bold tracking-tight mb-1 transition-colors underline leading-[130%] ${darkTheme
-                ? "text-white/70"
-                : "text-[#212529]/70"
-                }`}
+              key={skill}
+              className={`text-sm transition-colors hover:text-(--color-design) ${subtle}`}
             >
-              {item.company}
+              [ {skill} ]
             </span>
-            <span
-              className={`text-[10px] md:text-sm font-medium flex items-center gap-2 ${darkTheme ? "text-white/60" : "text-[#212529]/60"
-                }`}
-            >
-              <Calendar className="w-4 h-4 hidden sm:block" />
-              {item.period}
-            </span>
-          </div>
-
-          {/* Right Col: Role & Details */}
-          <div>
-            <h3
-              className={`text-lg md:text-xl font-semibold mb-2 flex items-center gap-2 ${darkTheme ? "text-white/90" : "text-[#212529]/90"
-                } group-hover:text-[rgb(var(--theme-color-rgb))]`}
-            >
-              {item.role}
-              <motion.span
-                className={`opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ${darkTheme
-                  ? "text-[rgb(var(--theme-color-rgb))]"
-                  : "text-[rgb(var(--theme-color-rgb))]"
-                  }`}
-              >
-                <ChevronRight className="w-5 h-5" />
-              </motion.span>
-            </h3>
-            <ul
-              className={`text-xs md:text-sm hidden md:flex md:flex-col leading-relaxed mb-4 space-y-3 list-disc list-inside ${darkTheme ? "text-white/70" : "text-[#212529]/70"
-                }`}
-            >
-              {item.description.map((point, idx) => (
-                <li className="leading-[130%]" key={idx}>{point}</li>
-              ))}
-            </ul>
-
-            {/* Micro-interaction: Staggered Tags */}
-            <div className="hidden md:flex flex-wrap gap-2">
-              {item.skills.map((skill, i) => (
-                <motion.span
-                  key={skill}
-                  className={`text-xs font-medium px-2.5 py-1 rounded-full border transition-colors ${darkTheme
-                    ? "bg-[#212529]/50 text-white/80 border-white/20"
-                    : "bg-white/50 text-[#212529]/80 border-[#212529]/20"
-                    }`}
-                  whileHover={{
-                    borderColor: darkTheme
-                      ? "rgba(var(--theme-color-rgb), 0.5)"
-                      : "rgba(var(--theme-color-rgb), 0.5)",
-                    color: darkTheme ? "#fff" : "#212529",
-                  }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  {skill}
-                </motion.span>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </motion.div>
@@ -205,73 +145,49 @@ const Card = ({
 
 export default function ExperienceSection() {
   const { darkTheme } = useGlobalContext();
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const text = darkTheme ? "text-white" : "text-[#212529]";
+  const subtle = darkTheme ? "text-white/60" : "text-[#212529]/60";
+  const border = darkTheme ? "border-white/15" : "border-[#212529]/15";
 
   return (
     <section
-      className={` p-4 sm:p-6 relative overflow-hidden transition-all duration-300 ease-in-out ${darkTheme ? "dark-theme-bg" : "light-theme-bg"
-        }`}
+      id="experience"
+      className={`${
+        darkTheme ? "dark-theme-bg" : "light-theme-bg"
+      } ${text} w-full`}
     >
-      <div className="max-w-4xl mx-auto relative " ref={containerRef}>
+      <div className="mx-auto w-full max-w-400 px-6 py-24 md:px-16 md:py-32">
         {/* Header */}
-        <div className="mb-8 md:mb-16">
+        <div className="mb-16 md:mb-24">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className={`mb-6 text-lg ${subtle}`}
+          >
+            // Where I&apos;ve worked
+          </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className={`text-4xl md:text-5xl font-bold tracking-tight transition-colors duration-500 ${darkTheme ? "text-white" : "text-[#212529] "
-              }`}
+            className="text-6xl font-thin italic leading-[100%] tracking-[-0.04em] md:text-[8vw]"
           >
             Experience
           </motion.h2>
         </div>
 
-        {/* Timeline Line */}
-        <div
-          className={` absolute left-2 md:left-8 top-[84px] md:top-[148px] h-[calc(100%-84px)] md:h-[calc(100%-148px)] w-px -translate-x-1/2 transition-colors duration-500 ${darkTheme ? "bg-white/20" : "bg-[#212529]/20"
-            }`}
-        >
-          <motion.div
-            style={{ height }}
-            className={`w-full bg-linear-to-b to-transparent shadow-lg transition-all duration-500 ${darkTheme
-              ? "shadow-[rgba(var(--theme-color-rgb),0.5)]"
-              : "shadow-[rgba(var(--theme-color-rgb),0.3)]"
-              }`}
-          />
-        </div>
-
-        {/* Experience List */}
-        <div className="space-y-4 md:space-y-8 relative z-10">
+        {/* List */}
+        <div className={`border-b ${border}`}>
           {experiences.map((item, index) => (
-            <div
+            <Row
               key={item.id}
-              className={`md:flex relative pl-6 md:pl-16`}
-            >
-              {/* Dot */}
-              <div
-                className={`flex absolute left-2 md:left-8 -translate-x-1/2 top-1 md:top-6 items-center justify-center w-4 h-4 md:w-8 md:h-8 rounded-full border z-20 shadow-xl transition-all duration-500 ${darkTheme
-                  ? "bg-[#212529] border-white/30"
-                  : "bg-whitesmoke border-[#212529]/30"
-                  }`}
-              >
-                <div
-                  className={`w-1 h-1 md:w-2 md:h-2 rounded-full animate-pulse ${darkTheme
-                    ? "bg-[rgb(var(--theme-color-rgb))]"
-                    : "bg-[rgb(var(--theme-color-rgb))]"
-                    }`}
-                />
-              </div>
-
-              <div className="w-full">
-                <Card item={item} index={index} darkTheme={darkTheme} />
-              </div>
-            </div>
+              item={item}
+              index={index}
+              darkTheme={darkTheme}
+            />
           ))}
         </div>
       </div>
