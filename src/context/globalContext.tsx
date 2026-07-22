@@ -3,6 +3,7 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useState,
   type Dispatch,
   type ReactNode,
@@ -27,9 +28,27 @@ export function useGlobalContext(): GlobalContextValue {
 }
 
 const LOADER_SEEN_KEY = "loaderSeen";
+const THEME_KEY = "darkTheme";
 
 export function GlobalContextProvider({ children }: { children: ReactNode }) {
+  // Start light so server and first client render agree; the stored preference
+  // (or the OS setting) is applied in the effect below, after hydration.
   const [darkTheme, setDarkTheme] = useState(false);
+
+  useEffect(() => {
+    const cached = localStorage.getItem(THEME_KEY);
+    if (cached !== null) {
+      setDarkTheme(cached === "true");
+      return;
+    }
+    setDarkTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(THEME_KEY, String(darkTheme));
+    document.documentElement.classList.toggle("dark", darkTheme);
+  }, [darkTheme]);
+
   // Only show the loader once per session — a full reload of "/" should not replay it.
   const [isLoading, setIsLoadingState] = useState(() => {
     if (typeof window === "undefined") return true;

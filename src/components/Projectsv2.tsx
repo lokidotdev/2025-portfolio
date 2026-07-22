@@ -8,6 +8,7 @@ import { gsap } from "gsap";
 import useWindow from "../hooks/useWindow";
 import ProjectCard from "./ProjectCard";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ProximityText from "./ui/ProximityText";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -159,6 +160,21 @@ function Projectsv2() {
         },
       },
     );
+    gsap.fromTo(
+      ".project-bottom-text",
+      {
+        x: "100%",
+      },
+      {
+        x: "0%",
+        scrollTrigger: {
+          trigger: ".project-text",
+          start: "top center",
+          end: `center center`,
+          scrub: 1,
+        },
+      },
+    );
   }, []);
 
   const handleScroll = () => {
@@ -191,17 +207,27 @@ function Projectsv2() {
         <div
           className={`work-project h-dvh w-screen flex flex-col justify-center items-center shrink-0 z-10`}
         >
-          <div className="relative  w-fit h-fit text-center text-[50px] md:text-[130px] leading-[70%] px-[10px] font-light">
-            <div className="absolute overflow-y-hidden leading-tight text-[6px] md:text-xs text-(--color-design) left-[3%] bottom-[110%] flex flex-col text-left font-normal">
+          <div className="relative  w-fit h-fit text-center text-5xl md:text-[8vw] leading-[70%] px-[10px] font-light">
+            <div className="absolute overflow-y-hidden leading-tight text-[6px] md:text-[10px] text-(--color-design) left-[6%] bottom-[110%] flex flex-col text-left font-normal">
               <div className="project-top-text flex flex-col">
                 <span>SOME</span> <span>SELECTED</span>
               </div>
             </div>
-            <div className="project-text">PROJECTS</div>
+            <div className="project-text font-thin italic tracking-[-8%] ">
+              <ProximityText
+                text="PROJECTS"
+                className="justify-center whitespace-nowrap"
+                maxDistance={200}
+                minWeight={100}
+                maxWeight={700}
+              />
+            </div>
 
-            <div className="text-right absolute leading-tight text-[5px] md:text-xs font-normal px-3 top-[120%] right-[1.5%] ">
-              CUSTOMER PROJECTS , PERSONAL PROJECTS <br />
-              SOME RESEARCH AND PLAYGROUND.
+            <div className="text-right absolute leading-tight text-[6px] md:text-[10px] font-normal top-[120%] right-[2%] overflow-hidden">
+              <div className="project-bottom-text">
+                CUSTOMER PROJECTS , PERSONAL PROJECTS <br />
+                SOME RESEARCH AND PLAYGROUND.
+              </div>
             </div>
             {/* <div className="absolute  leading-normal text-[5px] text-left md:text-xs text-(--color-design) left-[98%] top-[5%] font-normal">
               WEB <br />

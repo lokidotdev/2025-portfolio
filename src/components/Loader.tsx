@@ -82,14 +82,14 @@ const Loader = ({ onComplete }: LoaderProps) => {
 
   return (
     <div className="loading-page w-[100vw] h-[100vh] overflow-hidden relative z-10">
-      <div className="bg-black h-full w-full z-[10]"></div>
+      <div className="bg-ink h-full w-full z-[10]"></div>
       <div
         style={{ right: `${100 - loadingPercentage}%` }}
-        className="bg-white h-full w-full absolute z-[30] top-0 overflow-hidden transition-all ease"
+        className="bg-surface-raised h-full w-full absolute z-[30] top-0 overflow-hidden transition-all ease"
       >
         <div
           style={{ right: `-${textAdjustment}px` }}
-          className="text-black z-[40] bottom-0 absolute text-[100px] px-5 inner-text"
+          className="text-ink z-[40] bottom-0 absolute text-[100px] px-5 inner-text"
         >
           {loadingPercentage}
         </div>
@@ -99,7 +99,7 @@ const Loader = ({ onComplete }: LoaderProps) => {
         style={{
           right: `calc(${100 - loadingPercentage}% - ${textAdjustment}px)`,
         }}
-        className="text-white z-[20] bottom-0 absolute text-[100px] transition-all ease px-5 outer-text"
+        className="text-on-dark z-[20] bottom-0 absolute text-[100px] transition-all ease px-5 outer-text"
       >
         {loadingPercentage}
       </div>

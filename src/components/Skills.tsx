@@ -6,6 +6,8 @@ import { Html, OrbitControls } from "@react-three/drei";
 import { motion } from "motion/react";
 import * as THREE from "three";
 import { useGlobalContext } from "@/context/globalContext";
+import ProximityText from "./ui/ProximityText";
+import { themeColor, themeTokens } from "@/lib/theme";
 
 // Each skill maps to a Simple Icons slug (https://simpleicons.org).
 // cdn.simpleicons.org returns an <img>-friendly SVG, colored per icon.
@@ -88,7 +90,7 @@ function SkillIcon({
             draggable={false}
             className="h-7 w-7"
           />
-          <span className="text-[8px] font-light tracking-wide text-white/70">
+          <span className="text-[8px] font-light tracking-wide text-on-dark/70">
             {skill.name}
           </span>
         </div>
@@ -109,7 +111,7 @@ function SkillSphere({ darkTheme }: { darkTheme: boolean }) {
     }
   });
 
-  const wireColor = darkTheme ? "#6b7280" : "#212529";
+  const wireColor = themeColor(darkTheme ? "wire-dark" : "ink") || undefined;
 
   return (
     <group ref={groupRef}>
@@ -134,8 +136,7 @@ function SkillSphere({ darkTheme }: { darkTheme: boolean }) {
 
 export default function SkillsSection() {
   const { darkTheme } = useGlobalContext();
-  const text = darkTheme ? "text-white" : "text-[#212529]";
-  const subtle = darkTheme ? "text-white/60" : "text-[#212529]/60";
+  const { text, subtle } = themeTokens(darkTheme);
 
   return (
     <section
@@ -144,7 +145,7 @@ export default function SkillsSection() {
         darkTheme ? "dark-theme-bg" : "light-theme-bg"
       } ${text} w-full`}
     >
-      <div className="mx-auto w-full max-w-400 px-6 py-24 md:px-16 md:py-32">
+      <div className="mx-auto w-full max-w-7xl px-6 py-24 md:px-16 md:py-32">
         {/* Header */}
         <div className="mb-8 md:mb-12">
           <motion.p
@@ -152,7 +153,7 @@ export default function SkillsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className={`mb-6 text-lg ${subtle}`}
+            className={`mb-3 text-sm md:mb-6 md:text-lg ${subtle}`}
           >
             // Tools I build with
           </motion.p>
@@ -161,9 +162,14 @@ export default function SkillsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-6xl font-thin italic leading-[100%] tracking-[-0.04em] md:text-[8vw]"
+            className="text-5xl font-thin italic leading-[100%] tracking-[-0.04em] md:text-[8vw]"
           >
-            Skills
+            <ProximityText
+              text="Skills"
+              maxDistance={200}
+              minWeight={100}
+              maxWeight={700}
+            />
           </motion.h2>
         </div>
 

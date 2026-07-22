@@ -84,7 +84,7 @@ const ProximityText = ({
           }}
           key={i}
           // 150ms ease-out: fast to react, gentle to settle (timing-under-300ms)
-          className="transition-[font-weight] duration-150 ease-out"
+          className="whitespace-pre transition-[font-weight] duration-150 ease-out"
           style={{ fontWeight: minWeight }}
         >
           {letter === " " ? " " : letter}

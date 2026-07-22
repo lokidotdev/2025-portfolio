@@ -31,12 +31,12 @@ button:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(136, 136, 136);
+  background-color: var(--color-scrollbar-thumb);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #ffffff;
+  background-color: var(--color-surface-raised);
 }
 
 .cursor {
@@ -74,9 +74,9 @@ canvas {
 }
 
 .custom-navbar {
-  box-shadow: rgba(0, 0, 0, 0.05) 0px -3px 0px 0px inset, rgb(255, 255, 255) 0px 0px 0px 2px inset,
-    rgba(0, 0, 0, 0.06) 0px 4px 2px 0px inset, rgba(0, 0, 0, 0.04) 0px 0px 24px 4px inset,
-    rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  box-shadow: color-mix(in srgb, var(--color-ink) 5%, transparent) 0px -3px 0px 0px inset, var(--color-on-dark) 0px 0px 0px 2px inset,
+    color-mix(in srgb, var(--color-ink) 6%, transparent) 0px 4px 2px 0px inset, color-mix(in srgb, var(--color-ink) 4%, transparent) 0px 0px 24px 4px inset,
+    color-mix(in srgb, var(--color-ink) 12%, transparent) 0px 1px 3px 0px;
 }
 
 @keyframes hover {
@@ -114,7 +114,7 @@ canvas {
 
 .common-btn {
   padding: 10px 48px !important;
-  color: rgb(var(--theme-color-rgb));
+  color: var(--color-brand);
   background-color: white;
   border-radius: 32px;
 }
@@ -125,17 +125,17 @@ canvas {
   border-radius: 32px;
   transition: 0.5s ease;
   border: none !important;
-  background-color: rgba(var(--theme-color-rgb), 0.5);
-  box-shadow: rgba(var(--theme-color-rgb), 0) 0px -32px 32px 0px inset, rgb(255, 255, 255) 0px 0px 0px 2px inset,
-    rgba(0, 0, 0, 0.06) 0px 4px 2px 0px inset, rgba(0, 0, 0, 0.04) 0px 0px 24px 4px inset,
-    rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  background-color: color-mix(in srgb, var(--color-brand) 50%, transparent);
+  box-shadow: color-mix(in srgb, var(--color-brand) 0%, transparent) 0px -32px 32px 0px inset, var(--color-on-dark) 0px 0px 0px 2px inset,
+    color-mix(in srgb, var(--color-ink) 6%, transparent) 0px 4px 2px 0px inset, color-mix(in srgb, var(--color-ink) 4%, transparent) 0px 0px 24px 4px inset,
+    color-mix(in srgb, var(--color-ink) 12%, transparent) 0px 1px 3px 0px;
 }
 
 .common-btn-2:hover {
   transition: 1s ease;
-  box-shadow: rgba(var(--theme-color-rgb), 1) 0px -32px 32px 0px inset, rgb(255, 255, 255) 0px 0px 0px 2px inset,
-    rgba(0, 0, 0, 0.06) 0px 4px 2px 0px inset, rgba(0, 0, 0, 0.04) 0px 0px 24px 4px inset,
-    rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  box-shadow: color-mix(in srgb, var(--color-brand) 100%, transparent) 0px -32px 32px 0px inset, var(--color-on-dark) 0px 0px 0px 2px inset,
+    color-mix(in srgb, var(--color-ink) 6%, transparent) 0px 4px 2px 0px inset, color-mix(in srgb, var(--color-ink) 4%, transparent) 0px 0px 24px 4px inset,
+    color-mix(in srgb, var(--color-ink) 12%, transparent) 0px 1px 3px 0px;
 }
 
 .project-card::before {
@@ -156,19 +156,19 @@ canvas {
 }
 
 .project-img {
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: var(--color-shadow-ambient) 0px 2px 8px 0px;
 }
 
 .project-button {
-  box-shadow: rgba(0, 0, 0, 0.05) 0px -3px 0px 0px inset, rgb(255, 255, 255) 0px 0px 0px 2px inset,
-    rgba(0, 0, 0, 0.06) 0px 4px 2px 0px inset, rgba(0, 0, 0, 0.04) 0px 0px 24px 4px inset,
-    rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  box-shadow: color-mix(in srgb, var(--color-ink) 5%, transparent) 0px -3px 0px 0px inset, var(--color-on-dark) 0px 0px 0px 2px inset,
+    color-mix(in srgb, var(--color-ink) 6%, transparent) 0px 4px 2px 0px inset, color-mix(in srgb, var(--color-ink) 4%, transparent) 0px 0px 24px 4px inset,
+    color-mix(in srgb, var(--color-ink) 12%, transparent) 0px 1px 3px 0px;
 }
 
 .project-button:hover {
-  box-shadow: rgba(var(--theme-color-rgb), 0.5) 0px -32px 32px 0px inset, rgb(255, 255, 255) 0px 0px 0px 2px inset,
-    rgba(0, 0, 0, 0.06) 0px 4px 2px 0px inset, rgba(0, 0, 0, 0.04) 0px 0px 24px 4px inset,
-    rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  box-shadow: color-mix(in srgb, var(--color-brand) 50%, transparent) 0px -32px 32px 0px inset, var(--color-on-dark) 0px 0px 0px 2px inset,
+    color-mix(in srgb, var(--color-ink) 6%, transparent) 0px 4px 2px 0px inset, color-mix(in srgb, var(--color-ink) 4%, transparent) 0px 0px 24px 4px inset,
+    color-mix(in srgb, var(--color-ink) 12%, transparent) 0px 1px 3px 0px;
 }
 
 .project-1 {

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Github, Mail, X } from "lucide-react";
 import { useGlobalContext } from "@/context/globalContext";
+import { themeTokens } from "@/lib/theme";
 import ProximityText from "./ui/ProximityText";
 import Typewriter from "./ui/Typewriter";
 import MagneticButton from "./ui/MagneticButton";
@@ -41,10 +42,13 @@ const DESC =
 
 const HeroSection = () => {
   const { isLoading, darkTheme } = useGlobalContext();
+  const { text, bg } = themeTokens(darkTheme);
 
   return (
-    <div className="light-theme-bg light-theme-text flex min-h-screen w-full flex-col max-h-[678px] md:max-h-[1036px]">
-      <main className="mx-auto p-4 md:p-20 flex w-full max-w-400 flex-1 flex-col justify-center items-center gap-12 md:gap-20">
+    <div
+      className={`${bg} ${text} transition-colors flex min-h-screen w-full flex-col max-h-[678px] md:max-h-[1036px]`}
+    >
+      <main className="mx-auto p-4 md:p-20 flex w-full max-w-7xl flex-1 flex-col justify-center items-center gap-12 md:gap-20">
         <motion.h1
           initial={{ opacity: 0, scale: 0.9, backdropFilter: "blur(2px)" }}
           animate={
@@ -182,7 +186,9 @@ const HeroSection = () => {
 
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-20 w-full md:w-fit text-base md:text-2xl font-light md:font-normal">
           <MagneticButton strength={0.4}>
-            <span className="leading-[110%] tracking-tight text-(--color-design) text-left cursor-pointer whitespace-nowrap overflow-hidden">
+            <a
+            href="/connect"
+            className="leading-[110%] tracking-tight text-(--color-design) text-left cursor-pointer whitespace-nowrap overflow-hidden">
               [{" "}
               <motion.span
                 initial={{
@@ -205,7 +211,7 @@ const HeroSection = () => {
                 AVAILABLE FOR WORK
               </motion.span>{" "}
               ]
-            </span>
+            </a>
           </MagneticButton>
 
           <div className="hidden md:flex items-center gap-6">

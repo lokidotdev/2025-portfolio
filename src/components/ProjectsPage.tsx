@@ -11,8 +11,8 @@ import { ArrowUpRight } from "lucide-react";
 import { getProjectsForPage } from "@/constants/projectData";
 import type { Project, ProjectCategory } from "@/types/project";
 import { useGlobalContext } from "@/context/globalContext";
-import HeroNavbar from "./HeroNavbar";
 import ProximityText from "./ui/ProximityText";
+import { themeTokens } from "@/lib/theme";
 
 type Filter = "all" | ProjectCategory;
 
@@ -37,8 +37,7 @@ const Row = ({
   onHoverEnd: () => void;
   onMove: (x: number, y: number) => void;
 }) => {
-  const subtle = darkTheme ? "text-white/60" : "text-[#212529]/60";
-  const border = darkTheme ? "border-white/15" : "border-[#212529]/15";
+  const { subtle, border } = themeTokens(darkTheme);
 
   return (
     <motion.a
@@ -58,11 +57,11 @@ const Row = ({
       onMouseEnter={() => onHoverStart(project)}
       onMouseLeave={onHoverEnd}
       onMouseMove={(e) => onMove(e.clientX, e.clientY)}
-      className={`group grid grid-cols-1 gap-8 border-t ${border} py-12 md:grid-cols-[1fr_2fr] md:gap-16`}
+      className={`group grid grid-cols-1 gap-4 border-t ${border} py-10 md:grid-cols-[1fr_2fr] md:gap-16 md:py-12`}
     >
       {/* Left — name + category */}
-      <div className="flex flex-col gap-3">
-        <span className="flex items-center gap-2 text-2xl font-thin leading-[110%] tracking-[-0.02em] transition-colors group-hover:text-(--color-design) md:text-3xl">
+      <div className="flex flex-col gap-2 md:gap-3">
+        <span className="flex items-center gap-2 text-xl font-thin leading-[110%] tracking-[-0.02em] transition-colors group-hover:text-(--color-design) md:text-3xl">
           {project.name}
           <ArrowUpRight
             size={20}
@@ -70,13 +69,29 @@ const Row = ({
             className="opacity-0 transition-opacity group-hover:opacity-100"
           />
         </span>
-        <span className={`text-sm ${subtle}`}>[ {project.category} ]</span>
+        <span className={`hidden text-xs md:block md:text-sm ${subtle}`}>[ {project.category} ]</span>
       </div>
 
-      {/* Right — points */}
-      <ul className="flex flex-col gap-2">
+      {/* Right — image + one-liner on mobile, points on desktop */}
+      <div className="flex flex-col gap-3 md:hidden">
+        <div className="aspect-video w-full overflow-hidden rounded-lg">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`/${project.desktopImage}`}
+            alt={project.name}
+            loading="lazy"
+            className="h-full w-full object-cover"
+          />
+        </div>
+        <p className={`text-sm leading-[140%] md:text-base ${subtle}`}>{project.points[0]}</p>
+      </div>
+
+      <ul className="hidden flex-col gap-2 md:flex">
         {project.points.map((point, idx) => (
-          <li key={idx} className={`flex gap-3 leading-[140%] ${subtle}`}>
+          <li
+            key={idx}
+            className={`flex gap-3 text-sm leading-[140%] md:text-base ${subtle}`}
+          >
             <span className="text-(--color-design)">/</span>
             <span>{point}</span>
           </li>
@@ -112,9 +127,7 @@ export default function ProjectsPageClient() {
     [projects, filter]
   );
 
-  const text = darkTheme ? "text-white" : "text-[#212529]";
-  const subtle = darkTheme ? "text-white/60" : "text-[#212529]/60";
-  const border = darkTheme ? "border-white/15" : "border-[#212529]/15";
+  const { text, subtle, border } = themeTokens(darkTheme);
 
   return (
     <div
@@ -122,7 +135,6 @@ export default function ProjectsPageClient() {
         darkTheme ? "dark-theme-bg" : "light-theme-bg"
       } ${text} min-h-screen w-full`}
     >
-      <HeroNavbar />
 
       {/* Cursor-following project preview */}
       <AnimatePresence>
@@ -151,14 +163,14 @@ export default function ProjectsPageClient() {
         )}
       </AnimatePresence>
 
-      <div className="mx-auto w-full max-w-400 px-6 py-24 md:px-16 md:py-32">
+      <div className="mx-auto w-full max-w-7xl px-5 py-24 sm:px-6 md:px-16 md:py-32">
         {/* Header */}
-        <div className="mb-16 md:mb-20">
+        <div className="mb-12 md:mb-20">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className={`mb-6 text-lg ${subtle}`}
+            className={`mb-3 text-sm md:mb-6 md:text-lg ${subtle}`}
           >
             // Selected work
           </motion.p>
@@ -166,7 +178,7 @@ export default function ProjectsPageClient() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="hero-heading w-full text-6xl font-thin italic leading-[100%] tracking-[-0.04em] md:text-[8vw]"
+            className="hero-heading w-full text-5xl font-thin italic leading-[100%] tracking-[-0.04em] md:text-[8vw]"
           >
             <ProximityText
               text="Projects"
@@ -178,7 +190,7 @@ export default function ProjectsPageClient() {
         </div>
 
         {/* Tabs */}
-        <div className="mb-4 flex flex-wrap items-center gap-6 text-lg">
+        <div className="mb-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm md:gap-6 md:text-lg">
           {tabs.map((tab) => {
             const active = filter === tab.value;
             return (
@@ -227,7 +239,7 @@ export default function ProjectsPageClient() {
               </button>
             );
           })}
-          <span className={`ml-auto text-sm ${subtle}`}>
+          <span className={`ml-auto hidden text-xs md:inline md:text-sm ${subtle}`}>
             {filtered.length.toString().padStart(2, "0")} projects
           </span>
         </div>

@@ -1,81 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import toast from "react-hot-toast";
-import axios from "axios";
+import { motion } from "framer-motion";
 import { useGlobalContext } from "@/context/globalContext";
-import { Loader2Icon } from "lucide-react";
 import ProximityText from "./ui/ProximityText";
-
-const socialLinks = [
-  {
-    hint: "Drop me an email",
-    label: "lokeshyadv8177@gmail.com",
-    href: "mailto:lokeshyadv8177@gmail.com",
-  },
-  {
-    hint: "Follow on X",
-    label: "https://x.com/lokidotdev",
-    href: "https://www.x.com/lokidotdev/",
-  },
-  {
-    hint: "For devs",
-    label: "https://github.com/lokidotdev",
-    href: "https://github.com/lokidotdev",
-  },
-];
+import ContactForm from "./ContactForm";
+import { socialLinks } from "@/constants/socialLinks";
+import { themeTokens } from "@/lib/theme";
 
 export default function Contact() {
   const { darkTheme } = useGlobalContext();
-  const [loading, setLoading] = useState(false);
-  const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
 
-  function handleData(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  }
-
-  useEffect(() => {
-    return () => {
-      if (typingTimeoutRef.current) {
-        clearTimeout(typingTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      if (!formData.name || !formData.email || !formData.message) {
-        toast.error("please fill all fields");
-        return;
-      }
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/message`,
-        formData
-      );
-      toast.success("message sent successfully");
-      setFormData({ name: "", email: "", message: "" });
-    } catch (error) {
-      toast.error("some error occured");
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  const text = darkTheme ? "text-white" : "text-[#212529]";
-  const subtle = darkTheme ? "text-white/60" : "text-[#212529]/60";
-  const line = darkTheme ? "bg-white/25" : "bg-[#212529]/25";
+  const { text, subtle, border } = themeTokens(darkTheme);
 
   return (
     <div
@@ -84,114 +19,59 @@ export default function Contact() {
         darkTheme ? "dark-theme-bg" : "light-theme-bg"
       } ${text} w-full`}
     >
-      <div className="mx-auto w-full max-w-400 px-6 py-24 md:px-16 md:py-32">
-        {/* Framed container */}
-        <div
-          className={`relative border-x ${
-            darkTheme ? "border-white/15" : "border-[#212529]/15"
-          } px-6 py-16 md:px-20 md:py-24`}
-        >
+      <div className="mx-auto w-full max-w-7xl px-5 py-24 sm:px-6 md:px-16 md:py-32">
+        {/* Header */}
+        <div className="mb-12 md:mb-24">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.5 }}
+            className={`mb-3 text-sm md:mb-6 md:text-lg ${subtle}`}
+          >
+            // Let&apos;s build something together
+          </motion.p>
 
-          <div className="border-y absolute h-full w-16 left-0 top-0"></div>
-          <div className="border-y absolute h-full w-16 right-0 top-0"></div>
-
-          <h1 className="hero-heading mb-16 w-full text-6xl font-thin leading-[100%] tracking-[-0.04em] md:mb-24 md:text-[8vw]">
+          <h1 className="hero-heading w-full italic text-5xl font-thin tracking-[-0.04em] leading-[100%] md:text-[8vw]">
             <ProximityText
-              text="Get in touch"
+              text="GET IN TOUCH"
               maxDistance={200}
               minWeight={100}
               maxWeight={700}
             />
           </h1>
+        </div>
 
-          <div className="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-24">
+        {/* Framed container */}
+        <div className={`relative md:border-x ${border} md:px-20 md:py-24`}>
+          <div className="hidden md:block border-y absolute h-full w-8 left-0 top-0 md:w-16"></div>
+          <div className="hidden md:block border-y absolute h-full w-8 right-0 top-0 md:w-16"></div>
 
-
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-24">
             {/* Left — Form */}
             <div>
-              <p className={`mb-10 text-lg ${subtle}`}>// Message me directly</p>
+              <p className={`mb-8 text-sm md:mb-10 md:text-lg ${subtle}`}>
+                // Message me directly
+              </p>
 
-              <form onSubmit={handleSubmit} className="flex flex-col gap-8">
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="name" className={`text-sm ${subtle}`}>
-                    [ Name ]
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={handleData}
-                    className={`w-full border-b bg-transparent pb-2 outline-none transition-colors ${
-                      darkTheme ? "border-white/30" : "border-[#212529]/30"
-                    } focus:border-(--color-design)`}
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="email" className={`text-sm ${subtle}`}>
-                    [ Email ]
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={handleData}
-                    className={`w-full border-b bg-transparent pb-2 outline-none transition-colors ${
-                      darkTheme ? "border-white/30" : "border-[#212529]/30"
-                    } focus:border-(--color-design)`}
-                  />
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="message" className={`text-sm ${subtle}`}>
-                    [ Message ]
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    required
-                    rows={4}
-                    value={formData.message}
-                    onChange={handleData}
-                    className={`w-full resize-none border bg-transparent p-3 outline-none transition-colors ${
-                      darkTheme ? "border-white/30" : "border-[#212529]/30"
-                    } focus:border-(--color-design)`}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="mt-2 flex w-full max-w-xs items-center justify-center bg-(--color-design) py-3 tracking-wide text-black transition-opacity hover:opacity-90 disabled:opacity-60"
-                >
-                  {loading ? (
-                    <Loader2Icon className="animate-spin" size={20} />
-                  ) : (
-                    "submit"
-                  )}
-                </button>
-              </form>
+              <ContactForm />
             </div>
 
             {/* Right — Social links */}
-            <div className="flex flex-col items-start gap-10 md:items-end md:text-right">
-              <p className={`text-lg ${subtle}`}>// Social Links</p>
+            <div className="flex w-full min-w-0 flex-col items-start gap-8 md:items-end md:gap-10 md:text-right">
+              <p className={`text-sm md:text-lg ${subtle}`}>// Social Links</p>
 
               {socialLinks.map((link) => (
                 <div
                   key={link.hint}
-                  className="flex flex-col gap-1 md:items-end"
+                  className="flex w-full min-w-0 flex-col gap-1 md:items-end"
                 >
-                  <span className={`text-sm ${subtle}`}>{link.hint}</span>
+                  <span className={`text-xs md:text-sm ${subtle}`}>{link.hint}</span>
                   <a
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-(--color-design) transition-opacity hover:opacity-70"
+                    className="break-all text-base text-(--color-design) transition-opacity hover:opacity-70 md:text-xl"
                   >
                     {link.label}
                   </a>

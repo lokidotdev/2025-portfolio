@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Check, Loader2Icon } from "lucide-react";
+import { Check } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useGlobalContext } from "@/context/globalContext";
 import ProximityText from "./ui/ProximityText";
-import HeroNavbar from "./HeroNavbar";
+import { StatefulButton, type ButtonStatus } from "./ui/stateful-button";
+import { themeTokens } from "@/lib/theme";
 
 const services: { id: string; title: string; blurb: string }[] = [
   {
@@ -34,20 +35,24 @@ const services: { id: string; title: string; blurb: string }[] = [
 
 export default function ServicesPage() {
   const { darkTheme } = useGlobalContext();
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<ButtonStatus>("idle");
   const [form, setForm] = useState({ name: "", email: "" });
   const [selected, setSelected] = useState<string[]>([]);
+  const resetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const text = darkTheme ? "text-white" : "text-[#212529]";
-  const subtle = darkTheme ? "text-white/60" : "text-[#212529]/60";
-  const border = darkTheme ? "border-white/15" : "border-[#212529]/15";
-  const inputBorder = darkTheme ? "border-white/30" : "border-[#212529]/30";
+  useEffect(() => {
+    return () => {
+      if (resetTimeoutRef.current) {
+        clearTimeout(resetTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const { text, subtle, border, inputBorder } = themeTokens(darkTheme);
 
   const toggleService = (title: string) => {
     setSelected((prev) =>
-      prev.includes(title)
-        ? prev.filter((s) => s !== title)
-        : [...prev, title]
+      prev.includes(title) ? prev.filter((s) => s !== title) : [...prev, title],
     );
   };
 
@@ -63,19 +68,20 @@ export default function ServicesPage() {
       return;
     }
 
-    setLoading(true);
+    setStatus("loading");
     try {
       await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/service-request`,
-        { ...form, services: selected }
+        { ...form, services: selected },
       );
       toast.success("request sent — I'll be in touch soon");
       setForm({ name: "", email: "" });
       setSelected([]);
+      setStatus("success");
+      resetTimeoutRef.current = setTimeout(() => setStatus("idle"), 2000);
     } catch {
       toast.error("some error occured");
-    } finally {
-      setLoading(false);
+      setStatus("idle");
     }
   }
 
@@ -85,21 +91,19 @@ export default function ServicesPage() {
         darkTheme ? "dark-theme-bg" : "light-theme-bg"
       } ${text} min-h-screen w-full`}
     >
-      <HeroNavbar />
-
-      <div className="mx-auto w-full max-w-400 px-6 py-24 md:px-16 md:py-32">
+      <div className="mx-auto w-full max-w-7xl px-6 py-24 md:px-16 md:py-32">
         {/* Header */}
         <div className="mb-16 md:mb-24">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className={`mb-6 text-lg ${subtle}`}
+            className={`mb-3 text-sm md:mb-6 md:text-lg ${subtle}`}
           >
             // What I can build for you
           </motion.p>
 
-          <h1 className="hero-heading w-full italic text-6xl font-thin tracking-[-0.04em] leading-[100%] md:text-[8vw]">
+          <h1 className="hero-heading w-full italic text-5xl font-thin tracking-[-0.04em] leading-[100%] md:text-[8vw]">
             <ProximityText
               text="SERVICES"
               maxDistance={200}
@@ -110,7 +114,9 @@ export default function ServicesPage() {
         </div>
 
         {/* Services grid */}
-        <div className={`grid grid-cols-1 gap-px border-t ${border} md:grid-cols-2 lg:grid-cols-3`}>
+        <div
+          className={`grid grid-cols-1 gap-px border-t ${border} md:grid-cols-2 lg:grid-cols-3`}
+        >
           {services.map((s, index) => (
             <motion.div
               key={s.id}
@@ -120,31 +126,44 @@ export default function ServicesPage() {
               transition={{ duration: 0.4, delay: index * 0.06 }}
               className={`flex flex-col gap-4 border-t ${border} py-10 md:pr-10`}
             >
-              <span className={`text-sm ${subtle}`}>
+              <span className={`text-xs md:text-sm ${subtle}`}>
                 {(index + 1).toString().padStart(2, "0")}
               </span>
-              <span className="text-2xl font-thin leading-[110%] tracking-[-0.02em] md:text-3xl">
+              <span className="text-xl font-thin leading-[110%] tracking-[-0.02em] md:text-3xl">
                 {s.title}
               </span>
-              <p className={`leading-[150%] ${subtle}`}>{s.blurb}</p>
+              <p className={`text-sm leading-[150%] md:text-base ${subtle}`}>
+                {s.blurb}
+              </p>
             </motion.div>
           ))}
         </div>
 
         {/* Request form */}
         <div className="mt-24 md:mt-32">
-          <div className={`relative border ${border} px-6 py-16 md:px-20 md:py-24`}>
-            <h2 className="mb-4 text-4xl font-thin leading-[100%] tracking-[-0.04em] md:text-6xl">
-              Start a project
+          <div className={`relative md:border-x ${border} md:px-20 md:py-24`}>
+            <div className="hidden md:block border-y absolute h-full w-8 left-0 top-0 md:w-16"></div>
+            <div className="hidden md:block border-y absolute h-full w-8 right-0 top-0 md:w-16"></div>
+
+            <h2 className="mb-4 text-4xl font-thin italic leading-[100%] tracking-[-0.04em] md:text-6xl">
+              <ProximityText
+                text="Start a project"
+                maxDistance={150}
+                minWeight={100}
+                maxWeight={700}
+              />
             </h2>
-            <p className={`mb-16 text-lg ${subtle}`}>
-              // Tell me who you are and what you need
+            <p className={`mb-10 text-sm md:mb-16 md:text-lg ${subtle}`}>
+              // what do you need
             </p>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-12">
               <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="name" className={`text-sm ${subtle}`}>
+                  <label
+                    htmlFor="name"
+                    className={`text-xs md:text-sm ${subtle}`}
+                  >
                     [ Name ]
                   </label>
                   <input
@@ -156,12 +175,15 @@ export default function ServicesPage() {
                     onChange={(e) =>
                       setForm((p) => ({ ...p, name: e.target.value }))
                     }
-                    className={`w-full border-b bg-transparent pb-2 outline-none transition-colors ${inputBorder} focus:border-(--color-design)`}
+                    className={`w-full border-b bg-transparent pb-2 text-base outline-none transition-colors md:text-lg ${inputBorder} focus:border-(--color-design)`}
                   />
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="email" className={`text-sm ${subtle}`}>
+                  <label
+                    htmlFor="email"
+                    className={`text-xs md:text-sm ${subtle}`}
+                  >
                     [ Email ]
                   </label>
                   <input
@@ -173,14 +195,14 @@ export default function ServicesPage() {
                     onChange={(e) =>
                       setForm((p) => ({ ...p, email: e.target.value }))
                     }
-                    className={`w-full border-b bg-transparent pb-2 outline-none transition-colors ${inputBorder} focus:border-(--color-design)`}
+                    className={`w-full border-b bg-transparent pb-2 text-base outline-none transition-colors md:text-lg ${inputBorder} focus:border-(--color-design)`}
                   />
                 </div>
               </div>
 
               {/* Services checkboxes */}
               <div className="flex flex-col gap-5">
-                <span className={`text-sm ${subtle}`}>
+                <span className={`text-xs md:text-sm ${subtle}`}>
                   [ Services ] — select all that apply
                 </span>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -211,11 +233,15 @@ export default function ServicesPage() {
                           }`}
                         >
                           {active && (
-                            <Check size={14} strokeWidth={3} className="text-black" />
+                            <Check
+                              size={14}
+                              strokeWidth={3}
+                              className="text-ink"
+                            />
                           )}
                         </span>
                         <span
-                          className={`leading-[120%] tracking-tight transition-colors ${
+                          className={`text-base leading-[120%] tracking-tight transition-colors md:text-lg ${
                             active ? "text-(--color-design)" : ""
                           }`}
                         >
@@ -227,17 +253,13 @@ export default function ServicesPage() {
                 </div>
               </div>
 
-              <button
+              <StatefulButton
                 type="submit"
-                disabled={loading}
-                className="flex w-full max-w-xs items-center justify-center bg-(--color-design) py-3 tracking-wide text-black transition-opacity hover:opacity-90 disabled:opacity-60"
+                status={status}
+                className="w-full font-semibold max-w-xs bg-brand-soft text-ink hover:opacity-90"
               >
-                {loading ? (
-                  <Loader2Icon className="animate-spin" size={20} />
-                ) : (
-                  "send request"
-                )}
-              </button>
+                {status === "success" ? "request sent" : "send request"}
+              </StatefulButton>
             </form>
           </div>
         </div>

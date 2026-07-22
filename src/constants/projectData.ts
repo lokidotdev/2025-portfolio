@@ -8,7 +8,6 @@ export const projectsList: Project[] = [
   {
     name: "FOTF",
     link: "https://fotf-frontend.vercel.app",
-    mobileImage: "images/fotf-600.jpg",
     desktopImage: "images/fotf.png",
     points: [
       "Developed a fully responsive animated website with smooth transitions and micro-interactions.",
@@ -22,7 +21,6 @@ export const projectsList: Project[] = [
   {
     name: "Muse Ink",
     link: "https://museink.zero1studio.xyz/",
-    mobileImage: "images/fotf-600.jpg",
     desktopImage: "images/museink.png",
     points: [
       "Built a client-facing animated website for a creative studio with custom scroll-triggered animations.",
@@ -36,7 +34,6 @@ export const projectsList: Project[] = [
   {
     name: "Montreal",
     link: "https://montreal-clone.vercel.app/",
-    mobileImage: "images/montreal.png",
     desktopImage: "images/montreal.png",
     points: [
       "Recreated the award-winning Montreal agency website as a pixel-perfect clone to study high-end motion design.",
@@ -50,7 +47,6 @@ export const projectsList: Project[] = [
   {
     name: "Excellent Printing Press",
     link: "https://excellentpp.com/",
-    mobileImage: "images/montreal.png",
     desktopImage: "images/excellentpp.png",
     points: [
       "Built a full-stack ecommerce platform for a UAE printing & packaging company, covering gifts, merchandise, and food-service product lines.",
@@ -64,7 +60,6 @@ export const projectsList: Project[] = [
   {
     name: "Homie",
     link: "https://homie.zero1studio.xyz",
-    mobileImage: "images/galaxy.png",
     desktopImage: "images/homie.png",
     points: [
       "Concept animated landing page for a real estate platform, built as a mockup project.",
@@ -78,7 +73,6 @@ export const projectsList: Project[] = [
   {
     name: "Galaxy Generator",
     link: "https://galaxy-generator-eta.vercel.app/",
-    mobileImage: "images/galaxy.png",
     desktopImage: "images/galaxy.png",
     points: [
       "A dynamic 3D galaxy generator built with Three.js using millions of particles.",
@@ -92,7 +86,6 @@ export const projectsList: Project[] = [
   {
     name: "Zero1 studio",
     link: "https://zero1studio.xyz/",
-    mobileImage: "images/promptboard-600.png",
     desktopImage: "images/zero1.png",
     points: [
       "Designed and developed the official website for Zero1 Studio, a creative development studio.",
@@ -104,9 +97,8 @@ export const projectsList: Project[] = [
     pages: ["home", "projects"],
   },
   {
-    name: "Prompt board",
-    link: "https://promptboard.zero1studio.xyz/",
-    mobileImage: "images/promptboard-600.png",
+    name: "Promptography",
+    link: "https://promptography.zero1studio.xyz/",
     desktopImage: "images/promptboard.png",
     points: [
       "Discover and share AI prompts with vector search, Redis caching, and database replicas for performance",
@@ -120,7 +112,6 @@ export const projectsList: Project[] = [
   {
     name: "ChessBlitz",
     link: "https://chessblitz.lok1.dev/",
-    mobileImage: "images/chess-600.jpg",
     desktopImage: "images/chess.png",
     points: [
       "Real-time multiplayer chess with random matchmaking, friend games, and live spectating",
@@ -131,9 +122,21 @@ export const projectsList: Project[] = [
     pages: ["home", "projects"],
   },
   {
+    name: "OpenBG",
+    link: "https://openbg.lok1.dev/",
+    desktopImage: "images/openbg.png",
+    points: [
+      "A free and open source tool to remove backgrounds from images.",
+      "Runs background removal entirely in the browser, so images never leave the user's device.",
+      "Clean, minimal interface with instant preview and one-click download.",
+      "Tech - Next.js, TypeScript, Tailwind CSS",
+    ],
+    category: "frontend",
+    pages: ["projects"],
+  },
+  {
     name: "PixelflowUI",
     link: "https://pixelflowui.lok1.dev/",
-    mobileImage: "images/pixelflowui-600.png",
     desktopImage: "images/pixelflowui.png",
     points: [
       "A collection of responsive animated UI components for web applications.",
