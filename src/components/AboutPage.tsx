@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "motion/react";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { useGlobalContext } from "@/context/globalContext";
 import ProximityText from "./ui/ProximityText";
@@ -101,14 +102,14 @@ export default function AboutPage() {
       <div className="mx-auto w-full max-w-7xl px-5 py-24 sm:px-6 md:px-16 md:py-32">
         {/* Header */}
         <div className="mb-12 md:mb-24">
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className={`mb-3 text-sm md:mb-6 md:text-lg ${subtle}`}
           >
             // The person behind the pixels
-          </motion.p>
+          </m.p>
 
           <h1 className="hero-heading w-full italic text-5xl font-thin tracking-[-0.04em] leading-[100%] md:text-[8vw]">
             <ProximityText
@@ -122,7 +123,7 @@ export default function AboutPage() {
 
         {/* Intro — portrait + copy */}
         <div className={`block after:table after:clear-both border-t ${border} pt-10 md:grid md:grid-cols-[1fr_2fr] md:gap-16 md:pt-12`}>
-          <motion.img
+          <m.img
             src="/images/portfolio-sq.png"
             alt="Lokesh Yadav"
             initial={{ opacity: 0, y: 30 }}
@@ -131,7 +132,7 @@ export default function AboutPage() {
             className="float-left mr-4 mb-2 h-20 w-20 max-w-full shrink-0 object-contain md:float-none md:mr-0 md:mb-0 md:h-72 md:w-72"
           />
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -148,15 +149,15 @@ export default function AboutPage() {
                 </span>
               {/* </MagneticButton> */}
 
-              <a
+              <Link
                 href="/connect"
                 className="inline-flex items-center gap-1 leading-[110%] tracking-tight transition-colors hover:text-(--color-design)"
               >
                 [ GET IN TOUCH 
                 <ArrowUpRight size={20} strokeWidth={1.5} /> ]
-              </a>
+              </Link>
             </div>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Stack */}
@@ -170,7 +171,7 @@ export default function AboutPage() {
               const extraItems = group.items.slice(STACK_PREVIEW_COUNT);
 
               return (
-                <motion.div
+                <m.div
                   key={group.label}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -203,7 +204,7 @@ export default function AboutPage() {
                     <div className="md:hidden">
                       <AnimatePresence initial={false}>
                         {expanded && (
-                          <motion.ul
+                          <m.ul
                             key="extra"
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
@@ -216,7 +217,7 @@ export default function AboutPage() {
                                 {item}
                               </li>
                             ))}
-                          </motion.ul>
+                          </m.ul>
                         )}
                       </AnimatePresence>
 
@@ -226,28 +227,28 @@ export default function AboutPage() {
                         className={`mt-4 flex items-center gap-2 text-xs tracking-wide md:text-sm ${subtle} transition-colors hover:text-(--color-design)`}
                       >
                         {expanded ? "show less" : "show more"}
-                        <motion.span
+                        <m.span
                           animate={{ rotate: expanded ? 180 : 0 }}
                           transition={{ duration: 0.3, ease: "easeInOut" }}
                           className="flex"
                         >
                           <ChevronDown size={14} />
-                        </motion.span>
+                        </m.span>
                       </button>
                     </div>
                   )}
-                </motion.div>
+                </m.div>
               );
             })}
           </div>
         </div>
 
         {/* Principles */}
-        <div className="mt-20 md:mt-32">
+        {/* <div className="mt-20 md:mt-32">
           <p className={`mb-8 text-sm md:mb-10 md:text-lg ${subtle}`}>// How I work</p>
           <div className={`border-b ${border}`}>
             {principles.map((p, index) => (
-              <motion.div
+              <m.div
                 key={p.n}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -264,10 +265,10 @@ export default function AboutPage() {
                 <p className={`max-w-2xl text-sm leading-[150%] md:text-base ${subtle}`}>
                   {p.body}
                 </p>
-              </motion.div>
+              </m.div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

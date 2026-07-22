@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { getFrequency, getTranslateX } from "../lib/helper";
 
@@ -42,7 +43,7 @@ const ProjectCard = ({
             <div className="absolute top-0 left-0 w-full h-full z-20 flex items-end justify-center">
               <div
                 className={`bg-linear-to-b from-transparent to-45% to-ink
-                w-full flex flex-col gap-2 md:gap-3 group-hover:opacity-100 translate-y-full group-hover:translate-y-0 opacity-0 transition-all duration-500 group-hover:ease-out ease-in p-5 md:p-8`}
+                w-full flex flex-col gap-2 md:gap-3 group-hover:opacity-100 translate-y-full group-hover:translate-y-0 opacity-0 transition-[opacity,transform] duration-500 ease-out p-5 md:p-8`}
               >
                 {/* <div className="text-(--color-design) text-[8px] md:text-xs font-semibold tracking-[0.15em] uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
                   [ SELECTED WORK ]
@@ -55,7 +56,7 @@ const ProjectCard = ({
                 <div className={`text-on-dark/70 text-xs md:text-base font-light tracking-tight space-y-1.5 md:space-y-2`}>
                   {data.points.map((point, i) => (
                     <div
-                      key={i}
+                      key={point}
                       className={`
                       ${i === data.points.length - 1
                           ? "text-(--color-design) w-fit tracking-[0.05em] uppercase text-[10px] md:text-sm"
@@ -70,9 +71,13 @@ const ProjectCard = ({
               </div>
             </div>
 
-            <img
+            <Image
               src={`/${data.desktopImage}`}
               alt={data.name}
+              width={800}
+              height={600}
+              sizes="(max-width: 768px) 400px, 800px"
+              priority={index === 0}
               className={`h-[300px] md:h-[600px] object-cover z-10 absolute w-[400px] md:w-[800px] scale-150 transition-transform duration-700 ease-out group-hover:scale-[1.6] project-img-${index + 1
                 }`}
             />

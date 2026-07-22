@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import Projectsv2 from "@/components/Projectsv2";
 import Loader from "@/components/Loader";
 import { useGlobalContext } from "@/context/globalContext";
@@ -18,14 +18,14 @@ export default function HomePage() {
     <>
       <AnimatePresence>
         {isLoading && (
-          <motion.div
+          <m.div
             className="fixed inset-0 z-300"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.65, 0, 0.35, 1] }}
           >
             <Loader onComplete={() => setIsLoading(false)} />
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 

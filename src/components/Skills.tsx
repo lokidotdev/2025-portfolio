@@ -3,7 +3,7 @@
 import { Suspense, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Html, OrbitControls } from "@react-three/drei";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import * as THREE from "three";
 import { useGlobalContext } from "@/context/globalContext";
 import ProximityText from "./ui/ProximityText";
@@ -148,7 +148,7 @@ export default function SkillsSection() {
       <div className="mx-auto w-full max-w-7xl px-6 py-24 md:px-16 md:py-32">
         {/* Header */}
         <div className="mb-8 md:mb-12">
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -156,8 +156,8 @@ export default function SkillsSection() {
             className={`mb-3 text-sm md:mb-6 md:text-lg ${subtle}`}
           >
             // Tools I build with
-          </motion.p>
-          <motion.h2
+          </m.p>
+          <m.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -170,7 +170,7 @@ export default function SkillsSection() {
               minWeight={100}
               maxWeight={700}
             />
-          </motion.h2>
+          </m.h2>
         </div>
 
         {/* 3D wireframe sphere */}

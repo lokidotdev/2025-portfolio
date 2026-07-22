@@ -238,11 +238,11 @@ function Projectsv2() {
 
         <div
           ref={projectSectionRef}
-          className="projects-container flex md:flex-col items-center justify-center min-h-screen z-20 p-12 font-mono"
+          className="projects-container flex md:flex-col items-center justify-center min-h-dvh z-20 p-12 font-mono"
         >
           {projectsList?.map((data, index) => (
             <ProjectCard
-              key={index}
+              key={data.name}
               data={data}
               darkTheme={darkTheme}
               index={index}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { Users, FolderGit2 } from "lucide-react";
 
 type Platform = "github" | "linkedin" | "twitter";
@@ -226,7 +226,7 @@ interface SocialHoverCardProps {
 
 const SocialHoverCard = ({ platform, darkTheme, children }: SocialHoverCardProps) => {
   const [open, setOpen] = useState(false);
-  const [data, setData] = useState<SocialData | null>(cache.get(platform) ?? null);
+  const [data, setData] = useState<SocialData | null>(() => cache.get(platform) ?? null);
   const [loading, setLoading] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -238,6 +238,7 @@ const SocialHoverCard = ({ platform, darkTheme, children }: SocialHoverCardProps
     setLoading(true);
     try {
       const res = await fetch(`/api/social?platform=${platform}`);
+      if (!res.ok) throw new Error(`social lookup failed: ${res.status}`);
       const json = (await res.json()) as SocialData;
       cache.set(platform, json);
       setData(json);
@@ -272,7 +273,7 @@ const SocialHoverCard = ({ platform, darkTheme, children }: SocialHoverCardProps
       {children}
       <AnimatePresence>
         {showCard && (
-          <motion.div
+          <m.div
             variants={cardVariants}
             initial="hidden"
             animate="show"
@@ -292,7 +293,7 @@ const SocialHoverCard = ({ platform, darkTheme, children }: SocialHoverCardProps
             ) : (
               <PreviewCard data={data} darkTheme={darkTheme} />
             )}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion, useAnimate } from "motion/react";
+import { m, useAnimate } from "motion/react";
 import { useEffect } from "react";
 
 export type ButtonStatus = "idle" | "loading" | "success";
@@ -28,21 +28,23 @@ export function StatefulButton({
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
+    // scale/opacity composite on the GPU; `display` still removes the icon
+    // from layout, and the parent's `layout` prop FLIPs the width change.
     if (status === "loading") {
-      animate(".loader", { width: "20px", scale: 1, display: "block" }, { duration: 0.2 });
+      animate(".loader", { scale: 1, opacity: 1, display: "block" }, { duration: 0.2 });
     } else {
-      animate(".loader", { width: "0px", scale: 0, display: "none" }, { duration: 0.2 });
+      animate(".loader", { scale: 0.6, opacity: 0, display: "none" }, { duration: 0.2 });
     }
 
     if (status === "success") {
-      animate(".check", { width: "20px", scale: 1, display: "block" }, { duration: 0.2 });
+      animate(".check", { scale: 1, opacity: 1, display: "block" }, { duration: 0.2 });
     } else {
-      animate(".check", { width: "0px", scale: 0, display: "none" }, { duration: 0.2 });
+      animate(".check", { scale: 0.6, opacity: 0, display: "none" }, { duration: 0.2 });
     }
   }, [status, animate]);
 
   return (
-    <motion.button
+    <m.button
       ref={scope}
       whileTap={{ scale: 0.95 }}
       whileHover={{ scale: 1.02 }}
@@ -53,20 +55,20 @@ export function StatefulButton({
       )}
       {...props}
     >
-      <motion.div layout className="flex items-center gap-2">
+      <m.div layout className="flex items-center gap-2">
         <Loader />
         <Check />
-        <motion.span layout>{children}</motion.span>
-      </motion.div>
-    </motion.button>
+        <m.span layout>{children}</m.span>
+      </m.div>
+    </m.button>
   );
 }
 
 const Loader = () => (
-  <motion.svg
+  <m.svg
     animate={{ rotate: [0, 360] }}
-    initial={{ scale: 0, width: 0, display: "none" }}
-    style={{ scale: 0.5, display: "none" }}
+    initial={{ scale: 0.6, opacity: 0, display: "none" }}
+    style={{ display: "none" }}
     transition={{ duration: 0.6, repeat: Infinity, ease: "linear" }}
     xmlns="http://www.w3.org/2000/svg"
     width="20"
@@ -80,13 +82,13 @@ const Loader = () => (
     className="loader"
   >
     <path d="M12 3a9 9 0 1 0 9 9" />
-  </motion.svg>
+  </m.svg>
 );
 
 const Check = () => (
-  <motion.svg
-    initial={{ scale: 0, width: 0, display: "none" }}
-    style={{ scale: 0.5, display: "none" }}
+  <m.svg
+    initial={{ scale: 0.6, opacity: 0, display: "none" }}
+    style={{ display: "none" }}
     xmlns="http://www.w3.org/2000/svg"
     width="20"
     height="20"
@@ -100,5 +102,5 @@ const Check = () => (
   >
     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
     <path d="M5 12l5 5l10 -10" />
-  </motion.svg>
+  </m.svg>
 );

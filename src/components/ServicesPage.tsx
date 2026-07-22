@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "motion/react";
 import { Check } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -59,6 +59,9 @@ export default function ServicesPage() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    // an in-flight submit stays interactive across the await; refuse re-entry
+    if (status !== "idle") return;
+
     if (!form.name || !form.email) {
       toast.error("please fill your name and email");
       return;
@@ -94,14 +97,14 @@ export default function ServicesPage() {
       <div className="mx-auto w-full max-w-7xl px-6 py-24 md:px-16 md:py-32">
         {/* Header */}
         <div className="mb-16 md:mb-24">
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className={`mb-3 text-sm md:mb-6 md:text-lg ${subtle}`}
           >
             // What I can build for you
-          </motion.p>
+          </m.p>
 
           <h1 className="hero-heading w-full italic text-5xl font-thin tracking-[-0.04em] leading-[100%] md:text-[8vw]">
             <ProximityText
@@ -115,10 +118,10 @@ export default function ServicesPage() {
 
         {/* Services grid */}
         <div
-          className={`grid grid-cols-1 gap-px border-t ${border} md:grid-cols-2 lg:grid-cols-3`}
+          className={`grid grid-cols-1 gap-px border-t ${border} md:grid-cols-2`}
         >
           {services.map((s, index) => (
-            <motion.div
+            <m.div
               key={s.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -126,16 +129,16 @@ export default function ServicesPage() {
               transition={{ duration: 0.4, delay: index * 0.06 }}
               className={`flex flex-col gap-4 border-t ${border} py-10 md:pr-10`}
             >
-              <span className={`text-xs md:text-sm ${subtle}`}>
+              {/* <span className={`text-xs md:text-sm ${subtle}`}>
                 {(index + 1).toString().padStart(2, "0")}
-              </span>
-              <span className="text-xl font-thin leading-[110%] tracking-[-0.02em] md:text-3xl">
+              </span> */}
+              <span className="text-xl font-normal leading-[110%] tracking-[-0.02em] md:text-3xl">
                 {s.title}
               </span>
               <p className={`text-sm leading-[150%] md:text-base ${subtle}`}>
                 {s.blurb}
               </p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 

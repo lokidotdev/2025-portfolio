@@ -42,6 +42,9 @@ export default function ContactForm() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    // an in-flight submit stays interactive across the await; refuse re-entry
+    if (status !== "idle") return;
+
     const parsed = contactSchema.safeParse(formData);
     if (!parsed.success) {
       const fieldErrors: Partial<Record<keyof ContactInput, string>> = {};

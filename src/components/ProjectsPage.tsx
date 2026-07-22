@@ -3,10 +3,11 @@
 import { useMemo, useState } from "react";
 import {
   AnimatePresence,
-  motion,
+  m,
   useMotionValue,
   useSpring,
-} from "framer-motion";
+} from "motion/react";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { getProjectsForPage } from "@/constants/projectData";
 import type { Project, ProjectCategory } from "@/types/project";
@@ -15,6 +16,8 @@ import ProximityText from "./ui/ProximityText";
 import { themeTokens } from "@/lib/theme";
 
 type Filter = "all" | ProjectCategory;
+
+const springConfig = { stiffness: 260, damping: 30, mass: 0.5 };
 
 const tabs: { label: string; value: Filter }[] = [
   { label: "All", value: "all" },
@@ -40,14 +43,14 @@ const Row = ({
   const { subtle, border } = themeTokens(darkTheme);
 
   return (
-    <motion.a
+    <m.a
       href={project.link}
       target="_blank"
       rel="noopener noreferrer"
       layout
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -12, transition: { duration: 0.15, ease: "easeIn" } }}
+      exit={{ opacity: 0, y: -12, transition: { duration: 0.15, ease: "easeOut" } }}
       transition={{
         type: "spring",
         stiffness: 500,
@@ -74,22 +77,22 @@ const Row = ({
 
       {/* Right — image + one-liner on mobile, points on desktop */}
       <div className="flex flex-col gap-3 md:hidden">
-        <div className="aspect-video w-full overflow-hidden rounded-lg">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+        <div className="relative aspect-video w-full overflow-hidden rounded-lg">
+          <Image
             src={`/${project.desktopImage}`}
             alt={project.name}
-            loading="lazy"
-            className="h-full w-full object-cover"
+            fill
+            sizes="100vw"
+            className="object-cover"
           />
         </div>
         <p className={`text-sm leading-[140%] md:text-base ${subtle}`}>{project.points[0]}</p>
       </div>
 
       <ul className="hidden flex-col gap-2 md:flex">
-        {project.points.map((point, idx) => (
+        {project.points.map((point) => (
           <li
-            key={idx}
+            key={point}
             className={`flex gap-3 text-sm leading-[140%] md:text-base ${subtle}`}
           >
             <span className="text-(--color-design)">/</span>
@@ -97,7 +100,7 @@ const Row = ({
           </li>
         ))}
       </ul>
-    </motion.a>
+    </m.a>
   );
 };
 
@@ -109,7 +112,6 @@ export default function ProjectsPageClient() {
   // Raw cursor position, smoothed with a spring so the image trails the cursor.
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
-  const springConfig = { stiffness: 260, damping: 30, mass: 0.5 };
   const imageX = useSpring(cursorX, springConfig);
   const imageY = useSpring(cursorY, springConfig);
 
@@ -139,7 +141,7 @@ export default function ProjectsPageClient() {
       {/* Cursor-following project preview */}
       <AnimatePresence>
         {hovered && (
-          <motion.div
+          <m.div
             key={hovered.name}
             style={{
               left: imageX,
@@ -153,28 +155,29 @@ export default function ProjectsPageClient() {
             transition={{ duration: 0.25, ease: "easeOut" }}
             className="pointer-events-none fixed z-50 hidden aspect-video w-[24rem] overflow-hidden rounded-xl shadow-2xl md:block"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={`/${hovered.desktopImage}`}
               alt={hovered.name}
-              className="h-full w-full object-cover"
+              fill
+              sizes="24rem"
+              className="object-cover"
             />
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
       <div className="mx-auto w-full max-w-7xl px-5 py-24 sm:px-6 md:px-16 md:py-32">
         {/* Header */}
         <div className="mb-12 md:mb-20">
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className={`mb-3 text-sm md:mb-6 md:text-lg ${subtle}`}
           >
             // Selected work
-          </motion.p>
-          <motion.h1
+          </m.p>
+          <m.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -186,7 +189,7 @@ export default function ProjectsPageClient() {
               minWeight={100}
               maxWeight={700}
             />
-          </motion.h1>
+          </m.h1>
         </div>
 
         {/* Tabs */}
@@ -196,6 +199,7 @@ export default function ProjectsPageClient() {
             return (
               <button
                 key={tab.value}
+                type="button"
                 onClick={() => setFilter(tab.value)}
                 className={`flex items-center gap-1 tracking-wide transition-colors ${
                   active
@@ -206,7 +210,7 @@ export default function ProjectsPageClient() {
                 <span className="relative inline-flex h-[1em] w-[0.6em] items-center justify-center align-middle">
                   <AnimatePresence>
                     {active && (
-                      <motion.span
+                      <m.span
                         layoutId="tab-bracket-left"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -215,7 +219,7 @@ export default function ProjectsPageClient() {
                         className="absolute inset-0 flex items-center justify-center"
                       >
                         [
-                      </motion.span>
+                      </m.span>
                     )}
                   </AnimatePresence>
                 </span>
@@ -223,7 +227,7 @@ export default function ProjectsPageClient() {
                 <span className="relative inline-flex h-[1em] w-[0.6em] items-center justify-center align-middle">
                   <AnimatePresence>
                     {active && (
-                      <motion.span
+                      <m.span
                         layoutId="tab-bracket-right"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -232,7 +236,7 @@ export default function ProjectsPageClient() {
                         className="absolute inset-0 flex items-center justify-center"
                       >
                         ]
-                      </motion.span>
+                      </m.span>
                     )}
                   </AnimatePresence>
                 </span>
@@ -245,7 +249,7 @@ export default function ProjectsPageClient() {
         </div>
 
         {/* List */}
-        <motion.div layout className={`border-b ${border}`}>
+        <m.div layout className={`border-b ${border}`}>
           <AnimatePresence mode="popLayout">
             {filtered.map((project, index) => (
               <Row
@@ -259,7 +263,7 @@ export default function ProjectsPageClient() {
               />
             ))}
           </AnimatePresence>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );

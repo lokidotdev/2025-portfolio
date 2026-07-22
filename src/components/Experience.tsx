@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "motion/react";
 import { useGlobalContext } from "@/context/globalContext";
 import ProximityText from "./ui/ProximityText";
 import { themeTokens } from "@/lib/theme";
@@ -96,7 +96,7 @@ const Row = ({
   const { subtle, border } = themeTokens(darkTheme);
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
@@ -120,7 +120,7 @@ const Row = ({
         <ul className="flex flex-col gap-2">
           {item.description.map((point, idx) => (
             <li
-              key={idx}
+              key={point}
               className={`gap-3 text-sm leading-[140%] md:text-base ${subtle} ${
                 idx < 2 ? "flex" : "hidden md:flex"
               }`}
@@ -142,7 +142,7 @@ const Row = ({
           ))}
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 
@@ -160,7 +160,7 @@ export default function ExperienceSection() {
       <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-16 md:py-32">
         {/* Header */}
         <div className="mb-10 md:mb-24">
-          <motion.p
+          <m.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -168,8 +168,8 @@ export default function ExperienceSection() {
             className={`mb-3 text-sm md:mb-6 md:text-lg ${subtle}`}
           >
             // Where I&apos;ve worked
-          </motion.p>
-          <motion.h2
+          </m.p>
+          <m.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -182,7 +182,7 @@ export default function ExperienceSection() {
               minWeight={100}
               maxWeight={700}
             />
-          </motion.h2>
+          </m.h2>
         </div>
 
         {/* List */}

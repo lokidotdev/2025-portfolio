@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useMotionValue, useSpring } from "motion/react";
+import { m, useMotionValue, useSpring } from "motion/react";
+
+const springConfig = { stiffness: 260, damping: 18, mass: 0.6 };
 
 interface MagneticButtonProps {
   children: React.ReactNode;
@@ -24,7 +26,6 @@ const MagneticButton = ({
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const springConfig = { stiffness: 260, damping: 18, mass: 0.6 };
   const springX = useSpring(x, springConfig);
   const springY = useSpring(y, springConfig);
 
@@ -44,7 +45,7 @@ const MagneticButton = ({
   };
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       onMouseMove={handleMove}
       onMouseLeave={reset}
@@ -53,7 +54,7 @@ const MagneticButton = ({
       className={`inline-flex will-change-transform ${className}`}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 };
 

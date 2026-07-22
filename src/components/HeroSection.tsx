@@ -8,7 +8,7 @@ import ProximityText from "./ui/ProximityText";
 import Typewriter from "./ui/Typewriter";
 import MagneticButton from "./ui/MagneticButton";
 import SocialHoverCard from "./SocialHoverCard";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 
 type Platform = "github" | "twitter";
 
@@ -49,7 +49,7 @@ const HeroSection = () => {
       className={`${bg} ${text} transition-colors flex min-h-screen w-full flex-col max-h-[678px] md:max-h-[1036px]`}
     >
       <main className="mx-auto p-4 md:p-20 flex w-full max-w-7xl flex-1 flex-col justify-center items-center gap-12 md:gap-20">
-        <motion.h1
+        <m.h1
           initial={{ opacity: 0, scale: 0.9, backdropFilter: "blur(2px)" }}
           animate={
             !isLoading && {
@@ -67,11 +67,11 @@ const HeroSection = () => {
             minWeight={100}
             maxWeight={700}
           />
-        </motion.h1>
+        </m.h1>
 
         <div className="flex flex-col gap-4 md:hidden items-center justify-start w-full">
           <div className="flex gap-4 items-center w-full">
-            <motion.img
+            <m.img
               initial={{ opacity: 0, scale: 0.9, backdropFilter: "blur(2px)" }}
               animate={
                 !isLoading && {
@@ -100,7 +100,7 @@ const HeroSection = () => {
         </div>
 
         <div className=" flex w-full mx-auto max-w-2xl items-center gap-4 md:justify-center md:gap-14">
-          <motion.img
+          <m.img
             initial={{ opacity: 0, scale: 0.9, backdropFilter: "blur(2px)" }}
             animate={
               !isLoading && {
@@ -128,7 +128,7 @@ const HeroSection = () => {
             <ul className="flex flex-col gap-1.5 text-sm md:text-lg leading-[110%] tracking-tight overflow-hidden">
               <li>
                 //{" "}
-                <motion.span
+                <m.span
                   className="inline-block"
                   initial={{
                     x: "-100%",
@@ -142,11 +142,11 @@ const HeroSection = () => {
                   }
                 >
                   FRONTEND
-                </motion.span>
+                </m.span>
               </li>
               <li>
                 //{" "}
-                <motion.span
+                <m.span
                   className="inline-block"
                   initial={{
                     x: "-100%",
@@ -160,11 +160,11 @@ const HeroSection = () => {
                   }
                 >
                   BACKEND
-                </motion.span>
+                </m.span>
               </li>
               <li>
                 //{" "}
-                <motion.span
+                <m.span
                   className="inline-block"
                   initial={{
                     x: "-100%",
@@ -178,7 +178,7 @@ const HeroSection = () => {
                   }
                 >
                   DESIGN
-                </motion.span>
+                </m.span>
               </li>
             </ul>
           </div>
@@ -190,7 +190,7 @@ const HeroSection = () => {
             href="/connect"
             className="leading-[110%] tracking-tight text-(--color-design) text-left cursor-pointer whitespace-nowrap overflow-hidden">
               [{" "}
-              <motion.span
+              <m.span
                 initial={{
                   width: "0%",
                   opacity: 0,
@@ -209,7 +209,7 @@ const HeroSection = () => {
                 className="inline-block"
               >
                 AVAILABLE FOR WORK
-              </motion.span>{" "}
+              </m.span>{" "}
               ]
             </a>
           </MagneticButton>
@@ -225,7 +225,7 @@ const HeroSection = () => {
                   aria-label={link.label}
                   className="inline-flex transition-transform duration-200 ease-out hover:scale-110 hover:text-(--color-design) active:scale-95"
                 >
-                  <motion.span
+                  <m.span
                     initial={{
                       opacity: 0,
                       scale: 0.9,
@@ -241,7 +241,7 @@ const HeroSection = () => {
                     className="span"
                   >
                     {link.icon}
-                  </motion.span>
+                  </m.span>
                 </Link>
               );
 
@@ -260,6 +260,7 @@ const HeroSection = () => {
           </div>
 
           <button
+            type="button"
             onClick={() => {
               document
                 .getElementById("projects")
@@ -268,7 +269,7 @@ const HeroSection = () => {
             className="leading-[110%] transition-colors duration-200 ease-out hover:text-(--color-design) whitespace-nowrap overflow-hidden text-left md:text-right"
           >
             [{" "}
-            <motion.span
+            <m.span
               initial={{
                 width: "0%",
                 opacity: 0,
@@ -287,7 +288,7 @@ const HeroSection = () => {
               className="inline-block "
             >
               RECENT PROJECTS
-            </motion.span>{" "}
+            </m.span>{" "}
             ]
           </button>
         </div>

@@ -1,9 +1,10 @@
 "use client";
 
 import { ArrowUpRight, Menu, Moon, Sun, X } from "lucide-react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { useGlobalContext } from "@/context/globalContext";
 import { themeTokens } from "@/lib/theme";
 
@@ -38,7 +39,7 @@ const HeroNavbar = () => {
           className="relative h-5 w-5 justify-self-start md:hidden"
         >
           <AnimatePresence initial={false} mode="wait">
-            <motion.span
+            <m.span
               key={isOpen ? "close" : "open"}
               initial={{ opacity: 0, rotate: -90 }}
               animate={{ opacity: 1, rotate: 0 }}
@@ -51,41 +52,11 @@ const HeroNavbar = () => {
               ) : (
                 <Menu size={20} strokeWidth={1.75} />
               )}
-            </motion.span>
+            </m.span>
           </AnimatePresence>
         </button>
 
-        <a href="/" className="hidden text-[15px] md:block">
-          Lokesh
-        </a>
-
-        <nav className="col-start-2 hidden items-center justify-self-center gap-9 text-[15px] md:flex">
-          {navLinks.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <a
-                key={item.label}
-                href={item.href}
-                aria-current={isActive ? "page" : undefined}
-                className={`group whitespace-nowrap ${
-                  darkTheme ? "" : "mix-blend-darken"
-                }`}
-              >
-                <span className="transition-all group-hover:font-black group-hover:text-brand">
-                  {"{"}
-                </span>
-                <span className={isActive ? "text-brand" : ""}>
-                  {` ${item.label} `}
-                </span>
-                <span className="transition-all group-hover:font-black group-hover:text-brand ">
-                  {"}"}
-                </span>
-              </a>
-            );
-          })}
-        </nav>
-
-        <div className="flex items-center gap-4 justify-self-end">
+        <div className="hidden gap-4 md:flex items-center">
           <button
             type="button"
             onClick={() => setDarkTheme((prev) => !prev)}
@@ -97,7 +68,7 @@ const HeroNavbar = () => {
             className="relative h-5 w-5 cursor-pointer hover:text-brand"
           >
             <AnimatePresence initial={false} mode="wait">
-              <motion.span
+              <m.span
                 key={darkTheme ? "sun" : "moon"}
                 initial={{ opacity: 0, rotate: -90 }}
                 animate={{ opacity: 1, rotate: 0 }}
@@ -110,10 +81,41 @@ const HeroNavbar = () => {
                 ) : (
                   <Moon size={20} strokeWidth={1.75} />
                 )}
-              </motion.span>
+              </m.span>
             </AnimatePresence>
           </button>
+          <Link href="/" className="text-[15px]">
+            Lokesh
+          </Link>
+        </div>
 
+        <nav className="col-start-2 hidden items-center justify-self-center gap-9 text-[15px] md:flex">
+          {navLinks.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                aria-current={isActive ? "page" : undefined}
+                className={`group whitespace-nowrap ${
+                  darkTheme ? "" : "mix-blend-darken"
+                }`}
+              >
+                <span className="transition-colors group-hover:font-black group-hover:text-brand">
+                  {"{"}
+                </span>
+                <span className={isActive ? "text-brand" : ""}>
+                  {` ${item.label} `}
+                </span>
+                <span className="transition-colors group-hover:font-black group-hover:text-brand ">
+                  {"}"}
+                </span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className="flex items-center gap-4 justify-self-end">
           <a
             href="https://cal.com/zero1studio"
             target="_blank"
@@ -136,7 +138,7 @@ const HeroNavbar = () => {
 
       <AnimatePresence initial={false}>
         {isOpen && (
-          <motion.nav
+          <m.nav
             key="mobile-nav"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
@@ -145,7 +147,7 @@ const HeroNavbar = () => {
             className={`overflow-hidden border-t ${border} text-[15px] md:hidden`}
           >
             <div className="flex flex-col gap-4 px-4 pb-6 pt-4">
-              <motion.a
+              <m.a
                 href={"/"}
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -153,11 +155,11 @@ const HeroNavbar = () => {
                 className={pathname === "/" ? "text-brand" : ""}
               >
                 {`{ Home }`}
-              </motion.a>
+              </m.a>
               {navLinks.map((item, index) => {
                 const isActive = pathname === item.href;
                 return (
-                  <motion.a
+                  <m.a
                     key={item.label}
                     href={item.href}
                     aria-current={isActive ? "page" : undefined}
@@ -168,11 +170,11 @@ const HeroNavbar = () => {
                     className={isActive ? "text-brand" : ""}
                   >
                     {`{ ${item.label} }`}
-                  </motion.a>
+                  </m.a>
                 );
               })}
             </div>
-          </motion.nav>
+          </m.nav>
         )}
       </AnimatePresence>
     </header>

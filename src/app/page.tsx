@@ -1,3 +1,4 @@
+import Link from "next/link";
 import HomePageClient from "@/components/home-page-client";
 import { siteConfig } from "@/lib/site";
 
@@ -45,13 +46,13 @@ function SeoContent() {
       <h2>Projects</h2>
       <p>
         Explore web projects, client work, and experimental builds by Lokesh
-        Yadav on the <a href="/projects">projects page</a>.
+        Yadav on the <Link href="/projects">projects page</Link>.
       </p>
 
       <h2>Contact Lokesh Yadav</h2>
       <p>
         Get in touch with Lokesh Yadav through the{" "}
-        <a href="/connect">connect page</a>, or find him online:
+        <Link href="/connect">connect page</Link>, or find him online:
       </p>
       <ul>
         <li>
