@@ -73,7 +73,10 @@ export default function RootLayout({
       <body className="min-h-full antialiased">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            // Escape `<` so a value can never close the script tag early.
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
         />
         <Providers>{children}</Providers>
         <Script defer src="https://silentpulse.vercel.app/script.js" data-website-id="46509111-a743-4792-95ab-a43b1d451b61"></Script>

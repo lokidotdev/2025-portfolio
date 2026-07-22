@@ -7,8 +7,8 @@ import { useGlobalContext } from "@/context/globalContext";
 import { gsap } from "gsap";
 import useWindow from "../hooks/useWindow";
 import ProjectCard from "./ProjectCard";
-import { ProjectDialog } from "./ProjectDialog";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ProximityText from "./ui/ProximityText";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,21 +17,7 @@ function Projectsv2() {
   const { isMobile } = useWindow();
   const { darkTheme } = useGlobalContext();
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [activeProject, setActiveProject] = useState(null);
-  const [open, setOpen] = useState(false);
   const projectSectionRef = useRef(null);
-
-  const handleOpenProject = (project) => {
-    setActiveProject(project);
-    setOpen(true);
-  };
-
-  const handleCloseProject = (openState) => {
-    if (!openState) {
-      setActiveProject(null);
-      setOpen(false);
-    }
-  };
 
   useEffect(() => {
     const section = document.querySelector(".skills-section");
@@ -143,8 +129,58 @@ function Projectsv2() {
     return () => ctx.revert();
   }, [isMobile, projectSectionRef]);
 
+  useLayoutEffect(() => {
+    gsap.fromTo(
+      ".project-text",
+      {
+        letterSpacing: "100%",
+      },
+      {
+        letterSpacing: "5%",
+        scrollTrigger: {
+          trigger: ".project-text",
+          start: "top bottom",
+          end: `top center`,
+          scrub: 1,
+        },
+      },
+    );
+    gsap.fromTo(
+      ".project-top-text",
+      {
+        y: "100%",
+      },
+      {
+        y: "0%",
+        scrollTrigger: {
+          trigger: ".project-text",
+          start: "top center",
+          end: `center center`,
+          scrub: 1,
+        },
+      },
+    );
+    gsap.fromTo(
+      ".project-bottom-text",
+      {
+        x: "100%",
+      },
+      {
+        x: "0%",
+        scrollTrigger: {
+          trigger: ".project-text",
+          start: "top center",
+          end: `center center`,
+          scrub: 1,
+        },
+      },
+    );
+  }, []);
+
   const handleScroll = () => {
-    const projectsEl = document.querySelector("#projects") as HTMLElement | null;
+    const projectsEl = document.querySelector(
+      "#projects",
+    ) as HTMLElement | null;
     if (projectsEl) {
       const scrollOffset = projectsEl.offsetTop - window.innerHeight;
       setScrollProgress(Math.max(1, window.scrollY - scrollOffset));
@@ -162,54 +198,60 @@ function Projectsv2() {
     <>
       <div
         id="projects"
-        className={` ${darkTheme
-          ? "dark-theme-bg dark-theme-text"
-          : "light-theme-bg light-theme-text"
-          } projects overflow-hidden flex md:flex-col md:justify-center items-center z-50 relative`}
+        className={` ${
+          darkTheme
+            ? "dark-theme-bg dark-theme-text"
+            : "light-theme-bg light-theme-text"
+        } projects overflow-hidden flex md:flex-col md:justify-center items-center z-50 relative`}
       >
         <div
           className={`work-project h-dvh w-screen flex flex-col justify-center items-center shrink-0 z-10`}
         >
+          <div className="relative  w-fit h-fit text-center text-5xl md:text-[8vw] leading-[70%] px-[10px] font-light">
+            <div className="absolute overflow-y-hidden leading-tight text-[6px] md:text-[10px] text-(--color-design) left-[6%] bottom-[110%] flex flex-col text-left font-normal">
+              <div className="project-top-text flex flex-col">
+                <span>SOME</span> <span>SELECTED</span>
+              </div>
+            </div>
+            <div className="project-text font-thin italic tracking-[-8%] ">
+              <ProximityText
+                text="PROJECTS"
+                className="justify-center whitespace-nowrap"
+                maxDistance={200}
+                minWeight={100}
+                maxWeight={700}
+              />
+            </div>
 
-          <div className="relative w-fit h-fit text-center text-[50px] md:text-[130px] font-bold tracking-[5%] leading-[70%] px-[10px]">
-            <div className="absolute  leading-normal text-[6px] md:text-xs text-(--color-design) font-semibold right-[98%] top-[5%] flex flex-col items-end">
-              <span>SOME</span> <span>SELECTED</span>
+            <div className="text-right absolute leading-tight text-[6px] md:text-[10px] font-normal top-[120%] right-[2%] overflow-hidden">
+              <div className="project-bottom-text">
+                CUSTOMER PROJECTS , PERSONAL PROJECTS <br />
+                SOME RESEARCH AND PLAYGROUND.
+              </div>
             </div>
-            PROJECTS
-            <div className="text-center absolute leading-normal text-[5px] md:text-xs font-normal px-3 top-[120%] left-1/2 -translate-x-1/2">
-              CUSTOMER PROJECTS , PERSONAL PROJECTS <br />
-              SOME RESEARCH AND PLAYGROUND.
-            </div>
-            <div className="absolute  leading-normal text-[5px] text-left md:text-xs text-(--color-design) font-semibold left-[98%] top-[5%]">
+            {/* <div className="absolute  leading-normal text-[5px] text-left md:text-xs text-(--color-design) left-[98%] top-[5%] font-normal">
               WEB <br />
               DEVELOPMENT
-            </div>
+            </div> */}
           </div>
         </div>
 
         <div
           ref={projectSectionRef}
-          className="projects-container flex md:flex-col items-center justify-center min-h-screen z-20 p-12 font-mono"
+          className="projects-container flex md:flex-col items-center justify-center min-h-dvh z-20 p-12 font-mono"
         >
           {projectsList?.map((data, index) => (
             <ProjectCard
-              key={index}
+              key={data.name}
               data={data}
               darkTheme={darkTheme}
               index={index}
               scrollProgress={scrollProgress}
-              handleOpenProject={handleOpenProject}
               isMobile={isMobile}
             />
           ))}
         </div>
       </div>
-
-      <ProjectDialog
-        project={activeProject}
-        open={open}
-        onOpenChange={handleCloseProject}
-      />
     </>
   );
 }

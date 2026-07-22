@@ -3,6 +3,35 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * Single source of truth for the portfolio palette.
+ * Every color in the app must come from here — no hex/rgb literals and no
+ * Tailwind palette utilities (text-white, bg-black, text-gray-400, ...) in
+ * components. Each token below also generates a utility, e.g. `text-ink`,
+ * `bg-surface`, `border-ink/15`, `bg-brand`.
+ */
+@theme {
+  /* Neutrals */
+  --color-ink: #212529;
+  --color-ink-light: #34383c;
+  --color-surface: #f5f5f5;
+  --color-surface-raised: #ffffff;
+  --color-surface-inverse: #151515;
+  --color-on-dark: #ffffff;
+  --color-on-light: var(--color-ink);
+  --color-wire-dark: #6b7280;
+  --color-scrollbar-thumb: #888888;
+  --color-shadow-ambient: rgba(99, 99, 99, 0.2);
+
+  /* Brand */
+  --color-brand: #f7362b;
+  --color-brand-soft: #ff4d4f;
+  --color-brand-deep: #e11d48;
+
+  /* Semantic */
+  --color-danger: var(--color-brand);
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -75,12 +104,14 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-  --color-design: #ff4d4f;
-  --color-frontend: #f7362b;
-  --color-fullstack: #e11d48;
-  --shadow-design: rgba(255, 77, 79, 0.4);
-  --shadow-frontend: rgba(247, 54, 43, 0.4);
-  --shadow-fullstack: rgba(225, 29, 72, 0.4);
+  /* Role aliases onto the palette above — kept for existing `bg-(--color-design)` usage */
+  --color-design: var(--color-brand-soft);
+  --color-frontend: var(--color-brand);
+  --color-fullstack: var(--color-brand-deep);
+  --shadow-design: color-mix(in srgb, var(--color-brand-soft) 40%, transparent);
+  --shadow-frontend: color-mix(in srgb, var(--color-brand) 40%, transparent);
+  --shadow-fullstack: color-mix(in srgb, var(--color-brand-deep) 40%, transparent);
+  /* rgb channels of --color-brand, for legacy rgba() consumers */
   --theme-color-rgb: 247, 54, 43;
 }
 
@@ -119,7 +150,7 @@
 }
 
 body {
-  background-color: #ffffff;
+  background-color: var(--color-surface-raised);
 }
 
 html.lenis,
@@ -154,83 +185,83 @@ html.lenis body {
 }
 
 @utility dark-theme-bg {
-  background-color: #212529;
+  background-color: var(--color-ink);
 }
 
 @utility dark-theme-bg-light {
-  background-color: #34383c;
+  background-color: var(--color-ink-light);
 }
 
 @utility dark-theme-text {
-  color: whitesmoke;
+  color: var(--color-surface);
 }
 
 @utility dark-theme-stroke {
-  -webkit-text-stroke: 1px white;
+  -webkit-text-stroke: 1px var(--color-on-dark);
   &::before {
-    color: white;
+    color: var(--color-on-dark);
   }
 }
 
 @utility dark-theme-border {
-  border: 3px solid whitesmoke;
+  border: 3px solid var(--color-surface);
 }
 
 @utility dark-theme-shadow {
-  box-shadow: rgba(255, 255, 255, 0.12) 0px -3px 0px 0px inset, rgb(0, 0, 0) 0px 0px 2px 0px inset,
-    rgba(255, 255, 255, 0.15) 0px 0px 0px 2px inset, rgba(255, 255, 255, 0.05) 0px 4px 24px 0px inset,
-    rgba(0, 0, 0, 0.12) 0px 3px 4px 0px;
+  box-shadow: color-mix(in srgb, var(--color-on-dark) 12%, transparent) 0px -3px 0px 0px inset, var(--color-ink) 0px 0px 2px 0px inset,
+    color-mix(in srgb, var(--color-on-dark) 15%, transparent) 0px 0px 0px 2px inset, color-mix(in srgb, var(--color-on-dark) 5%, transparent) 0px 4px 24px 0px inset,
+    color-mix(in srgb, var(--color-ink) 12%, transparent) 0px 3px 4px 0px;
 }
 
 @utility dark-theme-border-sm {
-  border: 1px solid whitesmoke;
+  border: 1px solid var(--color-surface);
 }
 
 @utility dark-theme-gradient {
   &::before {
-    background: linear-gradient(90deg, #34383c 0%, #212529 44%, #34383c 100%);
+    background: linear-gradient(90deg, var(--color-ink-light) 0%, var(--color-ink) 44%, var(--color-ink-light) 100%);
   }
   &:hover::before {
-    box-shadow: rgba(255, 255, 255, 0.05) 0px -3px 0px 0px inset, rgb(0, 0, 0) 0px 0px 0px 2px inset,
-      rgba(255, 255, 255, 0.06) 0px 4px 2px 0px inset, rgba(255, 255, 255, 0.04) 0px 0px 24px 4px inset,
-      rgba(255, 255, 255, 0.12) 0px 1px 3px 0px;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px -3px 0px 0px inset, rgb(255, 255, 255) 0px 0px 0px 2px inset,
-      rgba(0, 0, 0, 0.06) 0px 4px 2px 0px inset, rgba(0, 0, 0, 0.04) 0px 0px 24px 4px inset,
-      rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+    box-shadow: color-mix(in srgb, var(--color-on-dark) 5%, transparent) 0px -3px 0px 0px inset, var(--color-ink) 0px 0px 0px 2px inset,
+      color-mix(in srgb, var(--color-on-dark) 6%, transparent) 0px 4px 2px 0px inset, color-mix(in srgb, var(--color-on-dark) 4%, transparent) 0px 0px 24px 4px inset,
+      color-mix(in srgb, var(--color-on-dark) 12%, transparent) 0px 1px 3px 0px;
+    box-shadow: color-mix(in srgb, var(--color-ink) 5%, transparent) 0px -3px 0px 0px inset, var(--color-on-dark) 0px 0px 0px 2px inset,
+      color-mix(in srgb, var(--color-ink) 6%, transparent) 0px 4px 2px 0px inset, color-mix(in srgb, var(--color-ink) 4%, transparent) 0px 0px 24px 4px inset,
+      color-mix(in srgb, var(--color-ink) 12%, transparent) 0px 1px 3px 0px;
   }
 }
 
 @utility light-theme-bg {
-  background-color: whitesmoke;
+  background-color: var(--color-surface);
 }
 
 @utility light-theme-bg-light {
-  background-color: white;
+  background-color: var(--color-surface-raised);
 }
 
 @utility light-theme-text {
-  color: #212529;
+  color: var(--color-ink);
 }
 
 @utility light-theme-stroke {
-  -webkit-text-stroke: 1px #212529;
+  -webkit-text-stroke: 1px var(--color-ink);
   &::before {
-    color: #212529;
+    color: var(--color-ink);
   }
 }
 
 @utility light-theme-border {
-  border: 3px solid #212529;
+  border: 3px solid var(--color-ink);
 }
 
 @utility light-theme-shadow {
-  box-shadow: rgba(0, 0, 0, 0.05) 0px -3px 0px 0px inset, rgb(255, 255, 255) 0px 0px 0px 2px inset,
-    rgba(0, 0, 0, 0.06) 0px 4px 2px 0px inset, rgba(0, 0, 0, 0.04) 0px 0px 24px 4px inset,
-    rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  box-shadow: color-mix(in srgb, var(--color-ink) 5%, transparent) 0px -3px 0px 0px inset, var(--color-on-dark) 0px 0px 0px 2px inset,
+    color-mix(in srgb, var(--color-ink) 6%, transparent) 0px 4px 2px 0px inset, color-mix(in srgb, var(--color-ink) 4%, transparent) 0px 0px 24px 4px inset,
+    color-mix(in srgb, var(--color-ink) 12%, transparent) 0px 1px 3px 0px;
 }
 
 @utility light-theme-border-sm {
-  border: 1px solid black;
+  border: 1px solid var(--color-ink);
 }
 
 @utility light-theme-gradient {
@@ -238,8 +269,65 @@ html.lenis body {
     background: linear-gradient(90deg, var(--color-design) 0%, var(--color-frontend) 44%, var(--color-fullstack) 100%);
   }
   &:hover::before {
-    box-shadow: rgba(0, 0, 0, 0.05) 0px -3px 0px 0px inset, rgb(255, 255, 255) 0px 0px 0px 2px inset,
-      rgba(0, 0, 0, 0.06) 0px 4px 2px 0px inset, rgba(0, 0, 0, 0.04) 0px 0px 24px 4px inset,
-      rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+    box-shadow: color-mix(in srgb, var(--color-ink) 5%, transparent) 0px -3px 0px 0px inset, var(--color-on-dark) 0px 0px 0px 2px inset,
+      color-mix(in srgb, var(--color-ink) 6%, transparent) 0px 4px 2px 0px inset, color-mix(in srgb, var(--color-ink) 4%, transparent) 0px 0px 24px 4px inset,
+      color-mix(in srgb, var(--color-ink) 12%, transparent) 0px 1px 3px 0px;
   }
 }
+
+/* Glow-reveal button: stroked text fills with color on hover, arrow slides from left to right */
+.glow-reveal-btn {
+  --text-stroke-color: currentColor;
+  --animation-color: var(--color-design);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding-left: 1.25rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  transition: padding-left 0.5s ease, padding-right 0.5s ease;
+}
+
+.glow-reveal-btn:hover {
+  padding-left: 0;
+  padding-right: 1.25rem;
+}
+
+.glow-reveal-btn .reveal-arrow {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: left 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+}
+
+.glow-reveal-btn:hover .reveal-arrow {
+  left: 100%;
+  transform: translateY(-50%) translateX(-100%);
+  filter: drop-shadow(0 0 10px var(--animation-color));
+}
+
+.glow-reveal-btn .text-mask {
+  position: relative;
+  display: inline-block;
+}
+
+.glow-reveal-btn .actual-text {
+  -webkit-text-stroke: 0.2px transparent;
+}
+
+.glow-reveal-btn .hover-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0%;
+  color: var(--animation-color);
+  -webkit-text-stroke: 0.2px var(--animation-color);
+  transition: width 0.5s ease;
+}
+
+.glow-reveal-btn:hover .hover-layer {
+  width: 100%;
+}
+

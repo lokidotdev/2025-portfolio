@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { Users, FolderGit2 } from "lucide-react";
 
 type Platform = "github" | "linkedin" | "twitter";
@@ -54,14 +54,14 @@ const cardVariants = {
 const Skeleton = ({ darkTheme }: { darkTheme: boolean }) => (
   <div className="flex flex-col gap-2 animate-pulse">
     <div className="flex items-center gap-3">
-      <div className={`h-10 w-10 rounded-full ${darkTheme ? "bg-white/10" : "bg-black/10"}`} />
+      <div className={`h-10 w-10 rounded-full ${darkTheme ? "bg-on-dark/10" : "bg-ink/10"}`} />
       <div className="flex flex-col gap-1.5 flex-1">
-        <div className={`h-3 w-24 rounded ${darkTheme ? "bg-white/10" : "bg-black/10"}`} />
-        <div className={`h-2.5 w-16 rounded ${darkTheme ? "bg-white/10" : "bg-black/10"}`} />
+        <div className={`h-3 w-24 rounded ${darkTheme ? "bg-on-dark/10" : "bg-ink/10"}`} />
+        <div className={`h-2.5 w-16 rounded ${darkTheme ? "bg-on-dark/10" : "bg-ink/10"}`} />
       </div>
     </div>
-    <div className={`h-2.5 w-full rounded ${darkTheme ? "bg-white/10" : "bg-black/10"}`} />
-    <div className={`h-2.5 w-2/3 rounded ${darkTheme ? "bg-white/10" : "bg-black/10"}`} />
+    <div className={`h-2.5 w-full rounded ${darkTheme ? "bg-on-dark/10" : "bg-ink/10"}`} />
+    <div className={`h-2.5 w-2/3 rounded ${darkTheme ? "bg-on-dark/10" : "bg-ink/10"}`} />
   </div>
 );
 
@@ -75,17 +75,17 @@ const GithubCard = ({ data, darkTheme }: { data: GithubData; darkTheme: boolean 
       />
       <div className="flex flex-col min-w-0">
         <span className="font-semibold text-sm truncate">{data.name}</span>
-        <span className={`text-xs truncate ${darkTheme ? "text-gray-400" : "text-gray-500"}`}>
+        <span className={`text-xs truncate ${darkTheme ? "text-on-dark/45" : "text-ink/45"}`}>
           @lokidotdev
         </span>
       </div>
     </div>
     {data.bio && (
-      <p className={`text-xs leading-snug line-clamp-2 ${darkTheme ? "text-gray-300" : "text-gray-600"}`}>
+      <p className={`text-xs leading-snug line-clamp-2 ${darkTheme ? "text-on-dark/60" : "text-ink/60"}`}>
         {data.bio}
       </p>
     )}
-    <div className={`flex items-center gap-4 text-xs ${darkTheme ? "text-gray-300" : "text-gray-600"}`}>
+    <div className={`flex items-center gap-4 text-xs ${darkTheme ? "text-on-dark/60" : "text-ink/60"}`}>
       <span className="flex items-center gap-1 whitespace-nowrap">
         <Users size={13} /> {data.followers} followers
       </span>
@@ -141,7 +141,9 @@ const ActivityGraph = ({
   const total = activity.reduce((sum, day) => sum + day.count, 0);
   const { columns, labels } = buildCalendar(activity);
 
-  const emptyColor = darkTheme ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)";
+  const emptyColor = darkTheme
+    ? "color-mix(in srgb, var(--color-on-dark) 8%, transparent)"
+    : "color-mix(in srgb, var(--color-ink) 8%, transparent)";
 
   return (
     <div>
@@ -150,7 +152,7 @@ const ActivityGraph = ({
           {labels.map((label, i) => (
             <span
               key={i}
-              className={`w-3.25 text-[9px] leading-none ${darkTheme ? "text-gray-400" : "text-gray-500"}`}
+              className={`w-3.25 text-[9px] leading-none ${darkTheme ? "text-on-dark/45" : "text-ink/45"}`}
             >
               {label}
             </span>
@@ -182,7 +184,7 @@ const ActivityGraph = ({
           ))}
         </div>
       </div>
-      <p className={`mt-2 text-[11px] ${darkTheme ? "text-gray-400" : "text-gray-500"}`}>
+      <p className={`mt-2 text-[11px] ${darkTheme ? "text-on-dark/45" : "text-ink/45"}`}>
         {total} contributions in the last 30 days
       </p>
     </div>
@@ -203,13 +205,13 @@ const PreviewCard = ({ data, darkTheme }: { data: PreviewData; darkTheme: boolea
         <span className="font-semibold text-sm truncate">
           {data.title ?? (data.platform === "linkedin" ? "LinkedIn" : "X (Twitter)")}
         </span>
-        <span className={`text-xs truncate ${darkTheme ? "text-gray-400" : "text-gray-500"}`}>
+        <span className={`text-xs truncate ${darkTheme ? "text-on-dark/45" : "text-ink/45"}`}>
           {data.platform === "linkedin" ? "linkedin.com" : "x.com"}
         </span>
       </div>
     </div>
     {data.description && (
-      <p className={`text-xs leading-snug line-clamp-3 ${darkTheme ? "text-gray-300" : "text-gray-600"}`}>
+      <p className={`text-xs leading-snug line-clamp-3 ${darkTheme ? "text-on-dark/60" : "text-ink/60"}`}>
         {data.description}
       </p>
     )}
@@ -224,7 +226,7 @@ interface SocialHoverCardProps {
 
 const SocialHoverCard = ({ platform, darkTheme, children }: SocialHoverCardProps) => {
   const [open, setOpen] = useState(false);
-  const [data, setData] = useState<SocialData | null>(cache.get(platform) ?? null);
+  const [data, setData] = useState<SocialData | null>(() => cache.get(platform) ?? null);
   const [loading, setLoading] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -236,6 +238,7 @@ const SocialHoverCard = ({ platform, darkTheme, children }: SocialHoverCardProps
     setLoading(true);
     try {
       const res = await fetch(`/api/social?platform=${platform}`);
+      if (!res.ok) throw new Error(`social lookup failed: ${res.status}`);
       const json = (await res.json()) as SocialData;
       cache.set(platform, json);
       setData(json);
@@ -270,7 +273,7 @@ const SocialHoverCard = ({ platform, darkTheme, children }: SocialHoverCardProps
       {children}
       <AnimatePresence>
         {showCard && (
-          <motion.div
+          <m.div
             variants={cardVariants}
             initial="hidden"
             animate="show"
@@ -279,9 +282,9 @@ const SocialHoverCard = ({ platform, darkTheme, children }: SocialHoverCardProps
               platform === "github" ? "w-fit max-w-64" : "w-64"
             } rounded-2xl p-4 z-50 origin-bottom backdrop-blur-xl border ${
               darkTheme
-                ? "bg-[#151515]/90 border-white/10 text-white"
-                : "bg-white/90 border-black/5 text-black"
-            } shadow-[0_10px_40px_-10px_rgba(0,0,0,0.35)]`}
+                ? "bg-surface-inverse/90 border-on-dark/10 text-on-dark"
+                : "bg-surface-raised/90 border-ink/5 text-ink"
+            } shadow-[0_10px_40px_-10px_color-mix(in_srgb,var(--color-ink)_35%,transparent)]`}
           >
             {loading || !data || !data.live ? (
               <Skeleton darkTheme={darkTheme} />
@@ -290,7 +293,7 @@ const SocialHoverCard = ({ platform, darkTheme, children }: SocialHoverCardProps
             ) : (
               <PreviewCard data={data} darkTheme={darkTheme} />
             )}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

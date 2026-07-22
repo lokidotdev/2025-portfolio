@@ -1,263 +1,86 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import { Keyboard } from "../models/Keyboard";
-import toast from "react-hot-toast";
-import axios from "axios";
+import { m } from "motion/react";
 import { useGlobalContext } from "@/context/globalContext";
-import { Linkedin, Github, Mail, Loader2Icon } from "lucide-react";
-
-const contactInfo = [
-  {
-    icon: <Mail size={20} />,
-    label: "Email",
-    value: "lokeshyadv8177@gmail.com",
-    type: "email",
-  },
-
-  {
-    icon: <Github size={20} />,
-    label: "Github",
-    value: "https://github.com/lokidotdev",
-    type: "link",
-  },
-  {
-    icon: <Linkedin size={20} />,
-    label: "LinkedIn",
-    value: "https://www.linkedin.com/in/yadav-lokesh/",
-    type: "link",
-  },
-];
+import ProximityText from "./ui/ProximityText";
+import ContactForm from "./ContactForm";
+import { socialLinks } from "@/constants/socialLinks";
+import { themeTokens } from "@/lib/theme";
 
 export default function Contact() {
   const { darkTheme } = useGlobalContext();
-  const [isTyping, setIsTyping] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
 
-  function handleData(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    e.preventDefault();
-    setIsTyping(true);
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-
-    if (typingTimeoutRef.current) {
-      clearTimeout(typingTimeoutRef.current);
-    }
-
-    typingTimeoutRef.current = setTimeout(() => {
-      setIsTyping(false);
-    }, 300);
-  }
-
-  useEffect(() => {
-    return () => {
-      if (typingTimeoutRef.current) {
-        clearTimeout(typingTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      if (!formData.name || !formData.email || !formData.message) {
-        toast.error("please fill all fields");
-        return;
-      }
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/message`,
-        formData
-      );
-      toast.success("message sent successfully");
-      setFormData({
-        name: "",
-        email: "",
-        message: "",
-      });
-    } catch (error) {
-      toast.error("some error occured");
-    } finally {
-      setLoading(false);
-    }
-  }
+  const { text, subtle, border } = themeTokens(darkTheme);
 
   return (
-    <>
-      <div
-        id="contact"
-        className={` ${darkTheme ? "dark-theme-bg" : "light-theme-bg"
-          } contact justify-between items-center min-h-[500px] pb-20 md:pb-12 w-screen p-4 md:p-12 z-60 relative flex overflow-hidden font-mono`}
-      >
-        <div className="max-w-4xl mx-auto grid grid-cols-1 gap-12 w-full h-full flex-1">
-          <div
-            className={`${darkTheme
-              ? "dark-theme-shadow dark-theme-bg"
-              : "light-theme-shadow light-theme-bg"
-              } rounded-[16px] md:rounded-[32px] col-span-6 w-full h-full p-4 md:p-12`}
+    <div
+      id="contact"
+      className={`${
+        darkTheme ? "dark-theme-bg" : "light-theme-bg"
+      } ${text} w-full`}
+    >
+      <div className="mx-auto w-full max-w-7xl px-5 py-24 sm:px-6 md:px-16 md:py-32">
+        {/* Header */}
+        <div className="mb-12 md:mb-24">
+          <m.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.5 }}
+            className={`mb-3 text-sm md:mb-6 md:text-lg ${subtle}`}
           >
-            <div className="contact-top space-y-6">
-              <div
-                className={`touch text-left ${darkTheme ? "text-white" : "text-black"
-                  }`}
-              >
-                Get in touch
-              </div>
-              <div
-                className={`${darkTheme ? "dark-theme-text" : "light-theme-text"
-                  } chat text-2xl font-bold `}
-              >
-                Let's <span className="text-(--color-design)">Chat</span>
-              </div>
+            // Let&apos;s build something together
+          </m.p>
+
+          <h1 className="hero-heading w-full italic text-5xl font-thin tracking-[-0.04em] leading-[100%] md:text-[8vw]">
+            <ProximityText
+              text="GET IN TOUCH"
+              maxDistance={200}
+              minWeight={100}
+              maxWeight={700}
+            />
+          </h1>
+        </div>
+
+        {/* Framed container */}
+        <div className={`relative md:border-x ${border} md:px-20 md:py-24`}>
+          <div className="hidden md:block border-y absolute h-full w-8 left-0 top-0 md:w-16"></div>
+          <div className="hidden md:block border-y absolute h-full w-8 right-0 top-0 md:w-16"></div>
+
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-24">
+            {/* Left — Form */}
+            <div>
+              <p className={`mb-8 text-sm md:mb-10 md:text-lg ${subtle}`}>
+                // Message me directly
+              </p>
+
+              <ContactForm />
             </div>
 
-            <div
-              style={{
-                height: "1px",
-                width: "100%",
-                margin: "10px 0px",
-                backgroundColor: `${darkTheme ? "white" : "black"}`,
-              }}
-            ></div>
-            <div
-              className={`${darkTheme ? "dark-theme-text" : "light-theme-text"
-                } contact-bottom`}
-            >
-              <form onSubmit={handleSubmit} className="contact-form">
-                <div className=" flex flex-col gap-1 ">
-                  <label
-                    htmlFor="name"
-                    className="custom-form items-start flex form-label text-sm font-medium"
-                  >
-                    Name
-                  </label>
-                  <input
-                    className={`${darkTheme
-                      ? "bg-black/20 text-white focus:ring-black"
-                      : "bg-white text-black/80 focus:outline-none"
-                      } p-1 rounded-md resize-none`}
-                    type="text"
-                    required
-                    onChange={(e) => handleData(e)}
-                    value={formData.name}
-                    name="name"
-                    id="name"
-                    placeholder="someone"
-                  />
-                </div>
-                <div className="my-3 flex flex-col gap-1">
-                  <label
-                    htmlFor="Email"
-                    className="custom-form items-start flex form-label text-sm font-medium"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    onChange={(e) => handleData(e)}
-                    value={formData.email}
-                    name="email"
-                    className={`${darkTheme
-                      ? "bg-black/20 text-white focus:ring-black"
-                      : "bg-white text-black/80 focus:outline-none"
-                      } p-1 rounded-md resize-none`}
-                    id="email"
-                    placeholder="someone@gmail.com"
-                  />
-                </div>
-                <div className=" flex flex-col gap-1">
-                  <label
-                    htmlFor="message"
-                    className="custom-form items-start flex form-label text-sm font-medium"
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    required
-                    onChange={(e) => handleData(e)}
-                    value={formData.message}
-                    name="message"
-                    placeholder="Leave a message"
-                    className={`${darkTheme
-                      ? "bg-black/20 text-white focus:ring-black"
-                      : "bg-white text-black/80 focus:outline-none"
-                      } p-1 rounded-md `}
-                    id="message"
-                  />
-                </div>
+            {/* Right — Social links */}
+            <div className="flex w-full min-w-0 flex-col items-start gap-8 md:items-end md:gap-10 md:text-right">
+              <p className={`text-sm md:text-lg ${subtle}`}>// Social Links</p>
 
-                <div className="flex w-full justify-center submit-btn py-5">
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className={`px-8 py-3 rounded-full font-semibold transition-all transform w-40 flex justify-center items-center hover:scale-105 ${darkTheme
-                      ? "light-theme-shadow light-theme-bg text-black"
-                      : "dark-theme-shadow dark-theme-bg text-white"
-                      }`}
-                  >
-                    {loading ? < Loader2Icon className="animate-spin" /> : "Send"}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-
-          {/* <div className="contact-right md:flex hidden rounded-[32px] flex-col col-span-6 w-full h-full space-y-12">
-            <div
-              className={` ${darkTheme
-                ? "dark-theme-shadow dark-theme-bg"
-                : "light-theme-shadow light-theme-bg"
-                } contact-img rounded-[32px] flex justify-center items-center`}
-            >
-              
-              <div className="model min-h-[300px]">
-                <Canvas camera={{ fov: 16, position: [10, 10, 10] }}>
-                  <ambientLight intensity={1} />
-                  <directionalLight position={[3, 2, 1]} />
-                  <Keyboard isTyping={isTyping} />
-                </Canvas>
-              </div>
-            </div>
-            <div
-              className={` ${darkTheme
-                ? "dark-theme-shadow dark-theme-bg"
-                : "light-theme-shadow light-theme-bg"
-                } contact-info rounded-[32px] flex flex-col justify-evenly items-center w-full gap-2 p-4`}
-            >
-              {contactInfo.map((item, index) => (
+              {socialLinks.map((link) => (
                 <div
-                  key={index}
-                  onClick={() => {
-                    if (item.type === "email") {
-                      window.open(`mailto:${item.value}`, "_blank");
-                    } else if (item.type === "link") {
-                      window.open(item.value, "_blank");
-                    }
-                  }}
-                  className={`rounded-[16px] py-3 flex w-full ${!darkTheme ? "bg-gray-200 text-black" : "bg-black/20 text-white"
-                    } items-center cursor-pointer`}
+                  key={link.hint}
+                  className="flex w-full min-w-0 flex-col gap-1 md:items-end"
                 >
-                  <div className="icon px-4">{item.icon}</div>
-                  <div className="info">
-                    <b>{item.label}</b> <br />
-                    <p className="link">{item.value}</p>
-                  </div>
+                  <span className={`text-xs md:text-sm ${subtle}`}>{link.hint}</span>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="break-all text-base text-(--color-design) transition-opacity hover:opacity-70 md:text-xl"
+                  >
+                    {link.label}
+                  </a>
                 </div>
               ))}
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

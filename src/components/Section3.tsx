@@ -54,7 +54,7 @@ function Section3() {
           className={`${darkTheme
             ? "dark-theme-bg-light dark-theme-text"
             : "light-theme-bg-light light-theme-text"
-            } outer-circle rounded-full border-2 border-white overflow-hidden w-[100vw] h-[100vw] md:w-[45vw] md:h-[45vw] z-[120] -rotate-10 flex flex-col justify-center items-center absolute text-center`}
+            } outer-circle rounded-full border-2 border-on-dark overflow-hidden w-[100vw] h-[100vw] md:w-[45vw] md:h-[45vw] z-[120] -rotate-10 flex flex-col justify-center items-center absolute text-center`}
         >
           <div className="">
             <span className="text-(--color-design)">Build</span> clean.
@@ -67,7 +67,7 @@ function Section3() {
           className={`${darkTheme
             ? "dark-theme-bg dark-theme-text"
             : "light-theme-bg light-theme-text"
-            } middle-circle rounded-full border-2 border-white overflow-hidden w-[60vw] h-[60vw] md:w-[30vw] md:h-[30vw] z-[140] rotate-10 flex flex-col justify-center items-center absolute text-center`}
+            } middle-circle rounded-full border-2 border-on-dark overflow-hidden w-[60vw] h-[60vw] md:w-[30vw] md:h-[30vw] z-[140] rotate-10 flex flex-col justify-center items-center absolute text-center`}
         >
           <div className="">
             <span className="text-(--color-design)">Build</span> clean.
@@ -80,7 +80,7 @@ function Section3() {
           className={`${darkTheme
             ? "dark-theme-bg-light dark-theme-text"
             : "light-theme-bg-light light-theme-text"
-            } inner-circle rounded-full border-2 border-white overflow-hidden w-[30vw] h-[30vw] md:w-[15vw] md:h-[15vw] z-[150] -rotate-10 flex flex-col justify-center items-center absolute text-center`}
+            } inner-circle rounded-full border-2 border-on-dark overflow-hidden w-[30vw] h-[30vw] md:w-[15vw] md:h-[15vw] z-[150] -rotate-10 flex flex-col justify-center items-center absolute text-center`}
         >
           <div>
             <span className="text-(--color-design)">Build</span> clean.
