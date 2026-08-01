@@ -45,6 +45,20 @@ export const projectsList: Project[] = [
     pages: ["home", "projects"],
   },
   {
+    name: "Attack on Zombies",
+    link: "https://attackonzombies.lok1.dev/",
+    desktopImage: "images/aoz.png",
+    points: [
+      "Infinite-highway shooter where zombie formations sweep in and throw their own torn-off limbs at you — six weapon tiers, seven zombie variants, seven formation patterns, and a 31-wave day/night cycle with boss encounters.",
+      "Built with Phaser 3 running client-only inside TanStack Start, syncing to React over a throttled Zustand store and a typed command bus.",
+      "All art and audio are generated at runtime — sprites baked from ASCII grids, SFX synthesized as WAV data URIs.",
+      "Backed by a real Bun/Prisma service for accounts, runs, and a global leaderboard, plus an admin console that live-tunes ~400 gameplay values and previews them against the game.",
+      "Tech - Tanstack Start, Phaser, Tailwindcss, PostgreSQL, Prisma, Bun, Zod",
+    ],
+    category: "aiSlop",
+    pages: ["projects"],
+  },
+  {
     name: "Excellent Printing Press",
     link: "https://excellentpp.com/",
     desktopImage: "images/excellentpp.png",

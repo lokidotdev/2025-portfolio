@@ -1,4 +1,4 @@
-export type ProjectCategory = "fullstack" | "frontend";
+export type ProjectCategory = "fullstack" | "frontend" | "aiSlop";
 
 export type ProjectPage = "home" | "projects";
 
