@@ -17,26 +17,6 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
-    id: 2,
-    role: "Software Development Engineer 1",
-    company: "Quanto Consulting",
-    period: "Jul 2025 - Sep 2025",
-    description: [
-      "Developed scalable backend services using Node.js and Express, handling API requests, business logic, and database interactions",
-      "Optimized PostgreSQL queries and database schemas, improving data retrieval performance and reducing API response times",
-      "Integrated third-party services and internal APIs to support core application features and improve system interoperability",
-      "Participated in code reviews, debugging, and production issue resolution, ensuring code quality and system reliability",
-    ],
-    skills: [
-      "Node.js",
-      "Express.js",
-      "PostgreSQL",
-      "REST APIs",
-      "Backend Development",
-      "System Design",
-    ],
-  },
-  {
     id: 1,
     role: "Interactive Full Stack Developer",
     company: "Marqueascendia",
