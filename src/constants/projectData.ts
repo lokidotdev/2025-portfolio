@@ -8,7 +8,7 @@ export const projectsList: Project[] = [
   {
     name: "Highway z",
     link: "https://highwayz.lok1.dev/",
-    desktopImage: "images/aoz.png",
+    desktopImage: "images/highwayz.png",
     points: [
       "Infinite-highway shooter where zombie formations sweep in and throw their own torn-off limbs at you — six weapon tiers, seven zombie variants, seven formation patterns, and a 31-wave day/night cycle with boss encounters.",
       "Built with Phaser 3 running client-only inside TanStack Start, syncing to React over a throttled Zustand store and a typed command bus.",
