@@ -6,6 +6,33 @@ export function getProjectsForPage(page: ProjectPage): Project[] {
 
 export const projectsList: Project[] = [
   {
+    name: "Highway z",
+    link: "https://highwayz.lok1.dev/",
+    desktopImage: "images/aoz.png",
+    points: [
+      "Infinite-highway shooter where zombie formations sweep in and throw their own torn-off limbs at you — six weapon tiers, seven zombie variants, seven formation patterns, and a 31-wave day/night cycle with boss encounters.",
+      "Built with Phaser 3 running client-only inside TanStack Start, syncing to React over a throttled Zustand store and a typed command bus.",
+      "All art and audio are generated at runtime — sprites baked from ASCII grids, SFX synthesized as WAV data URIs.",
+      "Backed by a real Bun/Prisma service for accounts, runs, and a global leaderboard, plus an admin console that live-tunes ~400 gameplay values and previews them against the game.",
+      "Tech - Tanstack Start, Phaser, Tailwindcss, PostgreSQL, Prisma, Bun, Zod",
+    ],
+    category: "aiSlop",
+    pages: ["home", "projects"],
+  },
+  {
+    name: "Promptography",
+    link: "https://promptography.zero1studio.xyz/",
+    desktopImage: "images/promptboard.png",
+    points: [
+      "Discover and share AI prompts with vector search, Redis caching, and database replicas for performance",
+      "AI-powered image regeneration from prompts using generative AI",
+      "Flexible credit-based subscriptions with Razorpay and transparent pricing",
+      "Tech - Next.js, PostgreSQL, Express.js, Node.js, JavaScript, Tailwind CSS, ShadCN UI, Razorpay, REST APIs, Resend, OpenAI, Redis, Prisma",
+    ],
+    category: "fullstack",
+    pages: ["home", "projects"],
+  },
+  {
     name: "FOTF",
     link: "https://fotf-frontend.vercel.app",
     desktopImage: "images/fotf.png",
@@ -29,7 +56,7 @@ export const projectsList: Project[] = [
       "Tech - Next.js, GSAP, Tailwindcss, CSS, HTML",
     ],
     category: "frontend",
-    pages: ["home", "projects"],
+    pages: ["projects"],
   },
   {
     name: "Montreal",
@@ -45,20 +72,6 @@ export const projectsList: Project[] = [
     pages: ["home", "projects"],
   },
   {
-    name: "Attack on Zombies",
-    link: "https://attackonzombies.lok1.dev/",
-    desktopImage: "images/aoz.png",
-    points: [
-      "Infinite-highway shooter where zombie formations sweep in and throw their own torn-off limbs at you — six weapon tiers, seven zombie variants, seven formation patterns, and a 31-wave day/night cycle with boss encounters.",
-      "Built with Phaser 3 running client-only inside TanStack Start, syncing to React over a throttled Zustand store and a typed command bus.",
-      "All art and audio are generated at runtime — sprites baked from ASCII grids, SFX synthesized as WAV data URIs.",
-      "Backed by a real Bun/Prisma service for accounts, runs, and a global leaderboard, plus an admin console that live-tunes ~400 gameplay values and previews them against the game.",
-      "Tech - Tanstack Start, Phaser, Tailwindcss, PostgreSQL, Prisma, Bun, Zod",
-    ],
-    category: "aiSlop",
-    pages: ["projects"],
-  },
-  {
     name: "Excellent Printing Press",
     link: "https://excellentpp.com/",
     desktopImage: "images/excellentpp.png",
@@ -69,7 +82,7 @@ export const projectsList: Project[] = [
       "Tech - Next.js, Three.js, React Three Fiber, Tailwindcss, Coolify, Node.js, postgresql, Prisma, ShadcnUI, express.js, Docker, Typescript",
     ],
     category: "fullstack",
-    pages: ["projects"],
+    pages: ["home", "projects"],
   },
   {
     name: "Homie",
@@ -82,7 +95,7 @@ export const projectsList: Project[] = [
       "Tech - Next.js, Motion, Tailwindcss",
     ],
     category: "frontend",
-    pages: ["home", "projects"],
+    pages: ["projects"],
   },
   {
     name: "Galaxy Generator",
@@ -95,44 +108,6 @@ export const projectsList: Project[] = [
       "Tech - Three.js, React.js, Vite",
     ],
     category: "frontend",
-    pages: ["home", "projects"],
-  },
-  {
-    name: "Zero1 studio",
-    link: "https://zero1studio.xyz/",
-    desktopImage: "images/zero1.png",
-    points: [
-      "Designed and developed the official website for Zero1 Studio, a creative development studio.",
-      "Built with a focus on bold visuals, smooth animations, and a strong brand identity.",
-      "Fully responsive with optimized performance and polished micro-interactions throughout.",
-      "Tech - Next.js, GSAP, Tailwind CSS",
-    ],
-    category: "frontend",
-    pages: ["home", "projects"],
-  },
-  {
-    name: "Promptography",
-    link: "https://promptography.zero1studio.xyz/",
-    desktopImage: "images/promptboard.png",
-    points: [
-      "Discover and share AI prompts with vector search, Redis caching, and database replicas for performance",
-      "AI-powered image regeneration from prompts using generative AI",
-      "Flexible credit-based subscriptions with Razorpay and transparent pricing",
-      "Tech - Next.js, PostgreSQL, Express.js, Node.js, JavaScript, Tailwind CSS, ShadCN UI, Razorpay, REST APIs, Resend, OpenAI, Redis, Prisma",
-    ],
-    category: "fullstack",
-    pages: ["home", "projects"],
-  },
-  {
-    name: "ChessBlitz",
-    link: "https://chessblitz.lok1.dev/",
-    desktopImage: "images/chess.png",
-    points: [
-      "Real-time multiplayer chess with random matchmaking, friend games, and live spectating",
-      "Async, event-driven backend with WebSockets and Redis for concurrent gameplay",
-      "Tech - React.js, Express.js, Node.js, TypeScript, Tailwind CSS, WebSockets, Redis, PostgreSQL, Prisma",
-    ],
-    category: "fullstack",
     pages: ["home", "projects"],
   },
   {
@@ -158,6 +133,31 @@ export const projectsList: Project[] = [
       "Tech - Next.js, Framer Motion, GSAP, ShadCN UI, JavaScript, Tailwind CSS",
     ],
     category: "frontend",
+    pages: ["home", "projects"],
+  },
+  {
+    name: "Zero1 studio",
+    link: "https://zero1studio.xyz/",
+    desktopImage: "images/zero1.png",
+    points: [
+      "Designed and developed the official website for Zero1 Studio, a creative development studio.",
+      "Built with a focus on bold visuals, smooth animations, and a strong brand identity.",
+      "Fully responsive with optimized performance and polished micro-interactions throughout.",
+      "Tech - Next.js, GSAP, Tailwind CSS",
+    ],
+    category: "frontend",
+    pages: ["projects"],
+  },
+  {
+    name: "ChessBlitz",
+    link: "https://chessblitz.lok1.dev/",
+    desktopImage: "images/chess.png",
+    points: [
+      "Real-time multiplayer chess with random matchmaking, friend games, and live spectating",
+      "Async, event-driven backend with WebSockets and Redis for concurrent gameplay",
+      "Tech - React.js, Express.js, Node.js, TypeScript, Tailwind CSS, WebSockets, Redis, PostgreSQL, Prisma",
+    ],
+    category: "fullstack",
     pages: ["home", "projects"],
   },
 ];
