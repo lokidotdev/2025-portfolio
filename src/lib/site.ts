@@ -28,7 +28,7 @@ export const siteConfig = {
   ],
   author: "Lokesh Yadav",
   github: "https://github.com/lokidotdev",
-  linkedin: "https://linkedin.com/in/yadav-lokesh/",
+  linkedin: "https://linkedin.com/in/lokidotdev/",
   twitter: "https://x.com/lokidotdev",
 } as const;
 

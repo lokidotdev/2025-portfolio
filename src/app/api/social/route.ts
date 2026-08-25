@@ -142,7 +142,7 @@ export async function GET(request: NextRequest) {
     }
     if (platform === "linkedin") {
       return NextResponse.json(
-        await getLinkPreview("linkedin", "https://www.linkedin.com/in/yadav-lokesh/")
+        await getLinkPreview("linkedin", "https://www.linkedin.com/in/lokidotdev/")
       );
     }
     if (platform === "twitter") {
