@@ -57,7 +57,7 @@ const ProjectCard = ({
                   {data.points.map((point, i) => (
                     <div
                       key={point}
-                      className={`
+                      className={`line-clamp-1
                       ${i === data.points.length - 1
                           ? "text-(--color-design) w-fit tracking-[0.05em] uppercase text-[9px] md:text-xs"
                           : ""
