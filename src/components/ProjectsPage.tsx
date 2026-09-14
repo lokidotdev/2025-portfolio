@@ -84,13 +84,13 @@ const Row = ({
 
       {/* Right — image + one-liner on mobile, points on desktop */}
       <div className="flex flex-col gap-3 md:hidden">
-        <div className="relative aspect-video w-full overflow-hidden rounded-lg">
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
           <Image
             src={`/${project.desktopImage}`}
             alt={project.name}
             fill
             sizes="100vw"
-            className="object-cover"
+            className="object-cover object-center"
           />
         </div>
         <p className={`text-sm leading-[140%] md:text-base ${subtle}`}>{project.points[0]}</p>
@@ -160,14 +160,14 @@ export default function ProjectsPageClient() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="pointer-events-none fixed z-50 hidden aspect-video w-[24rem] overflow-hidden rounded-xl shadow-2xl md:block"
+            className="pointer-events-none fixed z-50 hidden aspect-[4/3] w-[24rem] overflow-hidden rounded-xl shadow-2xl md:block"
           >
             <Image
               src={`/${hovered.desktopImage}`}
               alt={hovered.name}
               fill
               sizes="24rem"
-              className="object-cover"
+              className="object-cover object-center"
             />
           </m.div>
         )}

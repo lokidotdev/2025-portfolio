@@ -20,20 +20,20 @@ const ProjectCard = ({
           transform: `${isMobile ? "translateY" : "translateX"
             }(${getTranslateX(isMobile, index, scrollProgress)}px)`,
         }}
-        className="h-[300px] md:h-[600px] w-full overflow-hidden flex items-center justify-center"
+        className="flex w-full items-center justify-center overflow-hidden"
       >
         <Link
           href={data.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="h-[300px] w-[400px] md:h-[600px] md:w-[800px] relative flex items-center md:justify-start   overflow-visible hover:cursor-pointer group "
+          className="group relative flex w-[400px] items-center overflow-visible hover:cursor-pointer md:w-[800px] md:justify-start"
         >
           {/* sq edges  */}
 
           {/* <div className={`absolute ${getFrequency(index, scrollProgress) < 0 ? 'left-0' : 'right-0'} w-1/6 h-2 bg-brand -bottom-2`}></div>
           <div className={`absolute ${getFrequency(index, scrollProgress) < 0 ? '-left-2' : '-right-2'} w-2 h-1/6 bg-brand bottom-0`}></div> */}
           <div
-            className={`h-[300px] w-[400px] md:h-[600px] md:w-[50%] overflow-hidden relative project-card-${index + 1
+            className={`relative aspect-[4/3] w-[400px] overflow-hidden md:w-[50%] project-card-${index + 1
               }
             ${darkTheme ? "opacity-80" : "opacity-100"}
             transition-shadow duration-500 ease-out 
@@ -74,12 +74,10 @@ const ProjectCard = ({
             <Image
               src={`/${data.desktopImage}`}
               alt={data.name}
-              width={800}
-              height={600}
+              fill
               sizes="(max-width: 768px) 400px, 800px"
               priority={index === 0}
-              className={`h-[300px] md:h-[600px] object-cover z-10 absolute w-[400px] md:w-[800px] scale-150 transition-transform duration-700 ease-out group-hover:scale-[1.6] project-img-${index + 1
-                }`}
+              className={`absolute z-10 object-cover object-center project-img-${index + 1}`}
             />
           </div>
         </Link>

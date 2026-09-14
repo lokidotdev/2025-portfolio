@@ -64,7 +64,6 @@ function Projectsv2() {
 
         projectsList.forEach((_, i) => {
           const cardSelector = `.project-card-${i + 1}`;
-          const imgSelector = `.project-img-${i + 1}`;
 
           gsap.to(cardSelector, {
             width: "100%",
@@ -78,16 +77,6 @@ function Projectsv2() {
             },
           });
 
-          gsap.to(imgSelector, {
-            scale: 1,
-            scrollTrigger: {
-              trigger: cardSelector,
-              containerAnimation: horizontalTween,
-              start: "left 100%",
-              end: "center center",
-              scrub: 1,
-            },
-          });
         });
       } else {
         gsap.to(".work-project", {
@@ -113,15 +102,6 @@ function Projectsv2() {
             },
           });
 
-          gsap.to(`.project-img-${i + 1}`, {
-            scale: 1,
-            scrollTrigger: {
-              trigger: `.project-card-${i + 1}`,
-              start: "top bottom",
-              end: "center center",
-              scrub: 1,
-            },
-          });
         });
       }
     });
