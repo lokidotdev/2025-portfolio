@@ -5,6 +5,20 @@ export function getProjectsForPage(page: ProjectPage): Project[] {
 }
 
 export const projectsList: Project[] = [
+{
+  name: "designeng.tools",
+  link: "https://designeng.tools/",
+  desktopImage: "images/designeng.png",
+  points: [
+    "A curated discovery platform for design engineers, bringing useful inspiration, tools, libraries, design systems, learning resources, and creators into one organized place.",
+    "Organizes hundreds of resources across categories like websites, UI inspiration, app screenshots, motion, fonts, icons, component libraries, courses, communities, and design engineering people.",
+    "Users can create their own public collections, save the sites and tools they use, and follow other people's collections to discover resources curated around different tastes and workflows.",
+    "Built as a fast, searchable resource directory with structured categorization and a strong focus on making high-quality design and engineering references easier to discover.",
+    "Tech - TanStack Start, TypeScript, Tailwind CSS, shadcn/ui, Bun, Cloudflare Workers",
+  ],
+  category: "fullstack",
+  pages: ["home", "projects"],
+},
   {
     name: "Highway z",
     link: "https://highwayz.lok1.dev/",
