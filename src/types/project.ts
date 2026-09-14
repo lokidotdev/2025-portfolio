@@ -7,7 +7,7 @@ export interface Project {
   link: string;
   desktopImage: string;
   points: string[];
-  category: ProjectCategory;
+  categories: ProjectCategory[];
   /** Pages this project should appear on. Defaults to all pages ("home" and "projects") when omitted. */
   pages?: ProjectPage[];
 }

@@ -79,7 +79,9 @@ const Row = ({
             className="opacity-0 transition-opacity group-hover:opacity-100"
           />
         </span>
-        <span className={`hidden text-xs md:block md:text-sm ${subtle}`}>[ {categoryLabels[project.category]} ]</span>
+        <span className={`hidden text-xs md:block md:text-sm ${subtle}`}>
+          [ {project.categories.map((c) => categoryLabels[c]).join(", ")} ]
+        </span>
       </div>
 
       {/* Right — image + one-liner on mobile, points on desktop */}
@@ -132,7 +134,7 @@ export default function ProjectsPageClient() {
     () =>
       filter === "all"
         ? projects
-        : projects.filter((p) => p.category === filter),
+        : projects.filter((p) => p.categories.includes(filter)),
     [projects, filter]
   );
 

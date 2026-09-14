@@ -63,20 +63,25 @@ function Projectsv2() {
         });
 
         projectsList.forEach((_, i) => {
-          const cardSelector = `.project-card-${i + 1}`;
+          const n = i + 1;
 
-          gsap.to(cardSelector, {
-            width: "100%",
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: cardSelector,
-              containerAnimation: horizontalTween,
-              start: "left 100%",
-              end: "center left",
-              scrub: 1,
+          gsap.fromTo(
+            `.project-card-${n}`,
+            { scale: 0.5 },
+            {
+              scale: 1,
+              ease: "none",
+              transformOrigin: "left top",
+              scrollTrigger: {
+                trigger: `.project-trigger-${n}`,
+                containerAnimation: horizontalTween,
+                start: "left 100%",
+                end: "center left",
+                scrub: 1,
+                invalidateOnRefresh: true,
+              },
             },
-          });
-
+          );
         });
       } else {
         gsap.to(".work-project", {
@@ -92,16 +97,24 @@ function Projectsv2() {
         });
 
         projectsList.forEach((_, i) => {
-          gsap.to(`.project-card-${i + 1}`, {
-            width: "100%",
-            scrollTrigger: {
-              trigger: `.project-card-${i + 1}`,
-              start: "top bottom",
-              end: "top top",
-              scrub: 1,
-            },
-          });
+          const n = i + 1;
 
+          gsap.fromTo(
+            `.project-card-${n}`,
+            { scale: 0.5 },
+            {
+              scale: 1,
+              ease: "none",
+              transformOrigin: "left top",
+              scrollTrigger: {
+                trigger: `.project-trigger-${n}`,
+                start: "top bottom",
+                end: "top top",
+                scrub: 1,
+                invalidateOnRefresh: true,
+              },
+            },
+          );
         });
       }
     });

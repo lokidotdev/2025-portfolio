@@ -16,7 +16,7 @@ export const projectsList: Project[] = [
     "Built as a fast, searchable resource directory with structured categorization and a strong focus on making high-quality design and engineering references easier to discover.",
     "Tech - TanStack Start, TypeScript, Tailwind CSS, shadcn/ui, Bun, Cloudflare Workers",
   ],
-  category: "fullstack",
+  categories: ["fullstack", "frontend"],
   pages: ["home", "projects"],
 },
   {
@@ -30,7 +30,7 @@ export const projectsList: Project[] = [
       "Backed by a real Bun/Prisma service for accounts, runs, and a global leaderboard, plus an admin console that live-tunes ~400 gameplay values and previews them against the game.",
       "Tech - Tanstack Start, Phaser, Tailwindcss, PostgreSQL, Prisma, Bun, Zod",
     ],
-    category: "aiSlop",
+    categories: ["aiSlop", "fullstack"],
     pages: ["home", "projects"],
   },
   {
@@ -43,7 +43,7 @@ export const projectsList: Project[] = [
       "Flexible credit-based subscriptions with Razorpay and transparent pricing",
       "Tech - Next.js, PostgreSQL, Express.js, Node.js, JavaScript, Tailwind CSS, ShadCN UI, Razorpay, REST APIs, Resend, OpenAI, Redis, Prisma",
     ],
-    category: "fullstack",
+    categories: ["fullstack","frontend"],
     pages: ["home", "projects"],
   },
   {
@@ -56,7 +56,7 @@ export const projectsList: Project[] = [
       "Ensured cross-browser compatibility and mobile-friendly design.",
       "Tech - React.js, GSAP, Bootstrap, HTML, CSS",
     ],
-    category: "frontend",
+    categories: ["frontend"],
     pages: ["home", "projects"],
   },
   {
@@ -69,7 +69,7 @@ export const projectsList: Project[] = [
       "Delivered a production-ready site optimized for performance and cross-device responsiveness.",
       "Tech - Next.js, GSAP, Tailwindcss, CSS, HTML",
     ],
-    category: "frontend",
+    categories: ["frontend"],
     pages: ["projects"],
   },
   {
@@ -82,7 +82,7 @@ export const projectsList: Project[] = [
       "Matched the original's typography, layout, and micro-interactions with a focus on performance and responsiveness.",
       "Tech - Next.js, Motion, Tailwindcss, CSS, HTML",
     ],
-    category: "frontend",
+    categories: ["frontend"],
     pages: ["home", "projects"],
   },
   {
@@ -95,7 +95,7 @@ export const projectsList: Project[] = [
       "Developed a custom CMS and admin dashboard for managing products, categories, and orders without touching code.",
       "Tech - Next.js, Three.js, React Three Fiber, Tailwindcss, Coolify, Node.js, postgresql, Prisma, ShadcnUI, express.js, Docker, Typescript",
     ],
-    category: "fullstack",
+    categories: ["fullstack"],
     pages: ["home", "projects"],
   },
   {
@@ -108,7 +108,7 @@ export const projectsList: Project[] = [
       "Showcases motion design principles and modern UI patterns with a clean, minimal aesthetic.",
       "Tech - Next.js, Motion, Tailwindcss",
     ],
-    category: "frontend",
+    categories: ["frontend"],
     pages: ["projects"],
   },
   {
@@ -121,7 +121,7 @@ export const projectsList: Project[] = [
       "Interactive camera controls and GPU-optimized rendering for smooth animations and exploration.",
       "Tech - Three.js, React.js, Vite",
     ],
-    category: "frontend",
+    categories: ["frontend"],
     pages: ["home", "projects"],
   },
   {
@@ -134,7 +134,7 @@ export const projectsList: Project[] = [
       "Clean, minimal interface with instant preview and one-click download.",
       "Tech - Next.js, TypeScript, Tailwind CSS",
     ],
-    category: "frontend",
+    categories: ["frontend"],
     pages: ["projects"],
   },
   {
@@ -146,7 +146,7 @@ export const projectsList: Project[] = [
       "Open source project.",
       "Tech - Next.js, Framer Motion, GSAP, ShadCN UI, JavaScript, Tailwind CSS",
     ],
-    category: "frontend",
+    categories: ["frontend"],
     pages: ["home", "projects"],
   },
   {
@@ -159,7 +159,7 @@ export const projectsList: Project[] = [
       "Fully responsive with optimized performance and polished micro-interactions throughout.",
       "Tech - Next.js, GSAP, Tailwind CSS",
     ],
-    category: "frontend",
+    categories: ["frontend"],
     pages: ["projects"],
   },
   {
@@ -171,7 +171,7 @@ export const projectsList: Project[] = [
       "Async, event-driven backend with WebSockets and Redis for concurrent gameplay",
       "Tech - React.js, Express.js, Node.js, TypeScript, Tailwind CSS, WebSockets, Redis, PostgreSQL, Prisma",
     ],
-    category: "fullstack",
+    categories: ["fullstack","frontend"],
     pages: ["home", "projects"],
   },
 ];

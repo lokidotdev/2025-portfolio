@@ -5,7 +5,7 @@ export const siteConfig = {
   description:
     "Lokesh Yadav — Frontend-focused Full Stack Engineer (MERN | PERN) building production-ready, real-time web apps with React, Next.js, TypeScript, Node.js, PostgreSQL, Three.js, GSAP, WebSockets, and Redis. View projects and experience.",
   url: "https://lok1.dev",
-  ogImage: "/images/portfolio.jpg",
+  ogImage: "/images/ogimage.png",
   email: "lokeshyadv8177@gmail.com",
   phone: "+919560545070",
   keywords: [

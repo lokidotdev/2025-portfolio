@@ -14,29 +14,33 @@ const ProjectCard = ({
 }) => {
 
   return (
-    <div key={index} className={` w-full flex justify-center `}>
+    <div key={index} className="flex w-full justify-center">
       <div
-        style={{
-          transform: `${isMobile ? "translateY" : "translateX"
-            }(${getTranslateX(isMobile, index, scrollProgress)}px)`,
-        }}
-        className="flex w-full items-center justify-center overflow-hidden"
+        className={`project-trigger-${index + 1} relative aspect-[4/3] w-[400px] md:w-[800px]`}
       >
+        <div
+          style={{
+            transform: `${isMobile ? "translateY" : "translateX"}(${getTranslateX(
+              isMobile,
+              index,
+              scrollProgress,
+            )}px)`,
+          }}
+          className="h-full w-full"
+        >
         <Link
           href={data.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative flex w-[400px] items-center overflow-visible hover:cursor-pointer md:w-[800px] md:justify-start"
+          className="group relative flex h-full w-full items-center overflow-visible hover:cursor-pointer md:justify-start"
         >
           {/* sq edges  */}
 
           {/* <div className={`absolute ${getFrequency(index, scrollProgress) < 0 ? 'left-0' : 'right-0'} w-1/6 h-2 bg-brand -bottom-2`}></div>
           <div className={`absolute ${getFrequency(index, scrollProgress) < 0 ? '-left-2' : '-right-2'} w-2 h-1/6 bg-brand bottom-0`}></div> */}
           <div
-            className={`relative aspect-[4/3] w-[400px] overflow-hidden md:w-[50%] project-card-${index + 1
-              }
+            className={`relative h-full w-full origin-top-left scale-50 overflow-hidden will-change-transform project-card-${index + 1}
             ${darkTheme ? "opacity-80" : "opacity-100"}
-            transition-shadow duration-500 ease-out 
             `}
           >
             {/* description  */}
@@ -81,6 +85,7 @@ const ProjectCard = ({
             />
           </div>
         </Link>
+        </div>
       </div>
     </div>
   );
