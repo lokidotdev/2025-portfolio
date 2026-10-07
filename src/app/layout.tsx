@@ -79,7 +79,7 @@ export default function RootLayout({
           }}
         />
         <Providers>{children}</Providers>
-        <Script defer src="https://silentpulse.vercel.app/script.js" data-website-id="46509111-a743-4792-95ab-a43b1d451b61"></Script>
+        <Script defer src="https://umami.lok1.dev/script.js" data-website-id="46509111-a743-4792-95ab-a43b1d451b61"></Script>
       </body>
     </html>
   );
