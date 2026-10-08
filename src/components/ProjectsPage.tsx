@@ -12,7 +12,7 @@ import { ArrowUpRight } from "lucide-react";
 import { getProjectsForPage } from "@/constants/projectData";
 import type { Project, ProjectCategory } from "@/types/project";
 import { useGlobalContext } from "@/context/globalContext";
-import ProximityText from "./ui/ProximityText";
+import SectionHeading from "./ui/SectionHeading";
 import { themeTokens } from "@/lib/theme";
 
 type Filter = "all" | ProjectCategory;
@@ -71,7 +71,7 @@ const Row = ({
     >
       {/* Left — name + category */}
       <div className="flex flex-col gap-2 md:gap-3">
-        <span className="flex items-center gap-2 text-xl font-thin leading-[110%] tracking-[-0.02em] transition-colors group-hover:text-(--color-design) md:text-3xl">
+        <span className="flex items-center gap-2 text-xl font-medium leading-[110%] tracking-[-0.02em] transition-colors group-hover:text-(--color-design) md:text-3xl">
           {project.name}
           <ArrowUpRight
             size={20}
@@ -86,7 +86,7 @@ const Row = ({
 
       {/* Right — image + one-liner on mobile, points on desktop */}
       <div className="flex flex-col gap-3 md:hidden">
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
+        <div className="relative aspect-video w-full overflow-hidden rounded-lg">
           <Image
             src={`/${project.desktopImage}`}
             alt={project.name}
@@ -95,14 +95,14 @@ const Row = ({
             className="object-cover object-center"
           />
         </div>
-        <p className={`text-sm leading-[140%] md:text-base ${subtle}`}>{project.points[0]}</p>
+        <p className={`text-sm font-light leading-[140%] md:text-base ${subtle}`}>{project.points[0]}</p>
       </div>
 
       <ul className="hidden flex-col gap-2 md:flex">
         {project.points.map((point) => (
           <li
             key={point}
-            className={`flex gap-3 text-sm leading-[140%] md:text-base ${subtle}`}
+            className={`flex gap-3 text-sm font-light leading-[140%] md:text-base ${subtle}`}
           >
             <span className="text-(--color-design)">/</span>
             <span>{point}</span>
@@ -162,7 +162,7 @@ export default function ProjectsPageClient() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="pointer-events-none fixed z-50 hidden aspect-[4/3] w-[24rem] overflow-hidden rounded-xl shadow-2xl md:block"
+            className="pointer-events-none fixed z-50 hidden aspect-video w-[24rem] overflow-hidden rounded-xl shadow-2xl md:block"
           >
             <Image
               src={`/${hovered.desktopImage}`}
@@ -177,29 +177,13 @@ export default function ProjectsPageClient() {
 
       <div className="mx-auto w-full max-w-7xl px-5 py-24 sm:px-6 md:px-16 md:py-32">
         {/* Header */}
-        <div className="mb-12 md:mb-20">
-          <m.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className={`mb-3 text-sm md:mb-6 md:text-lg ${subtle}`}
-          >
-            // Selected work
-          </m.p>
-          <m.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="hero-heading w-full text-5xl font-thin italic leading-[100%] tracking-[-0.04em] md:text-[8vw]"
-          >
-            <ProximityText
-              text="Projects"
-              maxDistance={200}
-              minWeight={100}
-              maxWeight={700}
-            />
-          </m.h1>
-        </div>
+        <SectionHeading
+          title="Projects"
+          tagline="Selected work"
+          subtle={subtle}
+          variant="page"
+          className="mb-12 md:mb-20"
+        />
 
         {/* Tabs */}
         <div className="mb-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm md:gap-6 md:text-lg">

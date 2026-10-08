@@ -12,7 +12,7 @@ export default function ConnectPageClient() {
         darkTheme ? "dark-theme-bg" : "light-theme-bg"
       } min-h-screen w-full`}
     >
-      <Contact />
+      <Contact variant="page" />
     </div>
   );
 }

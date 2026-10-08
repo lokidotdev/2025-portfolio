@@ -2,7 +2,7 @@
 
 import { m } from "motion/react";
 import { useGlobalContext } from "@/context/globalContext";
-import ProximityText from "./ui/ProximityText";
+import SectionHeading from "./ui/SectionHeading";
 import { themeTokens } from "@/lib/theme";
 
 interface ExperienceItem {
@@ -10,57 +10,32 @@ interface ExperienceItem {
   role: string;
   company: string;
   period: string;
-  description: string[];
-  skills: string[];
 }
 
-
 const experiences: ExperienceItem[] = [
+  {
+    id: 5,
+    role: "Software Developer",
+    company: "BenGait Labs",
+    period: "Apr 2026 - Present",
+  },
+  {
+    id: 4,
+    role: "Software Development Engineer 1",
+    company: "Quanto Consulting",
+    period: "Jul 2025 - Sep 2025",
+  },
   {
     id: 1,
     role: "Interactive Full Stack Developer",
     company: "Marqueascendia",
     period: "Sep 2024 - Jun 2025",
-    description: [
-      "Built and optimized full-stack features using React, Next.js, Node.js, and PostgreSQL",
-      "Designed responsive, animation-rich interfaces using GSAP and modern UI patterns",
-      "Designed and maintained RESTful APIs with validation, authentication, and efficient data flow",
-      "Collaborated with designers and stakeholders to translate business requirements into scalable solutions",
-    ],
-    skills: [
-      "React",
-      "Next.js",
-      "Node.js",
-      "Express.js",
-      "PostgreSQL",
-      "GSAP",
-      "Tailwind CSS",
-      "REST APIs",
-      "Framer Motion",
-    ],
   },
   {
     id: 3,
     role: "Freelance Web Developer",
     company: "Self-Employed",
     period: "2023 - Present",
-    description: [
-      "Crafted immersive frontend and storytelling websites for startups, creators, and brands",
-      "Built visually rich, high-performance websites focused on narrative flow and user engagement",
-      "Emphasized clean UI, smooth animations, and meaningful micro-interactions",
-      "Translated ideas and brand stories into interactive web experiences",
-      "Delivered polished, production-ready sites with ongoing improvements and refinements",
-    ],
-    skills: [
-      "React",
-      "Next.js",
-      "Node.js",
-      "MongoDB",
-      "Tailwind CSS",
-      "GSAP",
-      "Stripe",
-      "REST APIs",
-    ],
   },
 ];
 
@@ -74,55 +49,43 @@ const Row = ({
   darkTheme: boolean;
 }) => {
   const { subtle, border } = themeTokens(darkTheme);
+  const current = item.period.includes("Present");
 
   return (
-    <m.div
-      initial={{ opacity: 0, y: 40 }}
+    <m.li
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`group grid grid-cols-1 gap-4 border-t ${border} py-8 md:grid-cols-[1fr_2fr] md:gap-16 md:py-12`}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      className={`group border-b ${border}`}
     >
-      {/* Left — company + period */}
-      <div className="flex flex-col gap-1.5 md:gap-3">
-        <span className="text-xl font-thin leading-[110%] tracking-[-0.02em] md:text-3xl">
-          {item.company}
+      <div className="grid grid-cols-1 gap-y-2 py-7 transition-opacity duration-300 group-hover/list:opacity-40 group-hover:opacity-100! md:grid-cols-12 md:items-baseline md:gap-x-8 md:py-10">
+        {/* Period */}
+        <span
+          className={`flex items-center gap-2 whitespace-nowrap text-xs tabular-nums md:col-span-3 md:text-base ${subtle}`}
+        >
+          {item.period}
+          {current && (
+            <span className="relative flex size-1.5" aria-hidden>
+              <span className="absolute inset-0 animate-ping rounded-full bg-(--color-design) opacity-60 motion-reduce:animate-none" />
+              <span className="relative size-1.5 rounded-full bg-(--color-design)" />
+            </span>
+          )}
         </span>
-        <span className={`text-xs md:text-sm ${subtle}`}>[ {item.period} ]</span>
-      </div>
 
-      {/* Right — role + details */}
-      <div className="flex flex-col gap-3 md:gap-6">
-        <h3 className="text-base transition-colors group-hover:text-(--color-design) md:text-xl">
-          {item.role}
+        {/* Company */}
+        <h3 className="text-2xl font-medium leading-[110%] tracking-[-0.02em] transition-colors duration-200 group-hover:text-(--color-design) md:col-span-5 md:text-4xl">
+          {item.company}
         </h3>
 
-        <ul className="flex flex-col gap-2">
-          {item.description.map((point, idx) => (
-            <li
-              key={point}
-              className={`gap-3 text-sm leading-[140%] md:text-base ${subtle} ${
-                idx < 2 ? "flex" : "hidden md:flex"
-              }`}
-            >
-              <span className="opacity-60">//</span>
-              <span>{point}</span>
-            </li>
-          ))}
-        </ul>
-
-        <div className="hidden flex-wrap gap-x-5 gap-y-2 md:flex">
-          {item.skills.map((skill) => (
-            <span
-              key={skill}
-              className={`text-xs transition-colors hover:text-(--color-design) md:text-sm ${subtle}`}
-            >
-              [ {skill} ]
-            </span>
-          ))}
-        </div>
+        {/* Role */}
+        <p
+          className={`text-sm font-light md:col-span-4 md:text-right md:text-lg ${subtle}`}
+        >
+          {item.role}
+        </p>
       </div>
-    </m.div>
+    </m.li>
   );
 };
 
@@ -139,34 +102,16 @@ export default function ExperienceSection() {
     >
       <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-16 md:py-32">
         {/* Header */}
-        <div className="mb-10 md:mb-24">
-          <m.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className={`mb-3 text-sm md:mb-6 md:text-lg ${subtle}`}
-          >
-            // Where I&apos;ve worked
-          </m.p>
-          <m.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl font-thin italic leading-[100%] tracking-[-0.04em] md:text-[8vw]"
-          >
-            <ProximityText
-              text="Experience"
-              maxDistance={200}
-              minWeight={100}
-              maxWeight={700}
-            />
-          </m.h2>
-        </div>
+        <SectionHeading
+          title="Experience"
+          tagline="Where I've worked"
+          subtle={subtle}
+          variant="section"
+          className="mb-10 md:mb-24"
+        />
 
         {/* List */}
-        <div className={`border-b ${border}`}>
+        <ol className={`group/list border-t ${border}`}>
           {experiences.map((item, index) => (
             <Row
               key={item.id}
@@ -175,7 +120,7 @@ export default function ExperienceSection() {
               darkTheme={darkTheme}
             />
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

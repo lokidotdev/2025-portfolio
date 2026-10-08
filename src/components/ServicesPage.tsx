@@ -7,6 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useGlobalContext } from "@/context/globalContext";
 import ProximityText from "./ui/ProximityText";
+import SectionHeading from "./ui/SectionHeading";
 import { StatefulButton, type ButtonStatus } from "./ui/stateful-button";
 import { themeTokens } from "@/lib/theme";
 
@@ -96,25 +97,13 @@ export default function ServicesPage() {
     >
       <div className="mx-auto w-full max-w-7xl px-6 py-24 md:px-16 md:py-32">
         {/* Header */}
-        <div className="mb-16 md:mb-24">
-          <m.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className={`mb-3 text-sm md:mb-6 md:text-lg ${subtle}`}
-          >
-            // What I can build for you
-          </m.p>
-
-          <h1 className="hero-heading w-full italic text-5xl font-thin tracking-[-0.04em] leading-[100%] md:text-[8vw]">
-            <ProximityText
-              text="SERVICES"
-              maxDistance={200}
-              minWeight={100}
-              maxWeight={700}
-            />
-          </h1>
-        </div>
+        <SectionHeading
+          title="SERVICES"
+          tagline="What I can build for you"
+          subtle={subtle}
+          variant="page"
+          className="mb-16 md:mb-24"
+        />
 
         {/* Services grid */}
         <div

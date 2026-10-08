@@ -30,6 +30,18 @@
 
   /* Semantic */
   --color-danger: var(--color-brand);
+
+  /* Continuous light sweep across badges */
+  --animate-shine: shine 2.5s linear infinite;
+
+  @keyframes shine {
+    from {
+      transform: translateX(-150%) skewX(-20deg);
+    }
+    to {
+      transform: translateX(250%) skewX(-20deg);
+    }
+  }
 }
 
 @theme inline {

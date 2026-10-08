@@ -5,7 +5,7 @@ import { useState } from "react";
 import { m, AnimatePresence } from "motion/react";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { useGlobalContext } from "@/context/globalContext";
-import ProximityText from "./ui/ProximityText";
+import SectionHeading from "./ui/SectionHeading";
 import MagneticButton from "./ui/MagneticButton";
 import { themeTokens } from "@/lib/theme";
 
@@ -101,30 +101,18 @@ export default function AboutPage() {
 
       <div className="mx-auto w-full max-w-7xl px-5 py-24 sm:px-6 md:px-16 md:py-32">
         {/* Header */}
-        <div className="mb-12 md:mb-24">
-          <m.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className={`mb-3 text-sm md:mb-6 md:text-lg ${subtle}`}
-          >
-            // The person behind the pixels
-          </m.p>
-
-          <h1 className="hero-heading w-full italic text-5xl font-thin tracking-[-0.04em] leading-[100%] md:text-[8vw]">
-            <ProximityText
-              text="ABOUT ME"
-              maxDistance={200}
-              minWeight={100}
-              maxWeight={700}
-            />
-          </h1>
-        </div>
+        <SectionHeading
+          title="ABOUT ME"
+          tagline="The person behind the pixels"
+          subtle={subtle}
+          variant="page"
+          className="mb-12 md:mb-24"
+        />
 
         {/* Intro — portrait + copy */}
         <div className={`block after:table after:clear-both border-t ${border} pt-10 md:grid md:grid-cols-[1fr_2fr] md:gap-16 md:pt-12`}>
           <m.img
-            src="/images/portfolio-sq.png"
+            src="/images/portfolio-sq.webp"
             alt="Lokesh Yadav"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

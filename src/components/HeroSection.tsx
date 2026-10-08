@@ -46,7 +46,7 @@ const HeroSection = () => {
 
   return (
     <div
-      className={`${bg} ${text} transition-colors flex min-h-screen w-full flex-col max-h-[678px] md:max-h-[1036px]`}
+      className={`${bg} ${text} transition-colors flex h-svh min-h-[560px] max-h-[760px] w-full flex-col md:min-h-[640px] md:max-h-[1000px]`}
     >
       <main className="mx-auto p-4 md:p-20 flex w-full max-w-7xl flex-1 flex-col justify-center items-center gap-12 md:gap-20">
         <m.h1
@@ -80,7 +80,7 @@ const HeroSection = () => {
                   backdropFilter: "blur(0px)",
                 }
               }
-              src="/images/portfolio-sq.png"
+              src="/images/portfolio-sq.webp"
               alt="Lokesh Yadav"
               className="h-20 w-20 md:h-60 md:w-60 shrink-0 object-contain "
             />
@@ -109,7 +109,7 @@ const HeroSection = () => {
                 backdropFilter: "blur(0px)",
               }
             }
-            src="/images/portfolio-sq.png"
+            src="/images/portfolio-sq.webp"
             alt="Lokesh Yadav"
             className="h-10 w-10 md:h-60 md:w-60 shrink-0 object-contain hidden md:block"
           />

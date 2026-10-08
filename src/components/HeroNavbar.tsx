@@ -18,6 +18,7 @@ const navLinks = [
 const HeroNavbar = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { darkTheme, setDarkTheme } = useGlobalContext();
   const { text, bg, border } = themeTokens(darkTheme);
 
@@ -26,64 +27,79 @@ const HeroNavbar = () => {
     setIsOpen(false);
   }, [pathname]);
 
+  // show the bottom border only once the page has been scrolled
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 0);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const themeToggle = (
+    <button
+      type="button"
+      onClick={() => setDarkTheme((prev) => !prev)}
+      aria-label={darkTheme ? "Switch to light theme" : "Switch to dark theme"}
+      aria-pressed={darkTheme}
+      title={darkTheme ? "Light mode" : "Dark mode"}
+      className="relative h-5 w-5 cursor-pointer hover:text-brand"
+    >
+      <AnimatePresence initial={false} mode="wait">
+        <m.span
+          key={darkTheme ? "sun" : "moon"}
+          initial={{ opacity: 0, rotate: -90 }}
+          animate={{ opacity: 1, rotate: 0 }}
+          exit={{ opacity: 0, rotate: 90 }}
+          transition={{ duration: 0.15 }}
+          className="absolute inset-0"
+        >
+          {darkTheme ? (
+            <Sun size={20} strokeWidth={1.75} />
+          ) : (
+            <Moon size={20} strokeWidth={1.75} />
+          )}
+        </m.span>
+      </AnimatePresence>
+    </button>
+  );
+
   return (
     <header
-      className={`w-full h-fit z-100 fixed top-0 left-0 transition-colors ${bg} ${text}`}
+      className={`w-full h-fit z-100 fixed top-0 left-0 border-b transition-colors ${bg} ${text} ${
+        isScrolled ? border : "border-transparent"
+      }`}
     >
       <div className="mx-auto grid w-full max-w-7xl grid-cols-2 items-center p-4 md:grid-cols-3 md:px-16">
-        <button
-          type="button"
-          onClick={() => setIsOpen((prev) => !prev)}
-          aria-label={isOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isOpen}
-          className="relative h-5 w-5 justify-self-start md:hidden"
-        >
-          <AnimatePresence initial={false} mode="wait">
-            <m.span
-              key={isOpen ? "close" : "open"}
-              initial={{ opacity: 0, rotate: -90 }}
-              animate={{ opacity: 1, rotate: 0 }}
-              exit={{ opacity: 0, rotate: 90 }}
-              transition={{ duration: 0.15 }}
-              className="absolute inset-0"
-            >
-              {isOpen ? (
-                <X size={20} strokeWidth={1.75} />
-              ) : (
-                <Menu size={20} strokeWidth={1.75} />
-              )}
-            </m.span>
-          </AnimatePresence>
-        </button>
-
-        <div className="hidden gap-4 md:flex items-center">
+        <div className="flex items-center gap-4 justify-self-start md:hidden">
           <button
             type="button"
-            onClick={() => setDarkTheme((prev) => !prev)}
-            aria-label={
-              darkTheme ? "Switch to light theme" : "Switch to dark theme"
-            }
-            aria-pressed={darkTheme}
-            title={darkTheme ? "Light mode" : "Dark mode"}
-            className="relative h-5 w-5 cursor-pointer hover:text-brand"
+            onClick={() => setIsOpen((prev) => !prev)}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            className="relative h-5 w-5"
           >
             <AnimatePresence initial={false} mode="wait">
               <m.span
-                key={darkTheme ? "sun" : "moon"}
+                key={isOpen ? "close" : "open"}
                 initial={{ opacity: 0, rotate: -90 }}
                 animate={{ opacity: 1, rotate: 0 }}
                 exit={{ opacity: 0, rotate: 90 }}
                 transition={{ duration: 0.15 }}
                 className="absolute inset-0"
               >
-                {darkTheme ? (
-                  <Sun size={20} strokeWidth={1.75} />
+                {isOpen ? (
+                  <X size={20} strokeWidth={1.75} />
                 ) : (
-                  <Moon size={20} strokeWidth={1.75} />
+                  <Menu size={20} strokeWidth={1.75} />
                 )}
               </m.span>
             </AnimatePresence>
           </button>
+          {themeToggle}
+        </div>
+
+        <div className="hidden gap-4 md:flex items-center">
+          {themeToggle}
           <Link href="/" className="text-[15px]">
             Lokesh
           </Link>

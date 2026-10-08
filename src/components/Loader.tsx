@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
+import { useGlobalContext } from "@/context/globalContext";
 
 interface LoaderProps {
   onComplete?: () => void;
@@ -12,6 +13,7 @@ interface LoaderProps {
 const MIN_VISIBLE_MS = 1400;
 
 const Loader = ({ onComplete }: LoaderProps) => {
+  const { darkTheme } = useGlobalContext();
   const textRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef(0);
   const [loadingPercentage, setLoadingPercentage] = useState(0);
@@ -117,18 +119,18 @@ const Loader = ({ onComplete }: LoaderProps) => {
 
   return (
     <div className="loading-page w-full h-dvh overflow-hidden relative z-10">
-      <div className="bg-ink h-full w-full z-[10]"></div>
+      <div className={`${darkTheme ? "bg-surface-raised" : "bg-ink"} h-full w-full z-[10]`}></div>
 
       {/* The wipe is exactly as wide as the container, so a percentage
           translate resolves against the container just like `right` did —
           but on the compositor instead of triggering layout every frame. */}
       <div
         style={{ transform: `translateX(-${100 - loadingPercentage}%)` }}
-        className="bg-surface-raised h-full w-full absolute z-[30] top-0 right-0 overflow-hidden transition-transform ease-out"
+        className={`${darkTheme ? "bg-ink" : "bg-surface-raised"} h-full w-full absolute z-[30] top-0 right-0 overflow-hidden transition-transform ease-out`}
       >
         <div
           style={{ transform: `translateX(${textAdjustment}px)` }}
-          className="text-ink z-[40] bottom-0 right-0 absolute text-[100px] px-5 inner-text"
+          className={`${darkTheme ? "text-on-dark" : "text-ink"} z-[40] bottom-0 right-0 absolute text-[100px] px-5 inner-text`}
         >
           {loadingPercentage}
         </div>
@@ -142,7 +144,7 @@ const Loader = ({ onComplete }: LoaderProps) => {
         <div
           ref={textRef}
           style={{ transform: `translateX(${textAdjustment}px)` }}
-          className="text-on-dark bottom-0 right-0 absolute text-[100px] px-5 outer-text"
+          className={`${darkTheme ? "text-ink" : "text-on-dark"} bottom-0 right-0 absolute text-[100px] px-5 outer-text`}
         >
           {loadingPercentage}
         </div>

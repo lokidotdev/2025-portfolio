@@ -10,4 +10,6 @@ export interface Project {
   categories: ProjectCategory[];
   /** Pages this project should appear on. Defaults to all pages ("home" and "projects") when omitted. */
   pages?: ProjectPage[];
+  /** Short highlight shown as a banner over the card image, e.g. "20K+ visits". */
+  badge?: string;
 }

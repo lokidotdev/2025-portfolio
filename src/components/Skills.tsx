@@ -3,10 +3,9 @@
 import { Suspense, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Html, OrbitControls } from "@react-three/drei";
-import { m } from "motion/react";
 import * as THREE from "three";
 import { useGlobalContext } from "@/context/globalContext";
-import ProximityText from "./ui/ProximityText";
+import SectionHeading from "./ui/SectionHeading";
 import { themeColor, themeTokens } from "@/lib/theme";
 
 // Each skill maps to a Simple Icons slug (https://simpleicons.org).
@@ -147,31 +146,13 @@ export default function SkillsSection() {
     >
       <div className="mx-auto w-full max-w-7xl px-6 py-24 md:px-16 md:py-32">
         {/* Header */}
-        <div className="mb-8 md:mb-12">
-          <m.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className={`mb-3 text-sm md:mb-6 md:text-lg ${subtle}`}
-          >
-            // Tools I build with
-          </m.p>
-          <m.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl font-thin italic leading-[100%] tracking-[-0.04em] md:text-[8vw]"
-          >
-            <ProximityText
-              text="Skills"
-              maxDistance={200}
-              minWeight={100}
-              maxWeight={700}
-            />
-          </m.h2>
-        </div>
+        <SectionHeading
+          title="Skills"
+          tagline="Tools I build with"
+          subtle={subtle}
+          variant="section"
+          className="mb-8 md:mb-12"
+        />
 
         {/* 3D wireframe sphere */}
         <div className="h-[70vh] min-h-125 w-full">

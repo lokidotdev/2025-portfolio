@@ -6,9 +6,9 @@ export function getProjectsForPage(page: ProjectPage): Project[] {
 
 export const projectsList: Project[] = [
 {
-  name: "designeng.tools",
+  name: "DesignEng",
   link: "https://designeng.tools/",
-  desktopImage: "images/designeng.png",
+  desktopImage: "images/designeng.webp",
   points: [
     "A curated discovery platform for design engineers, bringing useful inspiration, tools, libraries, design systems, learning resources, and creators into one organized place.",
     "Organizes hundreds of resources across categories like websites, UI inspiration, app screenshots, motion, fonts, icons, component libraries, courses, communities, and design engineering people.",
@@ -18,11 +18,12 @@ export const projectsList: Project[] = [
   ],
   categories: ["fullstack", "frontend"],
   pages: ["home", "projects"],
+  badge: "20K+ visits",
 },
   {
     name: "Highway z",
     link: "https://highwayz.lok1.dev/",
-    desktopImage: "images/highwayz.png",
+    desktopImage: "images/highwayz.webp",
     points: [
       "Infinite-highway shooter where zombie formations sweep in and throw their own torn-off limbs at you — six weapon tiers, seven zombie variants, seven formation patterns, and a 31-wave day/night cycle with boss encounters.",
       "Built with Phaser 3 running client-only inside TanStack Start, syncing to React over a throttled Zustand store and a typed command bus.",
@@ -36,7 +37,7 @@ export const projectsList: Project[] = [
   {
     name: "Promptography",
     link: "https://promptography.zero1studio.xyz/",
-    desktopImage: "images/promptboard.png",
+    desktopImage: "images/promptboard.webp",
     points: [
       "Discover and share AI prompts with vector search, Redis caching, and database replicas for performance",
       "AI-powered image regeneration from prompts using generative AI",
@@ -49,7 +50,7 @@ export const projectsList: Project[] = [
   {
     name: "FOTF",
     link: "https://fotf-frontend.vercel.app",
-    desktopImage: "images/fotf.png",
+    desktopImage: "images/fotf.webp",
     points: [
       "Developed a fully responsive animated website with smooth transitions and micro-interactions.",
       "Implemented optimized animations using GSAP for a seamless user experience.",
@@ -58,11 +59,12 @@ export const projectsList: Project[] = [
     ],
     categories: ["frontend"],
     pages: ["home", "projects"],
+    badge: "100% hand-coded",
   },
   {
     name: "Muse Ink",
     link: "https://museink.zero1studio.xyz/",
-    desktopImage: "images/museink.png",
+    desktopImage: "images/museink.webp",
     points: [
       "Built a client-facing animated website for a creative studio with custom scroll-triggered animations.",
       "Crafted pixel-perfect UI with GSAP ScrollTrigger for immersive, storytelling-driven sections.",
@@ -75,7 +77,7 @@ export const projectsList: Project[] = [
   {
     name: "Montreal",
     link: "https://montreal-clone.vercel.app/",
-    desktopImage: "images/montreal.png",
+    desktopImage: "images/montreal.webp",
     points: [
       "Recreated the award-winning Montreal agency website as a pixel-perfect clone to study high-end motion design.",
       "Reproduced the signature smooth scrolling and scroll-triggered reveal animations for an immersive experience.",
@@ -84,11 +86,12 @@ export const projectsList: Project[] = [
     ],
     categories: ["frontend"],
     pages: ["home", "projects"],
+    badge: "artisanal code",
   },
   {
     name: "Excellent Printing Press",
     link: "https://excellentpp.com/",
-    desktopImage: "images/excellentpp.png",
+    desktopImage: "images/excellentpp.webp",
     points: [
       "Built a full-stack ecommerce platform for a UAE printing & packaging company, covering gifts, merchandise, and food-service product lines.",
       "Built a canvas-based live 3D product previewer with Three.js and React Three Fiber, letting customers see custom box designs update in real time.",
@@ -101,7 +104,7 @@ export const projectsList: Project[] = [
   {
     name: "Homie",
     link: "https://homie.zero1studio.xyz",
-    desktopImage: "images/homie.png",
+    desktopImage: "images/homie.webp",
     points: [
       "Concept animated landing page for a real estate platform, built as a mockup project.",
       "Implemented smooth page transitions and scroll-based reveal animations for an engaging browsing experience.",
@@ -114,7 +117,7 @@ export const projectsList: Project[] = [
   {
     name: "Galaxy Generator",
     link: "https://galaxy-generator-eta.vercel.app/",
-    desktopImage: "images/galaxy.png",
+    desktopImage: "images/galaxy.webp",
     points: [
       "A dynamic 3D galaxy generator built with Three.js using millions of particles.",
       "Customizable parameters — adjust galaxy radius, spin, branches, and color gradients in real time.",
@@ -123,11 +126,12 @@ export const projectsList: Project[] = [
     ],
     categories: ["frontend"],
     pages: ["home", "projects"],
+    badge: "no AI, just coffee",
   },
   {
     name: "OpenBG",
     link: "https://openbg.lok1.dev/",
-    desktopImage: "images/openbg.png",
+    desktopImage: "images/openbg.webp",
     points: [
       "A free and open source tool to remove backgrounds from images.",
       "Runs background removal entirely in the browser, so images never leave the user's device.",
@@ -140,7 +144,7 @@ export const projectsList: Project[] = [
   {
     name: "PixelflowUI",
     link: "https://pixelflowui.lok1.dev/",
-    desktopImage: "images/pixelflowui.png",
+    desktopImage: "images/pixelflowui.webp",
     points: [
       "A collection of responsive animated UI components for web applications.",
       "Open source project.",
@@ -152,7 +156,7 @@ export const projectsList: Project[] = [
   {
     name: "Zero1 studio",
     link: "https://zero1studio.xyz/",
-    desktopImage: "images/zero1.png",
+    desktopImage: "images/zero1.webp",
     points: [
       "Designed and developed the official website for Zero1 Studio, a creative development studio.",
       "Built with a focus on bold visuals, smooth animations, and a strong brand identity.",
@@ -165,7 +169,7 @@ export const projectsList: Project[] = [
   {
     name: "ChessBlitz",
     link: "https://chessblitz.lok1.dev/",
-    desktopImage: "images/chess.png",
+    desktopImage: "images/chess.webp",
     points: [
       "Real-time multiplayer chess with random matchmaking, friend games, and live spectating",
       "Async, event-driven backend with WebSockets and Redis for concurrent gameplay",
@@ -173,5 +177,6 @@ export const projectsList: Project[] = [
     ],
     categories: ["fullstack","frontend"],
     pages: ["home", "projects"],
+    badge: "human-made",
   },
 ];

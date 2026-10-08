@@ -48,7 +48,7 @@ export const jsonLd = {
       url: `${siteConfig.url}/`,
       email: siteConfig.email,
       telephone: siteConfig.phone,
-      image: `${siteConfig.url}/images/portfolio-sq.png`,
+      image: `${siteConfig.url}/images/portfolio-sq.webp`,
       sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.twitter],
       knowsAbout: [
         "React",
