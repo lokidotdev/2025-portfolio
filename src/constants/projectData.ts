@@ -1,8 +1,14 @@
-import type { Project, ProjectPage } from "@/types/project";
+import type { Project, ProjectCategory, ProjectPage } from "@/types/project";
 
 export function getProjectsForPage(page: ProjectPage): Project[] {
   return projectsList.filter((p) => !p.pages || p.pages.includes(page));
 }
+
+export const categoryLabels: Record<ProjectCategory, string> = {
+  frontend: "frontend",
+  fullstack: "fullstack",
+  aiSlop: "AI Slop",
+};
 
 export const projectsList: Project[] = [
 {
@@ -20,6 +26,21 @@ export const projectsList: Project[] = [
   pages: ["home", "projects"],
   badge: "20K+ visits",
 },
+  {
+    name: "Portfolio 2026",
+    link: "https://2026.lok1.dev/",
+    desktopImage: "images/lok1-2026.webp",
+    points: [
+      "Experimental 3D portfolio where the site is wrapped around a rotating cylinder, with a giant typographic backdrop and a mirrored reflective floor.",
+      "Custom GLSL shaders drive the distortion, cylinder bending, floor reflection, and shatter transitions.",
+      "Live tweak panel for motion, distortion, cylinder, floor, text, scroll, and shatter parameters.",
+      "Tech - React, Three.js, GLSL Shaders",
+    ],
+    categories: ["frontend", "aiSlop"],
+    badge: "100% vibe coded",
+    hideBadgeOnHome: true,
+    pages: ["home", "projects"],
+  },
   {
     name: "Highway z",
     link: "https://highwayz.lok1.dev/",

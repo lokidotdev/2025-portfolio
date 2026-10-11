@@ -43,16 +43,16 @@ export const metadata: Metadata = {
     type: "website",
     url: siteConfig.url,
     siteName: "Lokesh Yadav Portfolio",
-    title: "Lokesh Yadav (Loki) - Full Stack Engineer Portfolio",
+    title: "Lokesh Yadav (Loki) - Design Engineer Portfolio",
     description:
-      "Full Stack Engineer specializing in React, Next.js, TypeScript, Node.js, PostgreSQL, real-time systems, and performance-focused web applications.",
+      "Design Engineer specializing in React, Next.js, TypeScript, Node.js, PostgreSQL, real-time systems, and performance-focused web applications.",
     images: [{ url: siteConfig.ogImage, alt: "Lokesh Yadav Portfolio" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lokesh Yadav (Loki) - Full Stack Engineer Portfolio",
+    title: "Lokesh Yadav (Loki) - Design Engineer Portfolio",
     description:
-      "Full Stack Engineer (MERN | PERN) — React, Next.js, Node.js, PostgreSQL, Three.js, WebSockets, Redis, and real-time web applications.",
+      "Design Engineer — React, Next.js, Node.js, PostgreSQL, Three.js, WebSockets, Redis, and real-time web applications.",
     images: [siteConfig.ogImage],
   },
 };

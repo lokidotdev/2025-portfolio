@@ -14,10 +14,9 @@ import { siteConfig } from "@/lib/site";
 function SeoContent() {
   return (
     <main className="sr-only" aria-hidden={false}>
-      <h1>Lokesh Yadav — Full Stack Engineer (Loki)</h1>
+      <h1>Lokesh Yadav — Design Engineer (Loki)</h1>
       <p>
-        Lokesh Yadav, also known as Loki, is a frontend-focused full stack
-        engineer (MERN &amp; PERN) who builds production-ready, real-time, and
+        Lokesh Yadav, also known as Loki, is a design engineer who builds production-ready, real-time, and
         performance-sensitive web applications. He specializes in React,
         Next.js, TypeScript, Node.js, PostgreSQL, Three.js, GSAP, WebSockets,
         and Redis.

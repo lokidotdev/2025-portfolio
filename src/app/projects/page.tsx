@@ -1,12 +1,12 @@
-import ProjectsPageClient from "@/components/ProjectsPage";
+import WorksPage from "@/components/WorksPage";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Projects",
+  title: "Works",
   description:
-    "A collection of web projects — client work, personal builds, and experimental playgrounds by Lokesh Yadav.",
+    "Live web projects by Lokesh Yadav: client sites, full-stack products, and experiments you can open and try.",
 };
 
 export default function ProjectsPage() {
-  return <ProjectsPageClient />;
+  return <WorksPage />;
 }

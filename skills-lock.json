@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "ux-first-design": {
+      "source": "lokidotdev/skills",
+      "sourceType": "github",
+      "skillPath": "skills/ux-first-design/SKILL.md",
+      "computedHash": "23bb937c7b52f1b23931e6a2bccaeb1cd906956e491f7afc85b4850bec947cba"
+    }
+  }
+}

@@ -12,4 +12,6 @@ export interface Project {
   pages?: ProjectPage[];
   /** Short highlight shown as a banner over the card image, e.g. "20K+ visits". */
   badge?: string;
+  /** Hide the badge in the landing-page project list */
+  hideBadgeOnHome?: boolean;
 }

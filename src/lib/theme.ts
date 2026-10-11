@@ -25,12 +25,14 @@ export type ThemeTokens = {
   placeholder: string;
 };
 
+// Opacity steps are the lowest that clear WCAG AA on each theme's background:
+// subtle/faint ≥ 4.5:1 for text, inputBorder ≥ 3:1 for control outlines.
 const dark: ThemeTokens = {
   text: "text-on-dark",
   subtle: "text-on-dark/60",
-  faint: "text-on-dark/45",
+  faint: "text-on-dark/50",
   border: "border-on-dark/15",
-  inputBorder: "border-on-dark/30",
+  inputBorder: "border-on-dark/40",
   bg: "bg-ink",
   bgRaised: "bg-surface-inverse",
   placeholder: "bg-on-dark/10",
@@ -38,10 +40,10 @@ const dark: ThemeTokens = {
 
 const light: ThemeTokens = {
   text: "text-ink",
-  subtle: "text-ink/60",
-  faint: "text-ink/45",
+  subtle: "text-ink/70",
+  faint: "text-ink/65",
   border: "border-ink/15",
-  inputBorder: "border-ink/30",
+  inputBorder: "border-ink/50",
   bg: "bg-surface",
   bgRaised: "bg-surface-raised",
   placeholder: "bg-ink/10",

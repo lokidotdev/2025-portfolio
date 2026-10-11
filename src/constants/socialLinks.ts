@@ -1,17 +1,8 @@
+import { siteConfig } from "@/lib/site";
+
+/** Profiles shown in the Connect section — `handle` is what people read, not the raw URL. */
 export const socialLinks = [
-  {
-    hint: "Drop me an email",
-    label: "lokeshyadv8177@gmail.com",
-    href: "mailto:lokeshyadv8177@gmail.com",
-  },
-  {
-    hint: "Follow on X",
-    label: "https://x.com/lokidotdev",
-    href: "https://www.x.com/lokidotdev/",
-  },
-  {
-    hint: "For devs",
-    label: "https://github.com/lokidotdev",
-    href: "https://github.com/lokidotdev",
-  },
+  { platform: "LinkedIn", handle: "in/lokidotdev", href: siteConfig.linkedin },
+  { platform: "GitHub", handle: "@lokidotdev", href: siteConfig.github },
+  { platform: "X", handle: "@lokidotdev", href: siteConfig.twitter },
 ];

@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: "Lokesh Yadav",
   alternateName: "Loki",
-  title: "Lokesh Yadav | Full Stack Engineer",
+  title: "Lokesh Yadav | Design Engineer",
   description:
-    "Lokesh Yadav — Frontend-focused Full Stack Engineer (MERN | PERN) building production-ready, real-time web apps with React, Next.js, TypeScript, Node.js, PostgreSQL, Three.js, GSAP, WebSockets, and Redis. View projects and experience.",
+    "Lokesh Yadav — Design Engineer building production-ready, real-time web apps with React, Next.js, TypeScript, Node.js, PostgreSQL, Three.js, GSAP, WebSockets, and Redis. View projects and experience.",
   url: "https://lok1.dev",
   ogImage: "/images/ogimage.png",
   email: "lokeshyadv8177@gmail.com",
@@ -11,7 +11,8 @@ export const siteConfig = {
   keywords: [
     "lokesh yadav",
     "loki",
-    "full stack engineer",
+    "design engineer",
+    "design engineering",
     "MERN developer",
     "PERN developer",
     "react developer",
@@ -30,6 +31,7 @@ export const siteConfig = {
   github: "https://github.com/lokidotdev",
   linkedin: "https://linkedin.com/in/lokidotdev/",
   twitter: "https://x.com/lokidotdev",
+  booking: "https://cal.com/zero1studio",
 } as const;
 
 export const jsonLd = {
@@ -40,11 +42,11 @@ export const jsonLd = {
       "@id": `${siteConfig.url}/#person`,
       name: siteConfig.name,
       alternateName: [siteConfig.alternateName, "Lokesh", "Loki Dev"],
-      jobTitle: "Full Stack Engineer",
+      jobTitle: "Design Engineer",
       nationality: "Indian",
       knowsLanguage: ["en", "hi"],
       description:
-        "Frontend-focused Full Stack Engineer experienced in production-ready, real-time, and performance-sensitive web applications with React, Next.js, TypeScript, and Node.js.",
+        "Design Engineer experienced in production-ready, real-time, and performance-sensitive web applications with React, Next.js, TypeScript, and Node.js.",
       url: `${siteConfig.url}/`,
       email: siteConfig.email,
       telephone: siteConfig.phone,
@@ -76,7 +78,7 @@ export const jsonLd = {
       alternateName: "Loki Portfolio",
       url: `${siteConfig.url}/`,
       description:
-        "Portfolio of Lokesh Yadav — Full Stack Engineer showcasing React, Next.js, Node.js, and real-time full-stack projects.",
+        "Portfolio of Lokesh Yadav — Design Engineer showcasing interactive, real-time web projects built with React, Next.js and Node.js.",
       publisher: { "@id": `${siteConfig.url}/#person` },
       about: { "@id": `${siteConfig.url}/#person` },
     },
