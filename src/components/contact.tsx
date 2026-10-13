@@ -38,7 +38,7 @@ function CopyEmail({ subtle }: { subtle: string }) {
       type="button"
       onClick={copy}
       aria-label={state === "idle" ? "Copy email address" : undefined}
-      className={`inline-flex min-h-11 shrink-0 items-center gap-1.5 px-2 text-xs md:text-sm ${
+      className={`inline-flex min-h-11 -mr-2 shrink-0 items-center gap-1.5 px-2 text-xs md:text-sm ${
         state === "idle" ? subtle : ""
       } ${focusRing}`}
     >
@@ -82,9 +82,9 @@ export default function Contact({
           <div className="absolute left-0 top-0 hidden h-full w-8 border-y md:block md:w-16" />
           <div className="absolute right-0 top-0 hidden h-full w-8 border-y md:block md:w-16" />
 
-          <div className="grid grid-cols-1 gap-16 md:grid-cols-12 md:gap-x-16 lg:gap-x-24">
+          <div className="grid grid-cols-1 gap-16 md:grid-cols-[5fr_7fr] md:gap-x-16 lg:gap-x-24">
             {/* Left: direct routes, quickest first */}
-            <div className="flex min-w-0 flex-col gap-10 md:col-span-5">
+            <div className="flex min-w-0 flex-col gap-10">
               <h3 className={`text-sm md:text-lg ${subtle}`}>{"// Talk directly"}</h3>
 
               {/* A call: secondary to the form's Send, so outlined rather than filled */}
@@ -154,7 +154,7 @@ export default function Contact({
             </div>
 
             {/* Right: the form */}
-            <div className="min-w-0 md:col-span-7">
+            <div className="min-w-0">
               <h3 className={`mb-6 text-sm md:text-lg ${subtle}`}>{"// Or leave a message"}</h3>
               <ContactForm />
             </div>

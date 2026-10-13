@@ -31,6 +31,18 @@
   /* Semantic */
   --color-danger: var(--color-brand);
 
+  /* Seamless horizontal scroll: track holds two copies, moves one copy's width */
+  --animate-marquee: marquee 12s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
   /* Continuous light sweep across badges */
   --animate-shine: shine 2.5s linear infinite;
 

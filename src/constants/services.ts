@@ -1,5 +1,3 @@
-import { projectsList } from "@/constants/projectData";
-
 export type Service = {
   id: string;
   /** Sent to /api/service-request as-is — keep stable. */
@@ -9,8 +7,6 @@ export type Service = {
   /** What the client actually gets. */
   deliverables: string[];
   stack: string[];
-  /** Project names from projectData, shown as proof. */
-  proof: string[];
 };
 
 export const services: Service[] = [
@@ -23,8 +19,26 @@ export const services: Service[] = [
       "Motion, scroll and 3D interactions",
       "Performance and accessibility tuning",
     ],
-    stack: ["React", "Next.js", "TypeScript", "GSAP", "Three.js"],
-    proof: ["FOTF", "Galaxy Generator"],
+    stack: [
+      "React",
+      "Next.js",
+      "TanStack Start",
+      "TypeScript",
+      "JavaScript",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "GSAP",
+      "Motion",
+      "Three.js",
+      "React Three Fiber",
+      "GLSL Shaders",
+      "Phaser",
+      "Zustand",
+      "Vite",
+      "Bootstrap",
+      "HTML",
+      "CSS",
+    ],
   },
   {
     id: "backend-development",
@@ -35,8 +49,21 @@ export const services: Service[] = [
       "Database schema and migrations",
       "Real-time features and admin tooling",
     ],
-    stack: ["Node.js", "Express", "PostgreSQL", "Prisma", "Redis"],
-    proof: ["Highway z"],
+    stack: [
+      "Node.js",
+      "Express",
+      "Bun",
+      "TypeScript",
+      "PostgreSQL",
+      "Prisma",
+      "Redis",
+      "Zod",
+      "REST APIs",
+      "WebSockets",
+      "Razorpay",
+      "Resend",
+      "OpenAI",
+    ],
   },
   {
     id: "fullstack-development",
@@ -47,8 +74,22 @@ export const services: Service[] = [
       "End-to-end features, one owner",
       "Deployment with Docker or Cloudflare",
     ],
-    stack: ["Next.js", "Node.js", "PostgreSQL", "Docker"],
-    proof: ["Excellent Printing Press", "DesignEng"],
+    stack: [
+      "Next.js",
+      "TanStack Start",
+      "React",
+      "Node.js",
+      "Express",
+      "Bun",
+      "PostgreSQL",
+      "Prisma",
+      "Redis",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Docker",
+      "Coolify",
+      "Cloudflare Workers",
+    ],
   },
   {
     id: "ui-ux-design",
@@ -59,15 +100,14 @@ export const services: Service[] = [
       "High-fidelity screens and prototypes",
       "Reusable components and styles",
     ],
-    stack: ["Figma", "Design systems", "Prototyping"],
-    proof: ["Zero1 studio", "PixelflowUI"],
+    stack: [
+      "Figma",
+      "Design systems",
+      "Wireframing",
+      "Prototyping",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Motion",
+    ],
   },
 ];
-
-/** Resolve proof names to live links, skipping any project that was removed. */
-export function proofLinks(service: Service) {
-  return service.proof.flatMap((name) => {
-    const project = projectsList.find((p) => p.name === name);
-    return project ? [{ name: project.name, href: project.link }] : [];
-  });
-}

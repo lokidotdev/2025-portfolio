@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useId, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { AnimatePresence, MotionConfig, m } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -70,6 +70,45 @@ const Bracket = ({ side, show }: { side: "left" | "right"; show: boolean }) => (
     </AnimatePresence>
   </span>
 );
+
+// One line on mobile: scrolls sideways when the tabs overflow, fading only the edge
+// that still has more to show. Wraps freely from md up, where they always fit.
+const FADE = "1.5rem";
+const FilterScroller = ({ children }: { children: ReactNode }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [edges, setEdges] = useState({ start: false, end: false });
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const update = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      setEdges({ start: el.scrollLeft > 1, end: el.scrollLeft < max - 1 });
+    };
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => {
+      el.removeEventListener("scroll", update);
+      ro.disconnect();
+    };
+  }, []);
+
+  const mask = `linear-gradient(to right, ${edges.start ? "transparent" : "#000"}, #000 ${FADE}, #000 calc(100% - ${FADE}), ${edges.end ? "transparent" : "#000"})`;
+
+  return (
+    <div
+      ref={ref}
+      role="group"
+      aria-label="Filter works by type"
+      style={{ maskImage: mask, WebkitMaskImage: mask }}
+      className="-ml-2 flex w-[calc(100%+0.5rem)] overflow-x-auto [scrollbar-width:none] md:w-auto md:flex-wrap md:overflow-visible [&::-webkit-scrollbar]:hidden"
+    >
+      {children}
+    </div>
+  );
+};
 
 const ProofChip = ({ text, tokens }: { text: string; tokens: ThemeTokens }) => (
   <span
@@ -259,7 +298,7 @@ export default function WorksPage() {
           {/* Filters + result count */}
           <div className={`mb-2 flex flex-col gap-2 border-b pb-4 ${tokens.border}`}>
             <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
-              <div role="group" aria-label="Filter works by type" className="-ml-2 flex flex-wrap">
+              <FilterScroller>
                 {filters.map((f) => {
                   const on = filter === f.value;
                   return (
@@ -268,21 +307,21 @@ export default function WorksPage() {
                       type="button"
                       aria-pressed={on}
                       onClick={() => selectFilter(f.value)}
-                      className={`inline-flex min-h-11 items-center gap-1.5 px-2 text-sm tracking-wide transition-colors md:text-base ${focusRing} ${
+                      className={`inline-flex min-h-11 shrink-0 items-center gap-1.5 whitespace-nowrap px-2 text-sm tracking-wide transition-colors md:text-base ${focusRing} ${
                         on ? "text-(--color-design)" : `${tokens.subtle} hover:text-(--color-design)`
                       }`}
                     >
                       <Bracket side="left" show={on} />
                       {f.label}
-                      <span className={`text-xs tabular-nums ${on ? "" : tokens.faint}`}>
+                      <span className={`hidden text-xs tabular-nums md:inline ${on ? "" : tokens.faint}`}>
                         {counts[f.value]}
                       </span>
                       <Bracket side="right" show={on} />
                     </button>
                   );
                 })}
-              </div>
-              <p aria-live="polite" className={`text-xs tabular-nums md:text-sm ${tokens.faint}`}>
+              </FilterScroller>
+              <p aria-live="polite" className={`hidden text-xs tabular-nums md:block md:text-sm ${tokens.faint}`}>
                 {filter === "all"
                   ? `${projects.length} works`
                   : `${visible.length} of ${projects.length} works`}

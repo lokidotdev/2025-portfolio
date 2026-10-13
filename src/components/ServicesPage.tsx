@@ -7,11 +7,12 @@ import axios from "axios";
 import { useGlobalContext } from "@/context/globalContext";
 import ProximityText from "./ui/ProximityText";
 import SectionHeading from "./ui/SectionHeading";
+import MarqueeText from "./ui/MarqueeText";
 import { StatefulButton, type ButtonStatus } from "./ui/stateful-button";
 import { themeTokens } from "@/lib/theme";
 import { siteConfig } from "@/lib/site";
 import { contactSchema } from "@/lib/validations";
-import { proofLinks, services } from "@/constants/services";
+import { services } from "@/constants/services";
 
 const focusRing =
   "outline-none focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--color-brand)";
@@ -149,11 +150,10 @@ export default function ServicesPage() {
           </a>
         </div>
 
-        {/* Services — each one: outcome, what you get, proof, add to request */}
+        {/* Services — each one: outcome, what you get, add to request */}
         <ul className={`grid grid-cols-1 border-t ${border} md:grid-cols-2`}>
           {services.map((s, index) => {
             const added = selected.includes(s.title);
-            const proof = proofLinks(s);
             return (
               <m.li
                 key={s.id}
@@ -191,34 +191,11 @@ export default function ServicesPage() {
                   </ul>
                 </div>
 
-                <p className={`text-xs md:text-sm ${subtle}`}>
-                  <span className="sr-only">Tools: </span>
-                  {s.stack.join(" · ")}
-                </p>
-
-                {proof.length > 0 && (
-                  <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-sm md:text-base">
-                    <span className={`text-xs md:text-sm ${subtle}`}>[ See it in ]</span>
-                    {proof.map((p) => (
-                      <a
-                        key={p.name}
-                        href={p.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`group inline-flex items-center gap-1 transition-colors hover:text-(--color-design) ${focusRing}`}
-                      >
-                        {p.name}
-                        <ArrowUpRight
-                          aria-hidden
-                          size={14}
-                          strokeWidth={1.75}
-                          className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                        />
-                        <NewTabHint />
-                      </a>
-                    ))}
-                  </div>
-                )}
+                <MarqueeText
+                  items={s.stack}
+                  srLabel="Tools: "
+                  className={`text-xs md:text-sm ${subtle}`}
+                />
 
                 <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-2">
                   <button
