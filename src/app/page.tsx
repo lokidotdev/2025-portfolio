@@ -1,15 +1,14 @@
 import Link from "next/link";
-import HomePageClient from "@/components/home-page-client";
+import HomePage from "@/components/home-page";
 import { siteConfig } from "@/lib/site";
 
 /**
  * Server-rendered, crawler-visible content.
  *
- * The visual homepage (`HomePageClient`) is a heavy Three.js / GSAP experience
- * loaded with `ssr: false`, so without this block search engines would receive
- * an empty <body>. This `sr-only` section ships real, semantic HTML in the
- * initial server response — proper headings, a bio, skills and links — so
- * Google can index the page for "Lokesh Yadav" without changing the design.
+ * The visual homepage is server-rendered too, but its headings are stylised
+ * ("DESiGN ENGiNEER"). This `sr-only` section ships plain, semantic HTML —
+ * proper headings, a bio, skills and links — so Google can index the page for
+ * "Lokesh Yadav" without changing the design.
  */
 function SeoContent() {
   return (
@@ -76,7 +75,7 @@ export default function Page() {
   return (
     <>
       <SeoContent />
-      <HomePageClient />
+      <HomePage />
     </>
   );
 }

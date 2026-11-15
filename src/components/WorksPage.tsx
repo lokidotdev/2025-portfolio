@@ -5,6 +5,7 @@ import { AnimatePresence, MotionConfig, m } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, ChevronDown } from "lucide-react";
+import { useLiveProjects } from "@/hooks/useLiveProjects";
 import { getProjectsForPage } from "@/constants/projectData";
 import type { Project, ProjectCategory } from "@/types/project";
 import { useGlobalContext } from "@/context/globalContext";
@@ -109,14 +110,6 @@ const FilterScroller = ({ children }: { children: ReactNode }) => {
     </div>
   );
 };
-
-const ProofChip = ({ text, tokens }: { text: string; tokens: ThemeTokens }) => (
-  <span
-    className={`inline-flex shrink-0 items-center whitespace-nowrap border px-2 py-0.5 text-xs tracking-wide ${tokens.border} ${tokens.subtle}`}
-  >
-    {text}
-  </span>
-);
 
 /** Screenshot, summary, stack, build notes and the live link. Shared by the pane and the accordion. */
 const ProjectDetail = ({
@@ -246,7 +239,7 @@ export default function WorksPage() {
   // work, so it's never blank. Mobile: active === the expanded row, null = all closed.
   const [active, setActive] = useState<string | null>(null);
 
-  const projects = useMemo(() => getProjectsForPage("projects"), []);
+  const projects = useLiveProjects(useMemo(() => getProjectsForPage("projects"), []));
   const counts = useMemo(() => {
     const c: Record<Filter, number> = { all: projects.length, frontend: 0, fullstack: 0, aiSlop: 0 };
     for (const p of projects) for (const cat of p.categories) c[cat]++;
@@ -394,7 +387,6 @@ export default function WorksPage() {
                             {project.name}
                           </span>
                           <span className="flex items-center gap-2">
-                            {project.badge && <ProofChip text={project.badge} tokens={tokens} />}
                             <span className={`text-xs md:hidden ${tokens.faint}`}>
                               {categoryList(project)}
                             </span>
@@ -478,9 +470,6 @@ export default function WorksPage() {
               <h2 className="text-2xl font-medium tracking-[-0.02em] md:text-4xl">
                 Have a project in mind?
               </h2>
-              <p className={`text-sm md:text-base ${tokens.subtle}`}>
-                Tell me what you&apos;re building and I&apos;ll tell you how I&apos;d approach it.
-              </p>
             </div>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
               <Link

@@ -8,10 +8,11 @@ import { ArrowRight, ArrowUpRight, Check, Copy } from "lucide-react";
 import toast from "react-hot-toast";
 import { useGlobalContext } from "@/context/globalContext";
 import SectionHeading from "./ui/SectionHeading";
-import { focusRing, hostOf } from "./projects/shared";
+import { focusRing } from "./projects/shared";
 import { themeTokens } from "@/lib/theme";
 import { siteConfig } from "@/lib/site";
 import { socialLinks } from "@/constants/socialLinks";
+import { useLiveProjects } from "@/hooks/useLiveProjects";
 import { projectsList } from "@/constants/projectData";
 import { buildingSince, experiences, formatDate } from "@/constants/experience";
 
@@ -22,7 +23,7 @@ const current = experiences.filter((e) => !e.end);
 const dayJob = current.find((e) => e.company !== "Self-Employed") ?? current[0];
 const freelancing = current.some((e) => e.company === "Self-Employed");
 
-const recentBuildNames = ["DesignEng", "Highway z", "Portfolio 2026"];
+const recentBuildNames = ["DesignEng", "oxyn", "wobli"];
 const selectedWork = recentBuildNames
   .map((name) => projectsList.find((p) => p.name === name))
   .filter((p): p is (typeof projectsList)[number] => !!p);
@@ -154,9 +155,7 @@ function Availability({ muted, darkTheme }: { muted: string; darkTheme: boolean 
         </span>
         {OPEN_TO_WORK ? "Open to new work" : "Not taking new work right now"}
       </span>
-      <span className={`text-sm ${muted}`}>
-        {OPEN_TO_WORK ? "Full-time roles and freelance builds" : "Still happy to chat, say hi"}
-      </span>
+      {!OPEN_TO_WORK && <span className={`text-sm ${muted}`}>Still happy to chat, say hi</span>}
     </div>
   );
 }
@@ -225,6 +224,7 @@ function Section({
 }
 
 export default function AboutPage() {
+  const liveSelectedWork = useLiveProjects(selectedWork);
   const { darkTheme } = useGlobalContext();
   const { text, border } = themeTokens(darkTheme);
   // The shared subtle/faint tokens are tuned for large type; body-size text on
@@ -358,12 +358,6 @@ export default function AboutPage() {
                       <div className="flex flex-col gap-1">
                         <h3 className="flex flex-wrap items-center gap-x-3 gap-y-1 text-lg font-medium leading-[125%] md:text-xl">
                           {e.company}
-                          {!e.end && (
-                            <span className="inline-flex items-center gap-1.5 border border-(--color-brand) px-2 py-0.5 text-xs font-normal">
-                              <span aria-hidden className="size-1.5 rounded-full bg-(--color-brand)" />
-                              Current
-                            </span>
-                          )}
                         </h3>
                         <p className={`text-sm md:text-base ${muted}`}>{e.role}</p>
                       </div>
@@ -378,7 +372,7 @@ export default function AboutPage() {
                 footer={<MoreLink href="/projects">All {projectsList.length} projects</MoreLink>}
               >
                 <ul className={`border-t ${border}`}>
-                  {selectedWork.map((p) => (
+                  {liveSelectedWork.map((p) => (
                     <li key={p.name} className={`border-b ${border}`}>
                       <a
                         href={p.link}
@@ -393,7 +387,6 @@ export default function AboutPage() {
                               <span className={`border ${border} px-2 py-0.5 text-xs font-normal`}>{p.badge}</span>
                             )}
                           </span>
-                          <span className={`truncate text-sm ${muted}`}>{hostOf(p.link)}</span>
                         </span>
                         <ArrowUpRight
                           aria-hidden

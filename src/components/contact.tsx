@@ -98,7 +98,6 @@ export default function Contact({
               >
                 <span className="flex flex-col gap-1">
                   <span className="text-lg font-semibold leading-tight md:text-xl">Book a call</span>
-                  <span className={`text-xs md:text-sm ${subtle}`}>Pick a time on cal.com</span>
                 </span>
                 <ArrowUpRight
                   aria-hidden

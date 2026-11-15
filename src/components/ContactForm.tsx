@@ -22,23 +22,18 @@ const COUNTER_FROM = 1600;
 const FIELDS: {
   name: Field;
   label: string;
-  placeholder: string;
   hint?: string;
   autoComplete?: string;
 }[] = [
-  { name: "name", label: "Name", placeholder: "John Smith", autoComplete: "name" },
+  { name: "name", label: "Name", autoComplete: "name" },
   {
     name: "email",
     label: "Email",
-    placeholder: "john@company.com",
-    hint: "I'll reply to this address.",
     autoComplete: "email",
   },
   {
     name: "message",
     label: "Message",
-    placeholder: "We need a marketing site with scroll animations by March…",
-    hint: "What you're building, a rough timeline, and budget if you have one.",
   },
 ];
 
@@ -142,28 +137,26 @@ export default function ContactForm() {
 
   return (
     <form ref={formRef} onSubmit={handleSubmit} noValidate className="flex flex-col gap-8">
-      {FIELDS.map(({ name, label, placeholder, hint, autoComplete }) => {
+      {FIELDS.map(({ name, label, hint, autoComplete }) => {
         const error = visibleError(name);
         const describedBy = [error && `${name}-error`, hint && `${name}-hint`].filter(Boolean).join(" ");
         const shared = {
           id: name,
           name,
           value: formData[name],
-          placeholder,
           onChange: handleChange,
           onBlur: handleBlur,
           required: true,
           "aria-invalid": !!error,
           "aria-describedby": describedBy || undefined,
-          className: `w-full bg-transparent text-base outline-none transition-colors md:text-lg ${
-            darkTheme ? "placeholder:text-on-dark/50" : "placeholder:text-ink/65"
-          } ${error ? "border-danger" : inputBorder} focus:border-(--color-brand)`,
+          className: `w-full bg-transparent text-base outline-none transition-colors md:text-lg ${error ? "border-danger" : inputBorder} focus:border-(--color-brand)`,
         };
 
         return (
           <div key={name} className="flex flex-col gap-2">
             <label htmlFor={name} className={`text-xs md:text-sm ${subtle}`}>
-              [ {label} ]
+              [ {label}
+              <span aria-hidden className="text-(--color-brand)">*</span> ]
             </label>
 
             {name === "message" ? (
@@ -223,7 +216,6 @@ export default function ContactForm() {
         >
           {status === "loading" ? "Sending…" : status === "success" ? "Sent" : "Send message"}
         </StatefulButton>
-        <span className={`text-xs md:text-sm ${faint}`}>All fields are required.</span>
       </div>
     </form>
   );

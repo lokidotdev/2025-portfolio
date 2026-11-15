@@ -12,6 +12,8 @@ export interface Project {
   pages?: ProjectPage[];
   /** Short highlight shown as a banner over the card image, e.g. "20K+ visits". */
   badge?: string;
+  /** Live data source that overrides `badge` once fetched (badge stays as the fallback). */
+  liveBadge?: "designengVisits";
   /** Hide the badge in the landing-page project list */
   hideBadgeOnHome?: boolean;
 }

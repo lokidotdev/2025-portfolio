@@ -5,6 +5,7 @@ import { AnimatePresence, MotionConfig, m } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, ChevronDown } from "lucide-react";
+import { useLiveProjects } from "@/hooks/useLiveProjects";
 import { getProjectsForPage } from "@/constants/projectData";
 import type { Project, ProjectCategory } from "@/types/project";
 import { useGlobalContext } from "@/context/globalContext";
@@ -220,7 +221,7 @@ export default function ProjectsPageClient() {
     window.history.replaceState(null, "", url);
   };
 
-  const projects = useMemo(() => getProjectsForPage("projects"), []);
+  const projects = useLiveProjects(useMemo(() => getProjectsForPage("projects"), []));
   const counts = useMemo(() => {
     const c: Record<Filter, number> = { all: projects.length, frontend: 0, fullstack: 0, aiSlop: 0 };
     for (const p of projects) for (const cat of p.categories) c[cat]++;
@@ -327,9 +328,6 @@ export default function ProjectsPageClient() {
             <div className="flex flex-col gap-2">
               <p className="text-2xl font-medium tracking-[-0.02em] md:text-4xl">
                 Have a project in mind?
-              </p>
-              <p className={`text-sm md:text-base ${tokens.subtle}`}>
-                Tell me what you&apos;re building and I&apos;ll tell you how I&apos;d approach it.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3">

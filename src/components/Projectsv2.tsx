@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MotionConfig, m } from "motion/react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { useLiveProjects } from "@/hooks/useLiveProjects";
 import { getProjectsForPage } from "@/constants/projectData";
 import type { Project } from "@/types/project";
 import { useGlobalContext } from "@/context/globalContext";
@@ -13,7 +14,6 @@ import {
   HoverCorners,
   MetaLine,
   NewTabHint,
-  Ribbon,
   categoryList,
   focusRing,
   hostOf,
@@ -67,7 +67,6 @@ const SpotlightCard = ({
           priority={lead}
           className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03] motion-reduce:transition-none"
         />
-        {project.badge && !project.hideBadgeOnHome && <Ribbon text={project.badge} />}
       </div>
 
       <div className="flex flex-col gap-3 md:gap-4">
@@ -160,11 +159,6 @@ const IndexRow = ({
         <div className="flex min-w-0 flex-col gap-1">
           <h3 className="flex items-center gap-2 text-lg font-medium leading-[115%] tracking-[-0.02em] md:text-2xl">
             <span className="truncate">{project.name}</span>
-            {project.badge && !project.hideBadgeOnHome && (
-              <span className="hidden shrink-0 border border-(--color-brand) px-1.5 py-0.5 text-xs font-normal tracking-normal md:inline">
-                {project.badge}
-              </span>
-            )}
             <ArrowUpRight
               aria-hidden
               size={18}
@@ -178,7 +172,6 @@ const IndexRow = ({
           </p>
           <p className={`text-xs md:hidden ${tokens.faint}`}>
             {categoryList(project)}
-            {project.badge && !project.hideBadgeOnHome && ` · ${project.badge}`}
           </p>
         </div>
 
@@ -207,7 +200,7 @@ const IndexRow = ({
 export default function Projectsv2() {
   const { darkTheme } = useGlobalContext();
   const tokens = themeTokens(darkTheme);
-  const projects = getProjectsForPage("home");
+  const projects = useLiveProjects(getProjectsForPage("home"));
   const totalCount = getProjectsForPage("projects").length;
 
   const spotlight = projects.slice(0, SPOTLIGHT_COUNT);
@@ -278,7 +271,6 @@ export default function Projectsv2() {
                 className="text-(--color-brand) transition-transform duration-300 group-hover:translate-x-1"
               />
             </Link>
-            <p className={`text-xs ${tokens.faint}`}>Filter by frontend, fullstack or AI builds</p>
           </div>
         </div>
       </section>

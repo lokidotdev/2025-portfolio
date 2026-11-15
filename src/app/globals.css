@@ -205,6 +205,9 @@ html.lenis body {
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-raleway), system-ui, sans-serif;
+    /* Raleway defaults to old-style figures; use regular lining numbers everywhere. */
+    font-variant-numeric: lining-nums;
+    font-feature-settings: "lnum" 1;
   }
 }
 

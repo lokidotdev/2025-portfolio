@@ -7,7 +7,6 @@ import axios from "axios";
 import { useGlobalContext } from "@/context/globalContext";
 import ProximityText from "./ui/ProximityText";
 import SectionHeading from "./ui/SectionHeading";
-import MarqueeText from "./ui/MarqueeText";
 import { StatefulButton, type ButtonStatus } from "./ui/stateful-button";
 import { themeTokens } from "@/lib/theme";
 import { siteConfig } from "@/lib/site";
@@ -22,15 +21,9 @@ const NewTabHint = () => <span className="sr-only"> (opens in a new tab)</span>;
 const requestSchema = contactSchema.pick({ name: true, email: true });
 type Field = "name" | "email" | "services";
 
-const nextSteps = [
-  "I read your request and reply by email",
-  "We talk it through on a short call",
-  "You get a scope and a quote, no commitment",
-];
-
 export default function ServicesPage() {
   const { darkTheme } = useGlobalContext();
-  const { text, subtle, faint, border, inputBorder } = themeTokens(darkTheme);
+  const { text, subtle, border, inputBorder } = themeTokens(darkTheme);
 
   const [status, setStatus] = useState<ButtonStatus>("idle");
   const [form, setForm] = useState({ name: "", email: "" });
@@ -175,7 +168,6 @@ export default function ServicesPage() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <span className={`text-xs md:text-sm ${subtle}`}>[ You get ]</span>
                   <ul className="flex flex-col gap-1.5">
                     {s.deliverables.map((d) => (
                       <li key={d} className="flex items-start gap-2 text-sm md:text-base">
@@ -190,12 +182,6 @@ export default function ServicesPage() {
                     ))}
                   </ul>
                 </div>
-
-                <MarqueeText
-                  items={s.stack}
-                  srLabel="Tools: "
-                  className={`text-xs md:text-sm ${subtle}`}
-                />
 
                 <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-2">
                   <button
@@ -254,7 +240,7 @@ export default function ServicesPage() {
               {"// Tell me who you are and what you need. Details come later, on a call."}
             </p>
 
-            <div className="grid grid-cols-1 gap-16 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] md:gap-20">
+            <div className="w-full max-w-3xl">
               <div aria-live="polite" className="min-w-0">
                 {sentTo ? (
                   <div className="flex flex-col items-start gap-6">
@@ -330,7 +316,7 @@ export default function ServicesPage() {
                           autoComplete="email"
                           spellCheck={false}
                           aria-invalid={!!errors.email}
-                          aria-describedby={errors.email ? "email-error" : "email-hint"}
+                          aria-describedby={errors.email ? "email-error" : undefined}
                           value={form.email}
                           onChange={(e) => {
                             setForm((p) => ({ ...p, email: e.target.value }));
@@ -339,13 +325,9 @@ export default function ServicesPage() {
                           onBlur={() => handleBlur("email")}
                           className={inputClass("email")}
                         />
-                        {errors.email ? (
+                        {errors.email && (
                           <span id="email-error" className="text-xs text-danger">
                             {errors.email}
-                          </span>
-                        ) : (
-                          <span id="email-hint" className={`text-xs ${subtle}`}>
-                            Where I&apos;ll reply. Never shared.
                           </span>
                         )}
                       </div>
@@ -356,7 +338,7 @@ export default function ServicesPage() {
                       className="flex flex-col gap-5"
                     >
                       <legend className={`mb-5 flex w-full justify-between gap-4 text-xs md:text-sm ${subtle}`}>
-                        <span>[ Services ] — select all that apply</span>
+                        <span>Select all that apply</span>
                         <span className="tabular-nums" aria-hidden>
                           {selected.length}/{services.length}
                         </span>
@@ -437,29 +419,6 @@ export default function ServicesPage() {
                   </form>
                 )}
               </div>
-
-              {/* What happens next — answers "what am I signing up for?" */}
-              <aside aria-labelledby="next-heading" className="min-w-0">
-                <h3 id="next-heading" className={`mb-6 text-xs md:text-sm ${subtle}`}>
-                  [ What happens next ]
-                </h3>
-                <ol className={`border-t ${border}`}>
-                  {nextSteps.map((step, i) => (
-                    <li
-                      key={step}
-                      className={`flex gap-4 border-b ${border} py-4 text-base md:text-lg`}
-                    >
-                      <span className={`tabular-nums ${faint}`} aria-hidden>
-                        {(i + 1).toString().padStart(2, "0")}
-                      </span>
-                      {step}
-                    </li>
-                  ))}
-                </ol>
-                <p className={`mt-6 text-sm leading-[150%] ${subtle}`}>
-                  Sending a request is free and doesn&apos;t commit you to anything.
-                </p>
-              </aside>
             </div>
           </div>
         </section>

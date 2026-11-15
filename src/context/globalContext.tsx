@@ -14,8 +14,6 @@ import {
 export interface GlobalContextValue {
   darkTheme: boolean;
   setDarkTheme: Dispatch<SetStateAction<boolean>>;
-  isLoading: boolean;
-  setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 export const GlobalContext = createContext<GlobalContextValue | null>(null);
@@ -28,7 +26,6 @@ export function useGlobalContext(): GlobalContextValue {
   return ctx;
 }
 
-const LOADER_SEEN_KEY = "loaderSeen";
 const THEME_KEY = "darkTheme";
 
 export function GlobalContextProvider({ children }: { children: ReactNode }) {
@@ -50,21 +47,9 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
     document.documentElement.classList.toggle("dark", darkTheme);
   }, [darkTheme]);
 
-  // Only show the loader once per session — a full reload of "/" should not replay it.
-  const [isLoading, setIsLoading] = useState(() => {
-    if (typeof window === "undefined") return true;
-    return !sessionStorage.getItem(LOADER_SEEN_KEY);
-  });
-
-  // React may replay a state updater, so the "loader already played" write
-  // lives here rather than inside the setter.
-  useEffect(() => {
-    if (!isLoading) sessionStorage.setItem(LOADER_SEEN_KEY, "1");
-  }, [isLoading]);
-
   const value = useMemo(
-    () => ({ darkTheme, setDarkTheme, isLoading, setIsLoading }),
-    [darkTheme, isLoading]
+    () => ({ darkTheme, setDarkTheme }),
+    [darkTheme]
   );
 
   return (

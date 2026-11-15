@@ -11,7 +11,6 @@ import {
   buildingSince,
   experiences,
   formatDate,
-  formatDuration,
   type ExperienceItem,
 } from "@/constants/experience";
 
@@ -19,15 +18,13 @@ import {
 const Row = ({
   item,
   index,
-  now,
   darkTheme,
 }: {
   item: ExperienceItem;
   index: number;
-  now: Date;
   darkTheme: boolean;
 }) => {
-  const { subtle, faint, border } = themeTokens(darkTheme);
+  const { subtle, border } = themeTokens(darkTheme);
   const current = !item.end;
 
   // Rows are information, not links — no hover state that suggests otherwise.
@@ -40,28 +37,13 @@ const Row = ({
       className={`border-b ${border}`}
     >
       <div className="grid grid-cols-1 gap-y-2 py-7 md:grid-cols-12 md:items-baseline md:gap-x-8 md:py-10">
-        {/* When: the dates, then how long */}
-        <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xs tabular-nums md:col-span-3 md:flex-col md:text-base">
-          <span className={subtle}>
-            {formatDate(item.start)} – {current ? "Present" : formatDate(item.end!)}
-          </span>
-          <span className={`text-xs md:text-sm ${faint}`}>
-            {formatDuration(item.start, item.end, now)}
-          </span>
+        <p className={`flex items-center gap-2 text-xs tabular-nums md:col-span-3 md:text-base ${subtle}`}>
+          {current && <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-(--color-brand)" />}
+          {formatDate(item.start)} – {current ? "Present" : formatDate(item.end!)}
         </p>
 
         <h3 className="flex flex-wrap items-center gap-x-3 gap-y-1 text-2xl font-medium leading-[110%] tracking-[-0.02em] md:col-span-5 md:text-4xl">
           {item.company}
-          {/* Status chip: dot + word, never colour alone */}
-          {current && (
-            <span className="inline-flex items-center gap-1.5 border border-(--color-brand) px-2 py-0.5 text-xs font-normal tracking-normal">
-              <span className="relative flex size-1.5" aria-hidden>
-                <span className="absolute inset-0 animate-ping rounded-full bg-(--color-brand) opacity-60 motion-reduce:animate-none" />
-                <span className="relative size-1.5 rounded-full bg-(--color-brand)" />
-              </span>
-              Current
-            </span>
-          )}
         </h3>
 
         <p className={`text-balance text-sm font-light md:col-span-4 md:text-right md:text-lg ${subtle}`}>
@@ -75,8 +57,6 @@ const Row = ({
 export default function ExperienceSection() {
   const { darkTheme } = useGlobalContext();
   const { text, subtle, faint, border } = themeTokens(darkTheme);
-  const now = new Date();
-  const currentCount = experiences.filter((e) => !e.end).length;
 
   return (
     <MotionConfig reducedMotion="user">
@@ -96,13 +76,11 @@ export default function ExperienceSection() {
           {/* The summary a skimmer would otherwise have to work out from the list */}
           <p className={`mb-4 text-xs md:mb-6 md:text-sm ${faint}`}>
             Building for the web since {buildingSince}
-            <span aria-hidden className="mx-2">/</span>
-            {experiences.length} roles, {currentCount} ongoing
           </p>
 
           <ol className={`border-t ${border}`}>
             {experiences.map((item, index) => (
-              <Row key={item.id} item={item} index={index} now={now} darkTheme={darkTheme} />
+              <Row key={item.id} item={item} index={index} darkTheme={darkTheme} />
             ))}
           </ol>
 

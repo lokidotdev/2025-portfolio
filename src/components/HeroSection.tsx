@@ -41,7 +41,7 @@ const DESC =
   "Full-stack web developer building fast, interactive, and visually polished web experiences with modern technologies.";
 
 const HeroSection = () => {
-  const { isLoading, darkTheme } = useGlobalContext();
+  const { darkTheme } = useGlobalContext();
   const { text, bg } = themeTokens(darkTheme);
 
   return (
@@ -52,7 +52,7 @@ const HeroSection = () => {
         <m.h1
           initial={{ opacity: 0, scale: 0.9, backdropFilter: "blur(2px)" }}
           animate={
-            !isLoading && {
+            {
               opacity: 1,
               scale: 1,
               backdropFilter: "blur(0px)",
@@ -74,13 +74,16 @@ const HeroSection = () => {
             <m.img
               initial={{ opacity: 0, scale: 0.9, backdropFilter: "blur(2px)" }}
               animate={
-                !isLoading && {
+                {
                   opacity: 1,
                   scale: 1,
                   backdropFilter: "blur(0px)",
                 }
               }
-              src="/images/portfolio-sq.webp"
+              src="/images/portfolio-sq-160.webp"
+              width={80}
+              height={80}
+              fetchPriority="high"
               alt="Lokesh Yadav"
               className="h-20 w-20 md:h-60 md:w-60 shrink-0 object-contain "
             />
@@ -92,7 +95,7 @@ const HeroSection = () => {
             {/* type the intro in once the loader clears */}
             <Typewriter
               text={DESC}
-              start={!isLoading}
+              start
               speed={18}
               startDelay={300}
             />
@@ -103,13 +106,15 @@ const HeroSection = () => {
           <m.img
             initial={{ opacity: 0, scale: 0.9, backdropFilter: "blur(2px)" }}
             animate={
-              !isLoading && {
+              {
                 opacity: 1,
                 scale: 1,
                 backdropFilter: "blur(0px)",
               }
             }
-            src="/images/portfolio-sq.webp"
+            src="/images/portfolio-sq-480.webp"
+            width={240}
+            height={240}
             alt="Lokesh Yadav"
             className="h-10 w-10 md:h-60 md:w-60 shrink-0 object-contain hidden md:block"
           />
@@ -119,7 +124,7 @@ const HeroSection = () => {
               {/* type the intro in once the loader clears */}
               <Typewriter
                 text={DESC}
-                start={!isLoading}
+                start
                 speed={18}
                 startDelay={300}
               />
@@ -135,7 +140,7 @@ const HeroSection = () => {
                     opacity: 0,
                   }}
                   animate={
-                    !isLoading && {
+                    {
                       x: "0%",
                       opacity: 1,
                     }
@@ -153,7 +158,7 @@ const HeroSection = () => {
                     opacity: 0,
                   }}
                   animate={
-                    !isLoading && {
+                    {
                       x: "0%",
                       opacity: 1,
                     }
@@ -171,7 +176,7 @@ const HeroSection = () => {
                     opacity: 0,
                   }}
                   animate={
-                    !isLoading && {
+                    {
                       x: "0%",
                       opacity: 1,
                     }
@@ -196,13 +201,13 @@ const HeroSection = () => {
                   opacity: 0,
                 }}
                 animate={
-                  !isLoading && {
+                  {
                     width: "auto",
                     opacity: 1,
                   }
                 }
                 transition={
-                  !isLoading && {
+                  {
                     delay: 0.2,
                   }
                 }
@@ -232,7 +237,7 @@ const HeroSection = () => {
                       backdropFilter: "blur(2px)",
                     }}
                     animate={
-                      !isLoading && {
+                      {
                         opacity: 1,
                         scale: 1,
                         backdropFilter: "blur(0px)",
@@ -275,13 +280,13 @@ const HeroSection = () => {
                 opacity: 0,
               }}
               animate={
-                !isLoading && {
+                {
                   width: "auto",
                   opacity: 1,
                 }
               }
               transition={
-                !isLoading && {
+                {
                   delay: 0.2,
                 }
               }
